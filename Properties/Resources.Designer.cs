@@ -60,10 +60,84 @@ namespace MabiPacker.Properties {
             }
         }
         
+        /// <summary>
+        ///   Confirm に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Icon icon {
             get {
                 object obj = ResourceManager.GetObject("icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Infomation に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Info {
+            get {
+                return ResourceManager.GetString("Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Work will be started.
+        ///Are you sure? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_Confirm {
+            get {
+                return ResourceManager.GetString("Str_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The directory you entered does not exist.
+        ///Please check data directory value. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_DataDirNotExists {
+            get {
+                return ResourceManager.GetString("Str_DataDirNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Work is done. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_Done {
+            get {
+                return ResourceManager.GetString("Str_Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   File is exists. Overwrite? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_Overwrite {
+            get {
+                return ResourceManager.GetString("Str_Overwrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Now Packing... Please take for few minutes. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_Packing {
+            get {
+                return ResourceManager.GetString("Str_Packing", resourceCulture);
             }
         }
     }

@@ -117,20 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lInputDir.Text" xml:space="preserve">
-    <value>パックしたいデーターのフォルダを選択：</value>
+    <value>選擇data文件夾：</value>
   </data>
   <data name="lSaveAs.Text" xml:space="preserve">
-    <value>保存ファイル名：</value>
+    <value>保存的文件名：</value>
   </data>
   <data name="lVersion.Text" xml:space="preserve">
-    <value>バージョン：</value>
+    <value>版本：</value>
   </data>
   <data name="uCurrentVer.Text" xml:space="preserve">
-    <value>現行のPackのバージョンを確認する</value>
+    <value>檢查當前版本的Pack的版本</value>
   </data>
   <data name="bExecute.Text" xml:space="preserve">
-    <value>実行</value>
+    <value>運行</value>
+  </data>
+  <data name="Status.Text" xml:space="preserve">
+    <value>洛奇包文件發電機</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft JhengHei, 9pt</value>
   </data>
 </root>

@@ -1,7 +1,15 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MabiPacker.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LastDataDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Nexon\Mabinogi\data</Value>
+    </Setting>
+    <Setting Name="LastPackFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Nexon\Mabinogi\Package\custom.pack</Value>
+    </Setting>
+    <Setting Name="LastPackVer" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">200</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

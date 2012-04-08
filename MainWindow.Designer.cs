@@ -41,15 +41,18 @@
 			this.PackageVersion = new System.Windows.Forms.NumericUpDown();
 			this.uCurrentVer = new System.Windows.Forms.LinkLabel();
 			this.bExecute = new System.Windows.Forms.Button();
-			this.StatusBar = new System.Windows.Forms.StatusStrip();
-			this.Progress = new System.Windows.Forms.ToolStripProgressBar();
 			this.Status = new System.Windows.Forms.ToolStripStatusLabel();
+			this.lcopyright = new System.Windows.Forms.LinkLabel();
+			this.StatusBar = new System.Windows.Forms.StatusStrip();
+			this.bottomLayout = new System.Windows.Forms.TableLayoutPanel();
 			((System.ComponentModel.ISupportInitialize)(this.PackageVersion)).BeginInit();
 			this.StatusBar.SuspendLayout();
+			this.bottomLayout.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// dInputDirSelector
 			// 
+			resources.ApplyResources(this.dInputDirSelector, "dInputDirSelector");
 			this.dInputDirSelector.RootFolder = System.Environment.SpecialFolder.MyComputer;
 			this.dInputDirSelector.ShowNewFolderButton = false;
 			// 
@@ -83,7 +86,9 @@
 			// 
 			// dSaveAs
 			// 
-			this.dSaveAs.DefaultExt = "*.pack";
+			this.dSaveAs.FileName = "custom.pack";
+			this.dSaveAs.InitialDirectory = "C:\\Nexon\\Mabinogi\\Package";
+			this.dSaveAs.RestoreDirectory = true;
 			// 
 			// bSaveAs
 			// 
@@ -126,24 +131,34 @@
 			this.bExecute.UseVisualStyleBackColor = true;
 			this.bExecute.Click += new System.EventHandler(this.bExecute_Click);
 			// 
-			// StatusBar
-			// 
-			this.StatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Progress,
-            this.Status});
-			resources.ApplyResources(this.StatusBar, "StatusBar");
-			this.StatusBar.Name = "StatusBar";
-			// 
-			// Progress
-			// 
-			this.Progress.Name = "Progress";
-			resources.ApplyResources(this.Progress, "Progress");
-			// 
 			// Status
 			// 
 			this.Status.Name = "Status";
 			resources.ApplyResources(this.Status, "Status");
-			this.Status.Click += new System.EventHandler(this.Status_Click);
+			// 
+			// lcopyright
+			// 
+			resources.ApplyResources(this.lcopyright, "lcopyright");
+			this.lcopyright.Name = "lcopyright";
+			this.lcopyright.TabStop = true;
+			this.lcopyright.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lCopyright_LinkClicked);
+			// 
+			// StatusBar
+			// 
+			this.StatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Status});
+			resources.ApplyResources(this.StatusBar, "StatusBar");
+			this.StatusBar.Name = "StatusBar";
+			// 
+			// bottomLayout
+			// 
+			resources.ApplyResources(this.bottomLayout, "bottomLayout");
+			this.bottomLayout.Controls.Add(this.PackageVersion, 1, 0);
+			this.bottomLayout.Controls.Add(this.lVersion, 0, 0);
+			this.bottomLayout.Controls.Add(this.uCurrentVer, 2, 0);
+			this.bottomLayout.Controls.Add(this.bExecute, 2, 1);
+			this.bottomLayout.Controls.Add(this.lcopyright, 0, 1);
+			this.bottomLayout.Name = "bottomLayout";
 			// 
 			// MainWindow
 			// 
@@ -151,24 +166,23 @@
 			this.AllowDrop = true;
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.bInputDirSelector);
+			this.Controls.Add(this.InputDir);
+			this.Controls.Add(this.bottomLayout);
 			this.Controls.Add(this.StatusBar);
-			this.Controls.Add(this.bExecute);
-			this.Controls.Add(this.uCurrentVer);
-			this.Controls.Add(this.PackageVersion);
-			this.Controls.Add(this.lVersion);
+			this.Controls.Add(this.lSaveAs);
 			this.Controls.Add(this.bSaveAs);
 			this.Controls.Add(this.SaveAs);
-			this.Controls.Add(this.lSaveAs);
 			this.Controls.Add(this.lInputDir);
-			this.Controls.Add(this.InputDir);
-			this.Controls.Add(this.bInputDirSelector);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.KeyPreview = true;
 			this.MaximizeBox = false;
 			this.Name = "MainWindow";
 			((System.ComponentModel.ISupportInitialize)(this.PackageVersion)).EndInit();
 			this.StatusBar.ResumeLayout(false);
 			this.StatusBar.PerformLayout();
+			this.bottomLayout.ResumeLayout(false);
+			this.bottomLayout.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -188,9 +202,10 @@
 		private System.Windows.Forms.NumericUpDown PackageVersion;
 		private System.Windows.Forms.LinkLabel uCurrentVer;
 		private System.Windows.Forms.Button bExecute;
+		private System.Windows.Forms.LinkLabel lcopyright;
 		private System.Windows.Forms.StatusStrip StatusBar;
-		private System.Windows.Forms.ToolStripProgressBar Progress;
 		private System.Windows.Forms.ToolStripStatusLabel Status;
+		private System.Windows.Forms.TableLayoutPanel bottomLayout;
 	}
 }
 

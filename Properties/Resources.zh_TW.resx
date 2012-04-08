@@ -117,20 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lInputDir.Text" xml:space="preserve">
-    <value>パックしたいデーターのフォルダを選択：</value>
+  <data name="Confirm" xml:space="preserve">
+    <value>確認</value>
   </data>
-  <data name="lSaveAs.Text" xml:space="preserve">
-    <value>保存ファイル名：</value>
+  <data name="Error" xml:space="preserve">
+    <value>錯誤</value>
   </data>
-  <data name="lVersion.Text" xml:space="preserve">
-    <value>バージョン：</value>
+  <data name="Info" xml:space="preserve">
+    <value>信息</value>
   </data>
-  <data name="uCurrentVer.Text" xml:space="preserve">
-    <value>現行のPackのバージョンを確認する</value>
+  <data name="Str_Confirm" xml:space="preserve">
+    <value>開始工作。
+你確定嗎？</value>
+    <comment>Before Pack</comment>
   </data>
-  <data name="bExecute.Text" xml:space="preserve">
-    <value>実行</value>
+  <data name="Str_DataDirNotExists" xml:space="preserve">
+    <value>無法找到您所輸入的目錄。
+請檢查data目錄的價值。</value>
+    <comment>Check data directory</comment>
+  </data>
+  <data name="Str_Done" xml:space="preserve">
+    <value>工作已經完成。</value>
+    <comment>Finish to Pack</comment>
+  </data>
+  <data name="Str_Overwrite" xml:space="preserve">
+    <value>文件已經存在。你要覆蓋它嗎？</value>
+    <comment>Check Save file exsists</comment>
+  </data>
+  <data name="Str_Packing" xml:space="preserve">
+    <value>是Pack...請稍候。</value>
   </data>
 </root>
