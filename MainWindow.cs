@@ -23,13 +23,19 @@ namespace MabiPacker
 			InputDir.Text = Properties.Settings.Default.LastDataDir;
 			PackageVersion.Value = Properties.Settings.Default.LastPackVer;
 		}
-
-		private void uCurrentVer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		public string VersionInfo
 		{
-			System.Diagnostics.Process.Start("http://mabiplus.no-ip.org/global.html");
-			return;
+			get
+			{
+				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+				if (attributes.Length == 0)
+				{
+					return "";
+				}
+				return ((AssemblyProductAttribute)attributes[0]).Product + " v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+			}
 		}
-
+		#region PackForm
 		private void bInputDirSelector_Click(object sender, EventArgs e)
 		{
 			dInputDirSelector.SelectedPath = InputDir.Text;
@@ -48,8 +54,22 @@ namespace MabiPacker
 				Properties.Settings.Default.LastPackFile = dSaveAs.FileName;
 			}
 		}
+		private void uCurrentVer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("http://mabiplus.no-ip.org/global.html");
+			return;
+		}
+		#endregion
+
+		private void lCopyright_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			System.Diagnostics.Process.Start("http://logue.be/");
+			return;
+		}
+
 		private void bExecute_Click(object sender, EventArgs e)
 		{
+			#region Pack
 			// Check directory exsists
 			if (!Directory.Exists(InputDir.Text))
 			{
@@ -89,7 +109,7 @@ namespace MabiPacker
 				foreach (string path in filelist)
 				{
 				//	Progress.Value++;
-					internal_filename = path.Replace(InputDir.Text, "data");
+					internal_filename = path.Replace(InputDir.Text, "");
 					Status.Text = internal_filename;
 					Pack.AddFile(internal_filename, path);
 					Console.WriteLine(internal_filename);
@@ -105,24 +125,7 @@ namespace MabiPacker
 				MessageBox.Show(Properties.Resources.Str_Done, Properties.Resources.Info, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 				Status.Text = default_status_txt;
 			}
-			return;
-		}
-
-		public string VersionInfo
-		{
-			get
-			{
-				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
-				if (attributes.Length == 0)
-				{
-					return "";
-				}
-				return ((AssemblyProductAttribute)attributes[0]).Product + " v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-			}
-		}
-		private void lCopyright_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-		{
-			System.Diagnostics.Process.Start("http://logue.be/");
+			#endregion
 			return;
 		}
 	}
