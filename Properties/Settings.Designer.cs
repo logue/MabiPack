@@ -58,5 +58,17 @@ namespace MabiPacker.Properties {
                 this["LastPackVer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public string CompressLevel {
+            get {
+                return ((string)(this["CompressLevel"]));
+            }
+            set {
+                this["CompressLevel"] = value;
+            }
+        }
     }
 }

@@ -12,12 +12,20 @@ namespace MabiPacker
 		/// アプリケーションのメイン エントリ ポイントです。
 		/// </summary>
 		[STAThread]
-		static void Main()
+		static void Main(string[] args)
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainWindow());
 
+			// Standard Mode
+			if (args.Length == 0){
+				Application.Run(new MainWindow());
+			}else{
+				// Drag & Drop Mode
+				string Query = String.Join(" ",args);
+				Application.Run(new MainWindow());
+			}
+			
 		}
 	}
 }
