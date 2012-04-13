@@ -28,6 +28,7 @@ namespace MabiPacker
 
 			// Get Filelist
 			string[] filelist = Directory.GetFiles(InputDir, "*", SearchOption.AllDirectories);
+			Array.Sort(filelist);
 			Progress.Maximum = filelist.Length;
 
 			// Instance
@@ -36,9 +37,8 @@ namespace MabiPacker
 			foreach (string path in filelist)
 			{
 				Progress.Value++;
-				internal_filename = path.Replace(InputDir, "");
+				internal_filename = path.Replace(InputDir+"\\", "");
 				m_Pack.AddFile(internal_filename, path);
-				Progress.Value++;
 				Status.Text = internal_filename;
 			}
 			// Start packing
@@ -66,7 +66,7 @@ namespace MabiPacker
 				String outputPath = @OutputDir + "\\data\\" + InternalName;
 				// Get Directory Name
 				String DirPath = System.Text.RegularExpressions.Regex.Replace(outputPath, @"\\[\w|\.]+$", "");
-				if (!Directory.Exists(Path.GetDirectoryName(DirPath)))
+				if (!Directory.Exists(DirPath))
 				{
 					Directory.CreateDirectory(DirPath);
 				}

@@ -62,11 +62,11 @@
 			this.tlAbout = new System.Windows.Forms.TableLayoutPanel();
 			this.labelProductName = new System.Windows.Forms.Label();
 			this.labelVersion = new System.Windows.Forms.Label();
-			this.labelCopyright = new System.Windows.Forms.Label();
 			this.labelDescription = new System.Windows.Forms.Label();
 			this.Logo = new System.Windows.Forms.PictureBox();
 			this.dExtractTo = new System.Windows.Forms.FolderBrowserDialog();
 			this.dOpenPack = new System.Windows.Forms.OpenFileDialog();
+			this.labelCopyright = new System.Windows.Forms.LinkLabel();
 			((System.ComponentModel.ISupportInitialize)(this.PackageVersion)).BeginInit();
 			this.Tab.SuspendLayout();
 			this.tPack.SuspendLayout();
@@ -308,8 +308,8 @@
 			resources.ApplyResources(this.tlAbout, "tlAbout");
 			this.tlAbout.Controls.Add(this.labelProductName, 0, 0);
 			this.tlAbout.Controls.Add(this.labelVersion, 0, 3);
-			this.tlAbout.Controls.Add(this.labelCopyright, 0, 4);
 			this.tlAbout.Controls.Add(this.labelDescription, 0, 1);
+			this.tlAbout.Controls.Add(this.labelCopyright, 0, 4);
 			this.tlAbout.Name = "tlAbout";
 			// 
 			// labelProductName
@@ -323,11 +323,6 @@
 			resources.ApplyResources(this.labelVersion, "labelVersion");
 			this.labelVersion.Name = "labelVersion";
 			// 
-			// labelCopyright
-			// 
-			resources.ApplyResources(this.labelCopyright, "labelCopyright");
-			this.labelCopyright.Name = "labelCopyright";
-			// 
 			// labelDescription
 			// 
 			resources.ApplyResources(this.labelDescription, "labelDescription");
@@ -339,6 +334,7 @@
 			resources.ApplyResources(this.Logo, "Logo");
 			this.Logo.Name = "Logo";
 			this.Logo.TabStop = false;
+			this.Logo.Click += new System.EventHandler(this.Logo_Click);
 			// 
 			// dExtractTo
 			// 
@@ -350,6 +346,12 @@
 			this.dOpenPack.DefaultExt = "*.pack";
 			resources.ApplyResources(this.dOpenPack, "dOpenPack");
 			this.dOpenPack.ReadOnlyChecked = true;
+			// 
+			// labelCopyright
+			// 
+			resources.ApplyResources(this.labelCopyright, "labelCopyright");
+			this.labelCopyright.Name = "labelCopyright";
+			this.labelCopyright.TabStop = true;
 			// 
 			// MainWindow
 			// 
@@ -419,8 +421,8 @@
 		private System.Windows.Forms.TableLayoutPanel tlAbout;
 		private System.Windows.Forms.Label labelProductName;
 		private System.Windows.Forms.Label labelVersion;
-		private System.Windows.Forms.Label labelCopyright;
 		private System.Windows.Forms.Label labelDescription;
+		private System.Windows.Forms.LinkLabel labelCopyright;
 	}
 }
 

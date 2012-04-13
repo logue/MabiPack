@@ -210,6 +210,11 @@ namespace MabiPacker
 			System.Diagnostics.Process.Start("http://logue.be/");
 			return;
 		}
+		private void Logo_Click(object sender, EventArgs e)
+		{
+			System.Diagnostics.Process.Start("http://mabiassist.logue.be/MabiPacker");
+			return;
+		}
 		
 		public string AssemblyTitle
 		{

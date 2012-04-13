@@ -24,9 +24,12 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <SupportUrl>https://github.com/logue/MabiPack/issues</SupportUrl>
+    <ProductName>MabiPacker</ProductName>
+    <PublisherName>Logue</PublisherName>
     <WebPage>publish.htm</WebPage>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.1.0.1</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -63,10 +66,10 @@
     <ManifestKeyFile>MabiPacker_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -74,6 +77,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MabinogiResource.net, Version=1.0.4480.23614, Culture=neutral, processorArchitecture=x86">
@@ -160,6 +166,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="file.ico" />
     <Content Include="Resources\icon.ico" />
     <Content Include="MabinogiResource.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
