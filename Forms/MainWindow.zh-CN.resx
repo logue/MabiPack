@@ -118,7 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lInputDir.Text" xml:space="preserve">
     <value>选择data文件夹：</value>
   </data>
@@ -131,11 +130,17 @@
   <data name="uCurrentVer.Text" xml:space="preserve">
     <value>检查当前版本的Pack的版本</value>
   </data>
-  <data name="bExecute.Text" xml:space="preserve">
-    <value>运行</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>压缩级别：</value>
   </data>
-  <data name="Status.Text" xml:space="preserve">
-    <value>洛奇包文件发电机</value>
+  <data name="bContent.Text" xml:space="preserve">
+    <value>检查内容</value>
+  </data>
+  <data name="lOpenPack.Text" xml:space="preserve">
+    <value>选择*.pack文件解压：</value>
+  </data>
+  <data name="lExtractTo.Text" xml:space="preserve">
+    <value>扩展为：</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft YaHei, 9pt</value>

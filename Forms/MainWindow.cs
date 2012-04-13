@@ -27,26 +27,28 @@ namespace MabiPacker
 			String PackageDir = (Properties.Settings.Default.LastPackFile != "") ? 
 				Properties.Settings.Default.LastPackFile : 
 				this.MabiDir + "\\Package";
-
+#region Init Pack Tab
 			SaveAs.Text = PackageDir;
 			dSaveAs.InitialDirectory = this.MabiDir + "\\Package";
 			InputDir.Text = Properties.Settings.Default.LastDataDir;
 			PackageVersion.Minimum = MabiVer;
 			PackageVersion.Value = (PackageVersion.Value > MabiVer) ? Properties.Settings.Default.LastPackVer : MabiVer;
-			Level.SelectedIndex = 0;
-
+			Level.SelectedIndex = Properties.Settings.Default.CompressLevel;
+#endregion
+#region Init Unpack Tab
 			OpenPack.Text = this.MabiDir + "\\Package";
 			dOpenPack.InitialDirectory = this.MabiDir + "\\Package";
 			string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 			ExtractTo.Text = path;
 			dExtractTo.SelectedPath = path;
-
+#endregion
+#region Init About Tab
 			labelProductName.Text = AssemblyProduct;
-			labelDescription.Text = String.Format("v.{0}", AssemblyVersion);
+			labelVersion.Text = String.Format("v.{0}", AssemblyVersion);
 			labelCopyright.Text = AssemblyCopyright;
 			labelDescription.Text = AssemblyDescription;
+#endregion
 		}
-#region functions
 		private void DetectMabinogi() {
 			// Get Mabinogi Directory from Registory
 			Microsoft.Win32.RegistryKey regkey =
@@ -72,7 +74,13 @@ namespace MabiPacker
 				this.MabiVer = 0;
 			}
 		}
-#endregion
+		private void FinishProcess(){
+			Properties.Settings.Default.LastDataDir = InputDir.Text;
+			Properties.Settings.Default.LastPackFile = SaveAs.Text;
+			Properties.Settings.Default.LastPackVer = (int)PackageVersion.Value;
+			Properties.Settings.Default.CompressLevel = Level.SelectedIndex;
+			MessageBox.Show(Properties.Resources.Str_Done, Properties.Resources.Info, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+		}
 #region Pack Tab
 		private void uCurrentVer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
@@ -131,7 +139,7 @@ namespace MabiPacker
 				w.Show();
 				w.Pack(InputDir.Text, SaveAs.Text, (uint)PackageVersion.Value, Level.SelectedIndex-1);
 				w.Dispose();
-				MessageBox.Show(Properties.Resources.Str_Done, Properties.Resources.Info, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+				FinishProcess();
 			}
 		}
 #endregion
@@ -148,9 +156,9 @@ namespace MabiPacker
 		private void bExtractTo_Click(object sender, EventArgs e)
 		{
 			dExtractTo.SelectedPath = ExtractTo.Text;
-			if (dInputDirSelector.ShowDialog(this) == DialogResult.OK)
+			if (dExtractTo.ShowDialog(this) == DialogResult.OK)
 			{
-				ExtractTo.Text = dInputDirSelector.SelectedPath;
+				ExtractTo.Text = dExtractTo.SelectedPath;
 			}
 		}
 
@@ -170,7 +178,7 @@ namespace MabiPacker
 				return;
 			}
 			// Check output directory exsists.
-			if (Directory.Exists(ExtractTo.Text))
+			if (Directory.Exists(ExtractTo.Text+"\\data"))
 			{
 				DialogResult overwrite = MessageBox.Show("Directory is exisits, overwrite?", Properties.Resources.Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 				if (overwrite == DialogResult.No)
@@ -192,18 +200,16 @@ namespace MabiPacker
 				w.Show();
 				w.Unpack(OpenPack.Text, ExtractTo.Text, false);
 				w.Dispose();
-				MessageBox.Show(Properties.Resources.Str_Done, Properties.Resources.Info, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+				FinishProcess();
 			}
 		}
 #endregion
 #region About Tab
-		#region Misc
 		private void lCopyright_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			System.Diagnostics.Process.Start("http://logue.be/");
 			return;
 		}
-		#endregion
 		
 		public string AssemblyTitle
 		{

@@ -141,7 +141,7 @@
             0});
 			this.PackageVersion.Name = "PackageVersion";
 			this.PackageVersion.Value = new decimal(new int[] {
-            200,
+            1000,
             0,
             0,
             0});
@@ -335,6 +335,7 @@
 			// 
 			// Logo
 			// 
+			this.Logo.Image = global::MabiPacker.Properties.Resources.logo;
 			resources.ApplyResources(this.Logo, "Logo");
 			this.Logo.Name = "Logo";
 			this.Logo.TabStop = false;

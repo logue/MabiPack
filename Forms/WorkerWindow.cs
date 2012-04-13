@@ -63,7 +63,7 @@ namespace MabiPacker
 				String InternalName = Res.GetName();
 				Status.Text = InternalName;
 
-				String outputPath = @OutputDir + "\\data" + InternalName;
+				String outputPath = @OutputDir + "\\data\\" + InternalName;
 				// Get Directory Name
 				String DirPath = System.Text.RegularExpressions.Regex.Replace(outputPath, @"\\[\w|\.]+$", "");
 				if (!Directory.Exists(Path.GetDirectoryName(DirPath)))

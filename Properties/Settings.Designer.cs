@@ -49,10 +49,10 @@ namespace MabiPacker.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200")]
-        public decimal LastPackVer {
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int LastPackVer {
             get {
-                return ((decimal)(this["LastPackVer"]));
+                return ((int)(this["LastPackVer"]));
             }
             set {
                 this["LastPackVer"] = value;
@@ -61,10 +61,10 @@ namespace MabiPacker.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
-        public string CompressLevel {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int CompressLevel {
             get {
-                return ((string)(this["CompressLevel"]));
+                return ((int)(this["CompressLevel"]));
             }
             set {
                 this["CompressLevel"] = value;

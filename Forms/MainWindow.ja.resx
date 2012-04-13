@@ -127,10 +127,37 @@
   <data name="lVersion.Text" xml:space="preserve">
     <value>バージョン：</value>
   </data>
+  <data name="bPack.Text" xml:space="preserve">
+    <value>パック</value>
+  </data>
   <data name="uCurrentVer.Text" xml:space="preserve">
     <value>現行のPackのバージョンを確認する</value>
   </data>
-  <data name="bExecute.Text" xml:space="preserve">
-    <value>実行</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>圧縮レベル：</value>
+  </data>
+  <data name="tPack.Text" xml:space="preserve">
+    <value>パック</value>
+  </data>
+  <data name="bUnpack.Text" xml:space="preserve">
+    <value>アンパック</value>
+  </data>
+  <data name="bContent.Text" xml:space="preserve">
+    <value>内容物を確認</value>
+  </data>
+  <data name="lOpenPack.Text" xml:space="preserve">
+    <value>アンパックしたい*.packファイルを選択：</value>
+  </data>
+  <data name="lExtractTo.Text" xml:space="preserve">
+    <value>展開先：</value>
+  </data>
+  <data name="tUnpack.Text" xml:space="preserve">
+    <value>アンパック</value>
+  </data>
+  <data name="tAbout.Text" xml:space="preserve">
+    <value>MabiPackerについて</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
 </root>

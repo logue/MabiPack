@@ -8,11 +8,11 @@
     <Setting Name="LastPackFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Nexon\Mabinogi\Package\custom.pack</Value>
     </Setting>
-    <Setting Name="LastPackVer" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">200</Value>
+    <Setting Name="LastPackVer" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
     </Setting>
-    <Setting Name="CompressLevel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">-1</Value>
+    <Setting Name="CompressLevel" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

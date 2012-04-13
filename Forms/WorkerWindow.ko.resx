@@ -118,31 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lInputDir.Text" xml:space="preserve">
-    <value>選擇data文件夾：</value>
-  </data>
-  <data name="lSaveAs.Text" xml:space="preserve">
-    <value>保存的文件名：</value>
-  </data>
-  <data name="lVersion.Text" xml:space="preserve">
-    <value>版本：</value>
-  </data>
-  <data name="uCurrentVer.Text" xml:space="preserve">
-    <value>檢查當前版本的Pack的版本</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>壓縮級別：</value>
-  </data>
-  <data name="bContent.Text" xml:space="preserve">
-    <value>檢查內容</value>
-  </data>
-  <data name="lOpenPack.Text" xml:space="preserve">
-    <value>選擇*.pack文件解壓：</value>
-  </data>
-  <data name="lExtractTo.Text" xml:space="preserve">
-    <value>擴展為：</value>
-  </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft JhengHei, 9pt</value>
+    <value>Malgun Gothic, 9pt</value>
   </data>
 </root>

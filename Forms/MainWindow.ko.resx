@@ -127,9 +127,6 @@
   <data name="uCurrentVer.Text" xml:space="preserve">
     <value>현재 버전 Pack의 버전을 확인</value>
   </data>
-  <data name="bExecute.Text" xml:space="preserve">
-    <value>실행</value>
-  </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Malgun Gothic, 9pt</value>
   </data>
