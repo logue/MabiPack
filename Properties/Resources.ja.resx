@@ -140,11 +140,23 @@ dataディレクトリの値を確認してください。</value>
     <value>作業が完了しました。</value>
     <comment>Finish to Pack</comment>
   </data>
+  <data name="Str_Finish" xml:space="preserve">
+    <value>完了。</value>
+  </data>
+  <data name="Str_Initialize" xml:space="preserve">
+    <value>初期化中…。</value>
+  </data>
   <data name="Str_Overwrite" xml:space="preserve">
     <value>ファイルが既に存在しています。上書きしますか？</value>
     <comment>Check Save file exsists</comment>
   </data>
+  <data name="Str_Pack" xml:space="preserve">
+    <value>パック</value>
+  </data>
   <data name="Str_Packing" xml:space="preserve">
     <value>パックしています…。しばらくお待ちください。</value>
+  </data>
+  <data name="Str_Unpack" xml:space="preserve">
+    <value>アンパック</value>
   </data>
 </root>

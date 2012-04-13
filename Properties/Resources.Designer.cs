@@ -124,6 +124,24 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
+        ///   Finish. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_Finish {
+            get {
+                return ResourceManager.GetString("Str_Finish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Initializing... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_Initialize {
+            get {
+                return ResourceManager.GetString("Str_Initialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   File is exists. Overwrite? に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Str_Overwrite {
@@ -133,11 +151,29 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
+        ///   Pack に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_Pack {
+            get {
+                return ResourceManager.GetString("Str_Pack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Now Packing... Please take for few minutes. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Str_Packing {
             get {
                 return ResourceManager.GetString("Str_Packing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unpack に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_Unpack {
+            get {
+                return ResourceManager.GetString("Str_Unpack", resourceCulture);
             }
         }
     }

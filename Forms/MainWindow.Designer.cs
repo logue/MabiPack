@@ -40,9 +40,7 @@
 			this.lVersion = new System.Windows.Forms.Label();
 			this.PackageVersion = new System.Windows.Forms.NumericUpDown();
 			this.bPack = new System.Windows.Forms.Button();
-			this.Status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.lcopyright = new System.Windows.Forms.LinkLabel();
-			this.StatusBar = new System.Windows.Forms.StatusStrip();
 			this.layoutPack2 = new System.Windows.Forms.TableLayoutPanel();
 			this.uCurrentVer = new System.Windows.Forms.LinkLabel();
 			this.Tab = new System.Windows.Forms.TabControl();
@@ -61,22 +59,22 @@
 			this.OpenPack = new System.Windows.Forms.TextBox();
 			this.bOpenPack = new System.Windows.Forms.Button();
 			this.tAbout = new System.Windows.Forms.TabPage();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.tlAbout = new System.Windows.Forms.TableLayoutPanel();
 			this.labelProductName = new System.Windows.Forms.Label();
 			this.labelVersion = new System.Windows.Forms.Label();
 			this.labelCopyright = new System.Windows.Forms.Label();
+			this.labelDescription = new System.Windows.Forms.Label();
 			this.Logo = new System.Windows.Forms.PictureBox();
 			this.dExtractTo = new System.Windows.Forms.FolderBrowserDialog();
 			this.dOpenPack = new System.Windows.Forms.OpenFileDialog();
 			((System.ComponentModel.ISupportInitialize)(this.PackageVersion)).BeginInit();
-			this.StatusBar.SuspendLayout();
 			this.Tab.SuspendLayout();
 			this.tPack.SuspendLayout();
 			this.tlPack.SuspendLayout();
 			this.tUnpack.SuspendLayout();
 			this.tlUnpack.SuspendLayout();
 			this.tAbout.SuspendLayout();
-			this.tableLayoutPanel1.SuspendLayout();
+			this.tlAbout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -155,23 +153,11 @@
 			this.bPack.UseVisualStyleBackColor = true;
 			this.bPack.Click += new System.EventHandler(this.bPack_Click);
 			// 
-			// Status
-			// 
-			this.Status.Name = "Status";
-			resources.ApplyResources(this.Status, "Status");
-			// 
 			// lcopyright
 			// 
 			resources.ApplyResources(this.lcopyright, "lcopyright");
 			this.lcopyright.Name = "lcopyright";
 			this.lcopyright.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lCopyright_LinkClicked);
-			// 
-			// StatusBar
-			// 
-			this.StatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Status});
-			resources.ApplyResources(this.StatusBar, "StatusBar");
-			this.StatusBar.Name = "StatusBar";
 			// 
 			// layoutPack2
 			// 
@@ -311,19 +297,20 @@
 			// 
 			// tAbout
 			// 
-			this.tAbout.Controls.Add(this.tableLayoutPanel1);
+			this.tAbout.Controls.Add(this.tlAbout);
 			this.tAbout.Controls.Add(this.Logo);
 			resources.ApplyResources(this.tAbout, "tAbout");
 			this.tAbout.Name = "tAbout";
 			this.tAbout.UseVisualStyleBackColor = true;
 			// 
-			// tableLayoutPanel1
+			// tlAbout
 			// 
-			resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-			this.tableLayoutPanel1.Controls.Add(this.labelProductName, 0, 0);
-			this.tableLayoutPanel1.Controls.Add(this.labelVersion, 0, 1);
-			this.tableLayoutPanel1.Controls.Add(this.labelCopyright, 0, 2);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+			resources.ApplyResources(this.tlAbout, "tlAbout");
+			this.tlAbout.Controls.Add(this.labelProductName, 0, 0);
+			this.tlAbout.Controls.Add(this.labelVersion, 0, 3);
+			this.tlAbout.Controls.Add(this.labelCopyright, 0, 4);
+			this.tlAbout.Controls.Add(this.labelDescription, 0, 1);
+			this.tlAbout.Name = "tlAbout";
 			// 
 			// labelProductName
 			// 
@@ -340,6 +327,11 @@
 			// 
 			resources.ApplyResources(this.labelCopyright, "labelCopyright");
 			this.labelCopyright.Name = "labelCopyright";
+			// 
+			// labelDescription
+			// 
+			resources.ApplyResources(this.labelDescription, "labelDescription");
+			this.labelDescription.Name = "labelDescription";
 			// 
 			// Logo
 			// 
@@ -365,15 +357,12 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
 			resources.ApplyResources(this, "$this");
 			this.Controls.Add(this.Tab);
-			this.Controls.Add(this.StatusBar);
 			this.Controls.Add(this.lcopyright);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.KeyPreview = true;
 			this.MaximizeBox = false;
 			this.Name = "MainWindow";
 			((System.ComponentModel.ISupportInitialize)(this.PackageVersion)).EndInit();
-			this.StatusBar.ResumeLayout(false);
-			this.StatusBar.PerformLayout();
 			this.Tab.ResumeLayout(false);
 			this.tPack.ResumeLayout(false);
 			this.tPack.PerformLayout();
@@ -384,11 +373,10 @@
 			this.tlUnpack.ResumeLayout(false);
 			this.tlUnpack.PerformLayout();
 			this.tAbout.ResumeLayout(false);
-			this.tableLayoutPanel1.ResumeLayout(false);
-			this.tableLayoutPanel1.PerformLayout();
+			this.tlAbout.ResumeLayout(false);
+			this.tlAbout.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -406,8 +394,6 @@
 		private System.Windows.Forms.NumericUpDown PackageVersion;
 		private System.Windows.Forms.Button bPack;
 		private System.Windows.Forms.LinkLabel lcopyright;
-		private System.Windows.Forms.StatusStrip StatusBar;
-		private System.Windows.Forms.ToolStripStatusLabel Status;
 		private System.Windows.Forms.TableLayoutPanel layoutPack2;
 		private System.Windows.Forms.LinkLabel uCurrentVer;
 		private System.Windows.Forms.TabControl Tab;
@@ -429,10 +415,11 @@
 		private System.Windows.Forms.Button bContent;
 		private System.Windows.Forms.TabPage tAbout;
 		private System.Windows.Forms.PictureBox Logo;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.TableLayoutPanel tlAbout;
 		private System.Windows.Forms.Label labelProductName;
 		private System.Windows.Forms.Label labelVersion;
 		private System.Windows.Forms.Label labelCopyright;
+		private System.Windows.Forms.Label labelDescription;
 	}
 }
 

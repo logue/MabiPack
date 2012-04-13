@@ -37,11 +37,14 @@ namespace MabiPacker
 
 			OpenPack.Text = this.MabiDir + "\\Package";
 			dOpenPack.InitialDirectory = this.MabiDir + "\\Package";
+			string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+			ExtractTo.Text = path;
+			dExtractTo.SelectedPath = path;
 
 			labelProductName.Text = AssemblyProduct;
-			labelVersion.Text = String.Format("v.{0}", AssemblyVersion);
+			labelDescription.Text = String.Format("v.{0}", AssemblyVersion);
 			labelCopyright.Text = AssemblyCopyright;
-			Status.Text = AssemblyDescription;
+			labelDescription.Text = AssemblyDescription;
 		}
 #region functions
 		private void DetectMabinogi() {
@@ -126,8 +129,9 @@ namespace MabiPacker
 			if (result == DialogResult.OK){
 				WorkerWindow w = new WorkerWindow();
 				w.Show();
-				w.Pack(InputDir.Text, SaveAs.Text, (uint)PackageVersion.Value, Level.SelectedIndex-1, false);
+				w.Pack(InputDir.Text, SaveAs.Text, (uint)PackageVersion.Value, Level.SelectedIndex-1);
 				w.Dispose();
+				MessageBox.Show(Properties.Resources.Str_Done, Properties.Resources.Info, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 			}
 		}
 #endregion
@@ -188,6 +192,7 @@ namespace MabiPacker
 				w.Show();
 				w.Unpack(OpenPack.Text, ExtractTo.Text, false);
 				w.Dispose();
+				MessageBox.Show(Properties.Resources.Str_Done, Properties.Resources.Info, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 			}
 		}
 #endregion

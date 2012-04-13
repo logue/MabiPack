@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkerWindow));
 			this.Progress = new System.Windows.Forms.ProgressBar();
 			this.Status = new System.Windows.Forms.Label();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -36,56 +37,34 @@
 			// 
 			// Progress
 			// 
-			this.Progress.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.Progress.Location = new System.Drawing.Point(9, 3);
+			resources.ApplyResources(this.Progress, "Progress");
 			this.Progress.Name = "Progress";
-			this.Progress.Size = new System.Drawing.Size(283, 23);
-			this.Progress.TabIndex = 0;
 			this.Progress.UseWaitCursor = true;
 			// 
 			// Status
 			// 
-			this.Status.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.Status.AutoSize = true;
-			this.Status.Location = new System.Drawing.Point(118, 29);
+			resources.ApplyResources(this.Status, "Status");
 			this.Status.Name = "Status";
-			this.Status.Size = new System.Drawing.Size(66, 15);
-			this.Status.TabIndex = 1;
-			this.Status.Text = "Infomation";
-			this.Status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// tableLayoutPanel1
 			// 
-			this.tableLayoutPanel1.AutoSize = true;
-			this.tableLayoutPanel1.ColumnCount = 1;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+			resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
 			this.tableLayoutPanel1.Controls.Add(this.Status, 0, 1);
 			this.tableLayoutPanel1.Controls.Add(this.Progress, 0, 0);
-			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 2;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(302, 40);
-			this.tableLayoutPanel1.TabIndex = 1;
 			// 
 			// WorkerWindow
 			// 
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-			this.ClientSize = new System.Drawing.Size(302, 40);
-			this.ControlBox = false;
+			resources.ApplyResources(this, "$this");
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.tableLayoutPanel1);
-			this.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-			this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "WorkerWindow";
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-			this.Text = "Progress";
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.tableLayoutPanel1.PerformLayout();
 			this.ResumeLayout(false);

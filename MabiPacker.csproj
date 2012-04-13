@@ -95,12 +95,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\DetailWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DetailWindow.Designer.cs">
-      <DependentUpon>DetailWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\WorkerWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +123,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainWindow.zh-TW.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WorkerWindow.ja.resx">
+      <DependentUpon>WorkerWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WorkerWindow.ko.resx">
+      <DependentUpon>WorkerWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WorkerWindow.resx">
       <DependentUpon>WorkerWindow.cs</DependentUpon>
