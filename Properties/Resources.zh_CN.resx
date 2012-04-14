@@ -131,6 +131,9 @@
 你确定吗？</value>
     <comment>Before Pack</comment>
   </data>
+  <data name="Str_Copied" xml:space="preserve">
+    <value>复制到剪贴板。</value>
+  </data>
   <data name="Str_DataDirNotExists" xml:space="preserve">
     <value>无法找到您所输入的目录。
 请检查data目录的价值。</value>
@@ -140,11 +143,29 @@
     <value>工作已经完成。</value>
     <comment>Finish to Pack</comment>
   </data>
+  <data name="Str_Error" xml:space="preserve">
+    <value>已处理下列文件时发生错误：</value>
+  </data>
+  <data name="Str_Finish" xml:space="preserve">
+    <value>完成。</value>
+  </data>
+  <data name="Str_Initialize" xml:space="preserve">
+    <value>初始化...</value>
+  </data>
+  <data name="Str_NotFound" xml:space="preserve">
+    <value>文件不存在。</value>
+  </data>
   <data name="Str_Overwrite" xml:space="preserve">
     <value>文件已经存在。你要覆盖它吗？</value>
     <comment>Check Save file exsists</comment>
   </data>
+  <data name="Str_Pack" xml:space="preserve">
+    <value>收拾</value>
+  </data>
   <data name="Str_Packing" xml:space="preserve">
     <value>是Pack...请稍候。</value>
+  </data>
+  <data name="Str_Unpack" xml:space="preserve">
+    <value>拆开</value>
   </data>
 </root>

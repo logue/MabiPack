@@ -468,6 +468,111 @@
   <metadata name="tPack.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="tlPack.ColumnCount" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="Level.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="Level.Items" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="Level.Items1" xml:space="preserve">
+    <value>0 - No Compression</value>
+  </data>
+  <data name="Level.Items2" xml:space="preserve">
+    <value>1 - Fast</value>
+  </data>
+  <data name="Level.Items3" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Level.Items4" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Level.Items5" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Level.Items6" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Level.Items7" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Level.Items8" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="Level.Items9" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="Level.Items10" xml:space="preserve">
+    <value>9 - Best Compression</value>
+  </data>
+  <data name="Level.Location" type="System.Drawing.Point, System.Drawing">
+    <value>122, 35</value>
+  </data>
+  <data name="Level.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 23</value>
+  </data>
+  <data name="Level.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;Level.Name" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="&gt;&gt;Level.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Level.Parent" xml:space="preserve">
+    <value>tlPack</value>
+  </data>
+  <data name="&gt;&gt;Level.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 39</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 15</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Compression &amp;Level :</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tlPack</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tlPack.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="tlPack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 91</value>
+  </data>
+  <data name="tlPack.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tlPack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>454, 64</value>
+  </data>
+  <data name="tlPack.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
   <data name="&gt;&gt;tlPack.Name" xml:space="preserve">
     <value>tlPack</value>
   </data>
@@ -510,6 +615,87 @@
   <data name="&gt;&gt;tPack.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="tlUnpack.ColumnCount" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="bUnpack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="bUnpack.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bUnpack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>376, 36</value>
+  </data>
+  <data name="bUnpack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 25</value>
+  </data>
+  <data name="bUnpack.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="bUnpack.Text" xml:space="preserve">
+    <value>Unpack</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.Name" xml:space="preserve">
+    <value>bUnpack</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.Parent" xml:space="preserve">
+    <value>tlUnpack</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="bContent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="bContent.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bContent.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="bContent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 36</value>
+  </data>
+  <data name="bContent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 25</value>
+  </data>
+  <data name="bContent.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="bContent.Text" xml:space="preserve">
+    <value>Check Content</value>
+  </data>
+  <data name="&gt;&gt;bContent.Name" xml:space="preserve">
+    <value>bContent</value>
+  </data>
+  <data name="&gt;&gt;bContent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bContent.Parent" xml:space="preserve">
+    <value>tlUnpack</value>
+  </data>
+  <data name="&gt;&gt;bContent.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tlUnpack.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="tlUnpack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 91</value>
+  </data>
+  <data name="tlUnpack.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tlUnpack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>454, 64</value>
+  </data>
+  <data name="tlUnpack.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
   <data name="&gt;&gt;tlUnpack.Name" xml:space="preserve">
     <value>tlUnpack</value>
   </data>
@@ -525,6 +711,21 @@
   <data name="tlUnpack.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="bUnpack" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="bContent" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,20" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
+  <data name="bExtractTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="bExtractTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>431, 65</value>
+  </data>
+  <data name="bExtractTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 23</value>
+  </data>
+  <data name="bExtractTo.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="bExtractTo.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
   <data name="&gt;&gt;bExtractTo.Name" xml:space="preserve">
     <value>bExtractTo</value>
   </data>
@@ -536,6 +737,18 @@
   </data>
   <data name="&gt;&gt;bExtractTo.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="ExtractTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="ExtractTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 65</value>
+  </data>
+  <data name="ExtractTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>419, 23</value>
+  </data>
+  <data name="ExtractTo.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;ExtractTo.Name" xml:space="preserve">
     <value>ExtractTo</value>
@@ -549,6 +762,24 @@
   <data name="&gt;&gt;ExtractTo.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="lOpenPack.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lOpenPack.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lOpenPack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="lOpenPack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 15</value>
+  </data>
+  <data name="lOpenPack.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lOpenPack.Text" xml:space="preserve">
+    <value>Choose *.pack file to unpack :</value>
+  </data>
   <data name="&gt;&gt;lOpenPack.Name" xml:space="preserve">
     <value>lOpenPack</value>
   </data>
@@ -560,6 +791,21 @@
   </data>
   <data name="&gt;&gt;lOpenPack.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="lExtractTo.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lExtractTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 47</value>
+  </data>
+  <data name="lExtractTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>62, 15</value>
+  </data>
+  <data name="lExtractTo.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lExtractTo.Text" xml:space="preserve">
+    <value>Extract to :</value>
   </data>
   <data name="&gt;&gt;lExtractTo.Name" xml:space="preserve">
     <value>lExtractTo</value>
@@ -573,6 +819,18 @@
   <data name="&gt;&gt;lExtractTo.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="OpenPack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="OpenPack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 21</value>
+  </data>
+  <data name="OpenPack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>419, 23</value>
+  </data>
+  <data name="OpenPack.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
   <data name="&gt;&gt;OpenPack.Name" xml:space="preserve">
     <value>OpenPack</value>
   </data>
@@ -584,6 +842,21 @@
   </data>
   <data name="&gt;&gt;OpenPack.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="bOpenPack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="bOpenPack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>431, 21</value>
+  </data>
+  <data name="bOpenPack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 23</value>
+  </data>
+  <data name="bOpenPack.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="bOpenPack.Text" xml:space="preserve">
+    <value>...</value>
   </data>
   <data name="&gt;&gt;bOpenPack.Name" xml:space="preserve">
     <value>bOpenPack</value>
@@ -848,429 +1121,6 @@
   </data>
   <data name="&gt;&gt;Tab.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="tlPack.ColumnCount" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;Level.Name" xml:space="preserve">
-    <value>Level</value>
-  </data>
-  <data name="&gt;&gt;Level.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Level.Parent" xml:space="preserve">
-    <value>tlPack</value>
-  </data>
-  <data name="&gt;&gt;Level.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>tlPack</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tlPack.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="tlPack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 91</value>
-  </data>
-  <data name="tlPack.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tlPack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 64</value>
-  </data>
-  <data name="tlPack.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;tlPack.Name" xml:space="preserve">
-    <value>tlPack</value>
-  </data>
-  <data name="&gt;&gt;tlPack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tlPack.Parent" xml:space="preserve">
-    <value>tPack</value>
-  </data>
-  <data name="&gt;&gt;tlPack.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tlPack.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="PackageVersion" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="uCurrentVer" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="Level" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lVersion" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="bPack" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,20" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="Level.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="Level.Items" xml:space="preserve">
-    <value>Auto</value>
-  </data>
-  <data name="Level.Items1" xml:space="preserve">
-    <value>0 - No Compression</value>
-  </data>
-  <data name="Level.Items2" xml:space="preserve">
-    <value>1 - Fast</value>
-  </data>
-  <data name="Level.Items3" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="Level.Items4" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="Level.Items5" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="Level.Items6" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="Level.Items7" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="Level.Items8" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="Level.Items9" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="Level.Items10" xml:space="preserve">
-    <value>9 - Best Compression</value>
-  </data>
-  <data name="Level.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 35</value>
-  </data>
-  <data name="Level.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 23</value>
-  </data>
-  <data name="Level.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;Level.Name" xml:space="preserve">
-    <value>Level</value>
-  </data>
-  <data name="&gt;&gt;Level.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Level.Parent" xml:space="preserve">
-    <value>tlPack</value>
-  </data>
-  <data name="&gt;&gt;Level.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 39</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 15</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Compression &amp;Level :</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>tlPack</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="tlUnpack.ColumnCount" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.Name" xml:space="preserve">
-    <value>bUnpack</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.Parent" xml:space="preserve">
-    <value>tlUnpack</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;bContent.Name" xml:space="preserve">
-    <value>bContent</value>
-  </data>
-  <data name="&gt;&gt;bContent.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bContent.Parent" xml:space="preserve">
-    <value>tlUnpack</value>
-  </data>
-  <data name="&gt;&gt;bContent.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tlUnpack.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="tlUnpack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 91</value>
-  </data>
-  <data name="tlUnpack.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tlUnpack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 64</value>
-  </data>
-  <data name="tlUnpack.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;tlUnpack.Name" xml:space="preserve">
-    <value>tlUnpack</value>
-  </data>
-  <data name="&gt;&gt;tlUnpack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tlUnpack.Parent" xml:space="preserve">
-    <value>tUnpack</value>
-  </data>
-  <data name="&gt;&gt;tlUnpack.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tlUnpack.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="bUnpack" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="bContent" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,20" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="bUnpack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="bUnpack.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bUnpack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>376, 36</value>
-  </data>
-  <data name="bUnpack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
-  </data>
-  <data name="bUnpack.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="bUnpack.Text" xml:space="preserve">
-    <value>Unpack</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.Name" xml:space="preserve">
-    <value>bUnpack</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.Parent" xml:space="preserve">
-    <value>tlUnpack</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="bContent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="bContent.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bContent.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="bContent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 36</value>
-  </data>
-  <data name="bContent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 25</value>
-  </data>
-  <data name="bContent.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="bContent.Text" xml:space="preserve">
-    <value>Check Content</value>
-  </data>
-  <data name="&gt;&gt;bContent.Name" xml:space="preserve">
-    <value>bContent</value>
-  </data>
-  <data name="&gt;&gt;bContent.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bContent.Parent" xml:space="preserve">
-    <value>tlUnpack</value>
-  </data>
-  <data name="&gt;&gt;bContent.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="bExtractTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="bExtractTo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>431, 65</value>
-  </data>
-  <data name="bExtractTo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 23</value>
-  </data>
-  <data name="bExtractTo.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="bExtractTo.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="&gt;&gt;bExtractTo.Name" xml:space="preserve">
-    <value>bExtractTo</value>
-  </data>
-  <data name="&gt;&gt;bExtractTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bExtractTo.Parent" xml:space="preserve">
-    <value>tUnpack</value>
-  </data>
-  <data name="&gt;&gt;bExtractTo.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ExtractTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="ExtractTo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 65</value>
-  </data>
-  <data name="ExtractTo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 23</value>
-  </data>
-  <data name="ExtractTo.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;ExtractTo.Name" xml:space="preserve">
-    <value>ExtractTo</value>
-  </data>
-  <data name="&gt;&gt;ExtractTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ExtractTo.Parent" xml:space="preserve">
-    <value>tUnpack</value>
-  </data>
-  <data name="&gt;&gt;ExtractTo.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="lOpenPack.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lOpenPack.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lOpenPack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="lOpenPack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 15</value>
-  </data>
-  <data name="lOpenPack.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="lOpenPack.Text" xml:space="preserve">
-    <value>Choose *.pack file to unpack :</value>
-  </data>
-  <data name="&gt;&gt;lOpenPack.Name" xml:space="preserve">
-    <value>lOpenPack</value>
-  </data>
-  <data name="&gt;&gt;lOpenPack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lOpenPack.Parent" xml:space="preserve">
-    <value>tUnpack</value>
-  </data>
-  <data name="&gt;&gt;lOpenPack.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="lExtractTo.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lExtractTo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 47</value>
-  </data>
-  <data name="lExtractTo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 15</value>
-  </data>
-  <data name="lExtractTo.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="lExtractTo.Text" xml:space="preserve">
-    <value>Extract to :</value>
-  </data>
-  <data name="&gt;&gt;lExtractTo.Name" xml:space="preserve">
-    <value>lExtractTo</value>
-  </data>
-  <data name="&gt;&gt;lExtractTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lExtractTo.Parent" xml:space="preserve">
-    <value>tUnpack</value>
-  </data>
-  <data name="&gt;&gt;lExtractTo.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="OpenPack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="OpenPack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 21</value>
-  </data>
-  <data name="OpenPack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 23</value>
-  </data>
-  <data name="OpenPack.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;OpenPack.Name" xml:space="preserve">
-    <value>OpenPack</value>
-  </data>
-  <data name="&gt;&gt;OpenPack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;OpenPack.Parent" xml:space="preserve">
-    <value>tUnpack</value>
-  </data>
-  <data name="&gt;&gt;OpenPack.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="bOpenPack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="bOpenPack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>431, 21</value>
-  </data>
-  <data name="bOpenPack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 23</value>
-  </data>
-  <data name="bOpenPack.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="bOpenPack.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="&gt;&gt;bOpenPack.Name" xml:space="preserve">
-    <value>bOpenPack</value>
-  </data>
-  <data name="&gt;&gt;bOpenPack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bOpenPack.Parent" xml:space="preserve">
-    <value>tUnpack</value>
-  </data>
-  <data name="&gt;&gt;bOpenPack.ZOrder" xml:space="preserve">
-    <value>6</value>
   </data>
   <metadata name="dExtractTo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>370, 6</value>

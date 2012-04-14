@@ -131,6 +131,9 @@
 시겠습니까?</value>
     <comment>Before Pack</comment>
   </data>
+  <data name="Str_Copied" xml:space="preserve">
+    <value>클립 보드에 복사되었습니다.</value>
+  </data>
   <data name="Str_DataDirNotExists" xml:space="preserve">
     <value>입력된 디렉터리를 찾을 수 없습니다.
 data 디렉토리의 값을 확인하십시오.</value>
@@ -140,11 +143,29 @@ data 디렉토리의 값을 확인하십시오.</value>
     <value>작업이 완료되었습니다.</value>
     <comment>Finish to Pack</comment>
   </data>
+  <data name="Str_Error" xml:space="preserve">
+    <value>다음 파일을 처리하는 동안 오류가 발생했습니다 :</value>
+  </data>
+  <data name="Str_Finish" xml:space="preserve">
+    <value>완료.</value>
+  </data>
+  <data name="Str_Initialize" xml:space="preserve">
+    <value>초기화 중 ....</value>
+  </data>
+  <data name="Str_NotFound" xml:space="preserve">
+    <value>파일이 없습니다.</value>
+  </data>
   <data name="Str_Overwrite" xml:space="preserve">
     <value>파일이 이미 있습니다. 덮어 쓰시겠습니까?</value>
     <comment>Check Save file exsists</comment>
   </data>
+  <data name="Str_Pack" xml:space="preserve">
+    <value>풀고</value>
+  </data>
   <data name="Str_Packing" xml:space="preserve">
     <value>팩하고 있습니다 ... 잠시 기다려주십시오.</value>
+  </data>
+  <data name="Str_Unpack" xml:space="preserve">
+    <value>포장</value>
   </data>
 </root>

@@ -63,10 +63,10 @@
 			this.labelProductName = new System.Windows.Forms.Label();
 			this.labelVersion = new System.Windows.Forms.Label();
 			this.labelDescription = new System.Windows.Forms.Label();
+			this.labelCopyright = new System.Windows.Forms.LinkLabel();
 			this.Logo = new System.Windows.Forms.PictureBox();
 			this.dExtractTo = new System.Windows.Forms.FolderBrowserDialog();
 			this.dOpenPack = new System.Windows.Forms.OpenFileDialog();
-			this.labelCopyright = new System.Windows.Forms.LinkLabel();
 			((System.ComponentModel.ISupportInitialize)(this.PackageVersion)).BeginInit();
 			this.Tab.SuspendLayout();
 			this.tPack.SuspendLayout();
@@ -328,6 +328,12 @@
 			resources.ApplyResources(this.labelDescription, "labelDescription");
 			this.labelDescription.Name = "labelDescription";
 			// 
+			// labelCopyright
+			// 
+			resources.ApplyResources(this.labelCopyright, "labelCopyright");
+			this.labelCopyright.Name = "labelCopyright";
+			this.labelCopyright.TabStop = true;
+			// 
 			// Logo
 			// 
 			this.Logo.Image = global::MabiPacker.Properties.Resources.logo;
@@ -346,12 +352,6 @@
 			this.dOpenPack.DefaultExt = "*.pack";
 			resources.ApplyResources(this.dOpenPack, "dOpenPack");
 			this.dOpenPack.ReadOnlyChecked = true;
-			// 
-			// labelCopyright
-			// 
-			resources.ApplyResources(this.labelCopyright, "labelCopyright");
-			this.labelCopyright.Name = "labelCopyright";
-			this.labelCopyright.TabStop = true;
 			// 
 			// MainWindow
 			// 

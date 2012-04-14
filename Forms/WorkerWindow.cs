@@ -25,6 +25,10 @@ namespace MabiPacker
 			this.Name = Properties.Resources.Str_Pack;
 			Status.Text = Properties.Resources.Str_Initialize;
 			String internal_filename = "";
+			if (File.Exists(OutputFile))
+			{
+				System.IO.File.Delete(@OutputFile);
+			}
 
 			// Get Filelist
 			string[] filelist = Directory.GetFiles(InputDir, "*", SearchOption.AllDirectories);
@@ -41,6 +45,7 @@ namespace MabiPacker
 				m_Pack.AddFile(internal_filename, path);
 				Status.Text = internal_filename;
 			}
+
 			// Start packing
 			Status.Text = Properties.Resources.Str_Packing;
 			m_Pack.CreatePack(OutputFile);
@@ -62,25 +67,45 @@ namespace MabiPacker
 				PackResource Res = m_Unpack.GetFileByIndex(i);
 				String InternalName = Res.GetName();
 				Status.Text = InternalName;
-
-				String outputPath = @OutputDir + "\\data\\" + InternalName;
-				// Get Directory Name
-				String DirPath = System.Text.RegularExpressions.Regex.Replace(outputPath, @"\\[\w|\.]+$", "");
-				if (!Directory.Exists(DirPath))
+				try
 				{
-					Directory.CreateDirectory(DirPath);
+					// loading file content.
+					byte[] buffer = new byte[Res.GetSize()];
+					Res.GetData(buffer);
+					Res.Close();
+
+					// Get output Directory Name
+					String outputPath = @OutputDir + "\\data\\" + InternalName;
+
+					// Create directory
+					String DirPath = System.Text.RegularExpressions.Regex.Replace(outputPath, @"\\[\w|\.]+$", "");
+					if (!Directory.Exists(DirPath))
+					{
+						Directory.CreateDirectory(DirPath);
+					}
+
+					if (File.Exists(outputPath))
+					{
+						System.IO.File.Delete(@outputPath);
+					}
+					// Write to file.
+					System.IO.FileStream fs = new System.IO.FileStream(outputPath, System.IO.FileMode.Create);
+					fs.Write(buffer, 0, buffer.Length);
+					fs.Close();
+					// Modify File time
+					System.IO.File.SetCreationTime(outputPath, Res.GetCreated());
+					System.IO.File.SetLastAccessTime(outputPath, Res.GetAccessed());
+					System.IO.File.SetLastWriteTime(outputPath, Res.GetModified());
+				}catch(Exception e){
+					Console.WriteLine(e);
+					MessageBox.Show(Properties.Resources.Str_Error + "\r\n" + InternalName,
+						Properties.Resources.Error,
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Error,
+						MessageBoxDefaultButton.Button1);
+					continue;
 				}
-
-				// loading file content.
-				System.IO.FileStream fs = new System.IO.FileStream( outputPath ,System.IO.FileMode.Create);
-				byte[] buffer = new byte[Res.GetSize()];
-				Res.GetData(buffer);
-				Res.Close();	
-
-				// Write to file.
-				fs.Write(buffer, 0, buffer.Length);
-				fs.Close();
-				Progress.Value++;
+				Progress.Value = (int)i;
 			}
 			m_Unpack.Dispose();
 			Status.Text = Properties.Resources.Str_Finish;

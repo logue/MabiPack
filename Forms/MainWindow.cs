@@ -174,13 +174,13 @@ namespace MabiPacker
 			// Check input file exsists
 			if (!File.Exists(OpenPack.Text))
 			{
-				MessageBox.Show("File does not exsists.", Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				MessageBox.Show(Properties.Resources.Str_NotFound, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 				return;
 			}
 			// Check output directory exsists.
 			if (Directory.Exists(ExtractTo.Text+"\\data"))
 			{
-				DialogResult overwrite = MessageBox.Show("Directory is exisits, overwrite?", Properties.Resources.Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+				DialogResult overwrite = MessageBox.Show(Properties.Resources.Str_Overwrite, Properties.Resources.Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 				if (overwrite == DialogResult.No)
 				{
 					return;

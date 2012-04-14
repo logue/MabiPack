@@ -105,6 +105,15 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
+        ///   Copied to the clipboard. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_Copied {
+            get {
+                return ResourceManager.GetString("Str_Copied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The directory you entered does not exist.
         ///Please check data directory value. に類似しているローカライズされた文字列を検索します。
         /// </summary>
@@ -120,6 +129,15 @@ namespace MabiPacker.Properties {
         internal static string Str_Done {
             get {
                 return ResourceManager.GetString("Str_Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   An error has been occurred while processing following file : に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_Error {
+            get {
+                return ResourceManager.GetString("Str_Error", resourceCulture);
             }
         }
         
@@ -142,7 +160,16 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
-        ///   File is exists. Overwrite? に類似しているローカライズされた文字列を検索します。
+        ///   File does not exist. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Str_NotFound {
+            get {
+                return ResourceManager.GetString("Str_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   File or directory is exists. Overwrite? に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Str_Overwrite {
             get {

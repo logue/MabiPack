@@ -139,6 +139,12 @@
     <EmbeddedResource Include="Forms\WorkerWindow.resx">
       <DependentUpon>WorkerWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WorkerWindow.zh-CN.resx">
+      <DependentUpon>WorkerWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WorkerWindow.zh-TW.resx">
+      <DependentUpon>WorkerWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja.resx" />
     <EmbeddedResource Include="Properties\Resources.ko.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -166,7 +172,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="file.ico" />
     <Content Include="Resources\icon.ico" />
     <Content Include="MabinogiResource.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
