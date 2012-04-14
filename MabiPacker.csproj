@@ -28,8 +28,8 @@
     <ProductName>MabiPacker</ProductName>
     <PublisherName>Logue</PublisherName>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.1.0.1</ApplicationVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>1.1.0.3</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -101,6 +101,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\PackOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PackOption.Designer.cs">
+      <DependentUpon>PackOption.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WorkerWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\PackOption.resx">
+      <DependentUpon>PackOption.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainWindow.ja.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

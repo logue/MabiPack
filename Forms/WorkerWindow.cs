@@ -24,6 +24,8 @@ namespace MabiPacker
 		{
 			this.Name = Properties.Resources.Str_Pack;
 			Status.Text = Properties.Resources.Str_Initialize;
+			this.Update();
+
 			String internal_filename = "";
 			if (File.Exists(OutputFile))
 			{
@@ -44,10 +46,12 @@ namespace MabiPacker
 				internal_filename = path.Replace(InputDir+"\\", "");
 				m_Pack.AddFile(internal_filename, path);
 				Status.Text = internal_filename;
+				this.Update();
 			}
 
 			// Start packing
 			Status.Text = Properties.Resources.Str_Packing;
+			this.Update();
 			m_Pack.CreatePack(OutputFile);
 			m_Pack.Dispose();
 
@@ -58,6 +62,7 @@ namespace MabiPacker
 			this.Name = Properties.Resources.Str_Unpack;
 			Status.Text = Properties.Resources.Str_Initialize;
 			m_Unpack = PackResourceSet.CreateFromFile(InputFile);
+			this.Update();
 
 			uint packed_files = m_Unpack.GetFileCount();
 			Progress.Maximum = (int)packed_files;
@@ -78,34 +83,43 @@ namespace MabiPacker
 					String outputPath = @OutputDir + "\\data\\" + InternalName;
 
 					// Create directory
-					String DirPath = System.Text.RegularExpressions.Regex.Replace(outputPath, @"\\[\w|\.]+$", "");
+					String DirPath = System.Text.RegularExpressions.Regex.Replace(outputPath, @"([^\\]*?)$", "");
 					if (!Directory.Exists(DirPath))
 					{
 						Directory.CreateDirectory(DirPath);
 					}
-
+					
+					// Delete old
 					if (File.Exists(outputPath))
 					{
 						System.IO.File.Delete(@outputPath);
+					}
+					if (Directory.Exists(outputPath))
+					{
+						System.IO.Directory.Delete(@outputPath);
 					}
 					// Write to file.
 					System.IO.FileStream fs = new System.IO.FileStream(outputPath, System.IO.FileMode.Create);
 					fs.Write(buffer, 0, buffer.Length);
 					fs.Close();
+
 					// Modify File time
 					System.IO.File.SetCreationTime(outputPath, Res.GetCreated());
 					System.IO.File.SetLastAccessTime(outputPath, Res.GetAccessed());
 					System.IO.File.SetLastWriteTime(outputPath, Res.GetModified());
 				}catch(Exception e){
 					Console.WriteLine(e);
+					/*
 					MessageBox.Show(Properties.Resources.Str_Error + "\r\n" + InternalName,
 						Properties.Resources.Error,
 						MessageBoxButtons.OK,
 						MessageBoxIcon.Error,
 						MessageBoxDefaultButton.Button1);
+					 */
 					continue;
 				}
 				Progress.Value = (int)i;
+				this.Update();
 			}
 			m_Unpack.Dispose();
 			Status.Text = Properties.Resources.Str_Finish;

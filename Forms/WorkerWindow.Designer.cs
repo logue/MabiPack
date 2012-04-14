@@ -30,9 +30,9 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkerWindow));
 			this.Progress = new System.Windows.Forms.ProgressBar();
-			this.Status = new System.Windows.Forms.Label();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.tableLayoutPanel1.SuspendLayout();
+			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this.Status = new System.Windows.Forms.ToolStripStatusLabel();
+			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// Progress
@@ -41,23 +41,24 @@
 			this.Progress.Name = "Progress";
 			this.Progress.UseWaitCursor = true;
 			// 
+			// statusStrip1
+			// 
+			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Status});
+			resources.ApplyResources(this.statusStrip1, "statusStrip1");
+			this.statusStrip1.Name = "statusStrip1";
+			// 
 			// Status
 			// 
-			resources.ApplyResources(this.Status, "Status");
 			this.Status.Name = "Status";
-			// 
-			// tableLayoutPanel1
-			// 
-			resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-			this.tableLayoutPanel1.Controls.Add(this.Status, 0, 1);
-			this.tableLayoutPanel1.Controls.Add(this.Progress, 0, 0);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+			resources.ApplyResources(this.Status, "Status");
 			// 
 			// WorkerWindow
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.tableLayoutPanel1);
+			this.Controls.Add(this.statusStrip1);
+			this.Controls.Add(this.Progress);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
@@ -65,8 +66,8 @@
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-			this.tableLayoutPanel1.ResumeLayout(false);
-			this.tableLayoutPanel1.PerformLayout();
+			this.statusStrip1.ResumeLayout(false);
+			this.statusStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -75,7 +76,7 @@
 		#endregion
 
 		private System.Windows.Forms.ProgressBar Progress;
-		private System.Windows.Forms.Label Status;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.StatusStrip statusStrip1;
+		private System.Windows.Forms.ToolStripStatusLabel Status;
 	}
 }
