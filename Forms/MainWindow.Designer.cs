@@ -115,7 +115,6 @@
 			// dSaveAs
 			// 
 			this.dSaveAs.DefaultExt = "*.pack";
-			resources.ApplyResources(this.dSaveAs, "dSaveAs");
 			this.dSaveAs.InitialDirectory = "C:\\Nexon\\Mabinogi\\Package";
 			this.dSaveAs.RestoreDirectory = true;
 			// 

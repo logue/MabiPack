@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MabinogiResource;
 using System.Reflection;
 
 namespace MabiPacker
@@ -19,8 +18,11 @@ namespace MabiPacker
 		
 		public MainWindow()
 		{
-			DetectMabinogi();
 			InitializeComponent();
+			Utility c = new Utility();
+			c.GetMabiEnv();
+			this.MabiDir = c.MabiDir;
+			this.MabiVer = c.MabiVer;
 
 			this.Text = AssemblyProduct + String.Format(" v.{0}", AssemblyVersion);
 
@@ -29,15 +31,17 @@ namespace MabiPacker
 				this.MabiDir + "\\Package";
 #region Init Pack Tab
 			SaveAs.Text = PackageDir;
+			dSaveAs.Filter = Properties.Resources.PackFileFilter;
 			dSaveAs.InitialDirectory = this.MabiDir + "\\Package";
 			InputDir.Text = Properties.Settings.Default.LastDataDir;
-			PackageVersion.Minimum = MabiVer;
+			PackageVersion.Minimum = this.MabiVer;
 			PackageVersion.Value = (PackageVersion.Value > MabiVer) ? Properties.Settings.Default.LastPackVer : MabiVer;
 			Level.SelectedIndex = Properties.Settings.Default.CompressLevel;
 #endregion
 #region Init Unpack Tab
 			OpenPack.Text = this.MabiDir + "\\Package";
 			dOpenPack.InitialDirectory = this.MabiDir + "\\Package";
+			dOpenPack.Filter = Properties.Resources.PackFileFilter;
 			string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 			ExtractTo.Text = path;
 			dExtractTo.SelectedPath = path;
@@ -48,31 +52,6 @@ namespace MabiPacker
 			labelCopyright.Text = AssemblyCopyright;
 			labelDescription.Text = AssemblyDescription;
 #endregion
-		}
-		private void DetectMabinogi() {
-			// Get Mabinogi Directory from Registory
-			Microsoft.Win32.RegistryKey regkey =
-				Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Nexon\Mabinogi", false);
-			if (regkey == null){
-				regkey =
-					Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Nexon\Mabinogi_test", false);
-				if (regkey == null){
-					Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Nexon\Mabinogi_hangame", false);
-					if (regkey == null) this.MabiDir = "";
-				} 
-			}
-			this.MabiDir = (string) regkey.GetValue("");	// Returns Mabinogi Directory
-			regkey.Close();
-
-			// Get Client Version from version.dat
-			string version_dat = this.MabiDir + "\\version.dat";
-			if (File.Exists(version_dat))
-			{
-				byte[] data = File.ReadAllBytes(version_dat);
-				this.MabiVer = BitConverter.ToInt32(data,0);
-			}else{
-				this.MabiVer = 0;
-			}
 		}
 		private void FinishProcess(){
 			Properties.Settings.Default.LastDataDir = InputDir.Text;
@@ -198,7 +177,7 @@ namespace MabiPacker
 			{
 				WorkerWindow w = new WorkerWindow();
 				w.Show();
-				w.Unpack(OpenPack.Text, ExtractTo.Text, false);
+				w.Unpack(OpenPack.Text, ExtractTo.Text);
 				w.Dispose();
 				FinishProcess();
 			}

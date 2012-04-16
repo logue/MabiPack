@@ -22,7 +22,7 @@ namespace MabiPacker.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MabiPacker.Properties {
         ///   このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MabiPacker.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace MabiPacker.Properties {
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   Confirm に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Confirm {
+        public static string Confirm {
             get {
                 return ResourceManager.GetString("Confirm", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   Error に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Error {
+        public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
             }
@@ -81,13 +81,13 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   Infomation に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Info {
+        public static string Info {
             get {
                 return ResourceManager.GetString("Info", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap logo {
+        public static System.Drawing.Bitmap logo {
             get {
                 object obj = ResourceManager.GetObject("logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -95,10 +95,19 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
+        ///   Mabinogi Package File (*.pack)| に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PackFileFilter {
+            get {
+                return ResourceManager.GetString("PackFileFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Work will be started.
         ///Are you sure? に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_Confirm {
+        public static string Str_Confirm {
             get {
                 return ResourceManager.GetString("Str_Confirm", resourceCulture);
             }
@@ -107,7 +116,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   Copied to the clipboard. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_Copied {
+        public static string Str_Copied {
             get {
                 return ResourceManager.GetString("Str_Copied", resourceCulture);
             }
@@ -117,7 +126,7 @@ namespace MabiPacker.Properties {
         ///   The directory you entered does not exist.
         ///Please check data directory value. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_DataDirNotExists {
+        public static string Str_DataDirNotExists {
             get {
                 return ResourceManager.GetString("Str_DataDirNotExists", resourceCulture);
             }
@@ -126,7 +135,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   Work is done. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_Done {
+        public static string Str_Done {
             get {
                 return ResourceManager.GetString("Str_Done", resourceCulture);
             }
@@ -135,7 +144,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   An error has been occurred while processing following file : に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_Error {
+        public static string Str_Error {
             get {
                 return ResourceManager.GetString("Str_Error", resourceCulture);
             }
@@ -144,7 +153,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   Finish. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_Finish {
+        public static string Str_Finish {
             get {
                 return ResourceManager.GetString("Str_Finish", resourceCulture);
             }
@@ -153,7 +162,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   Initializing... に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_Initialize {
+        public static string Str_Initialize {
             get {
                 return ResourceManager.GetString("Str_Initialize", resourceCulture);
             }
@@ -162,7 +171,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   File does not exist. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_NotFound {
+        public static string Str_NotFound {
             get {
                 return ResourceManager.GetString("Str_NotFound", resourceCulture);
             }
@@ -171,7 +180,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   File or directory is exists. Overwrite? に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_Overwrite {
+        public static string Str_Overwrite {
             get {
                 return ResourceManager.GetString("Str_Overwrite", resourceCulture);
             }
@@ -180,7 +189,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   Pack に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_Pack {
+        public static string Str_Pack {
             get {
                 return ResourceManager.GetString("Str_Pack", resourceCulture);
             }
@@ -189,7 +198,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   Now Packing... Please take for few minutes. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_Packing {
+        public static string Str_Packing {
             get {
                 return ResourceManager.GetString("Str_Packing", resourceCulture);
             }
@@ -198,7 +207,7 @@ namespace MabiPacker.Properties {
         /// <summary>
         ///   Unpack に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Str_Unpack {
+        public static string Str_Unpack {
             get {
                 return ResourceManager.GetString("Str_Unpack", resourceCulture);
             }

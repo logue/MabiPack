@@ -9,7 +9,9 @@ using System.Text;
 using System.Windows.Forms;
 using MabinogiResource;
 using System.Text.RegularExpressions;
-
+using System.Collections;
+using System.Net;
+using System.Reflection;
 namespace MabiPacker
 {
 	public partial class WorkerWindow : Form
@@ -57,7 +59,7 @@ namespace MabiPacker
 
 			Status.Text = Properties.Resources.Str_Finish;
 		}
-		public void Unpack(string InputFile, string OutputDir, bool isCUI)
+		public void Unpack(string InputFile, string OutputDir)
 		{
 			this.Name = Properties.Resources.Str_Unpack;
 			Status.Text = Properties.Resources.Str_Initialize;
@@ -123,6 +125,46 @@ namespace MabiPacker
 			}
 			m_Unpack.Dispose();
 			Status.Text = Properties.Resources.Str_Finish;
+			this.Update();
+		}
+		public Hashtable GetPatchTxt(string url)
+		{
+			Hashtable ret = new Hashtable();
+			Status.Text = Properties.Resources.Str_Initialize;
+			Progress.Maximum = 3;
+			Progress.Value = 0;
+			this.Update();
+	
+			Status.Text = "Connecting to patch server...";
+			Progress.Value = 1;
+			WebRequest req = WebRequest.Create(url);
+			WebResponse rsp = req.GetResponse();
+			Stream stm = rsp.GetResponseStream();
+			if (stm != null)
+			{
+				Regex r = new Regex("(?.+)=(?.+)$");
+				StreamReader reader = new StreamReader(stm, System.Text.Encoding.GetEncoding("UTF-8"));
+				string stResult = string.Empty;
+				Status.Text = "Parsing to patch.txt...";
+				Progress.Value = 2;
+				this.Update();
+
+				while (reader.Peek() >= 0)
+				{
+					MatchCollection mc = r.Matches(reader.ReadLine());
+					foreach (Match m in mc)
+					{
+						ret[m.Groups[1].Value] = m.Groups[2].Value;
+					}
+				}
+				reader.Close();
+				stm.Close();
+			}
+			Progress.Value = 3;
+			Status.Text = Properties.Resources.Str_Finish;
+			this.Update();
+			rsp.Close();
+			return ret;
 		}
 	}
 }
