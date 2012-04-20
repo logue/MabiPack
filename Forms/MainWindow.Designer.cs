@@ -258,6 +258,7 @@
 			resources.ApplyResources(this.bContent, "bContent");
 			this.bContent.Name = "bContent";
 			this.bContent.UseVisualStyleBackColor = true;
+			this.bContent.Click += new System.EventHandler(this.bContent_Click);
 			// 
 			// bExtractTo
 			// 

@@ -33,7 +33,6 @@ namespace MabiPacker
 					// Unpack
 					FolderBrowserDialog ExtractTo = new FolderBrowserDialog();
 					ExtractTo.Description = "Select the directory where the extracted.";
-					ExtractTo.RootFolder = System.Environment.SpecialFolder.Personal;
 					if (ExtractTo.ShowDialog() == DialogResult.OK)
 					{
 						WorkerWindow w = new WorkerWindow();

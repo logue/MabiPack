@@ -505,7 +505,7 @@
     <value>9 - Best Compression</value>
   </data>
   <data name="Level.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 35</value>
+    <value>122, 36</value>
   </data>
   <data name="Level.Size" type="System.Drawing.Size, System.Drawing">
     <value>130, 23</value>

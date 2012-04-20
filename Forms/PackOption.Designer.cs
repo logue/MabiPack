@@ -44,9 +44,9 @@
 			this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.label1.AutoSize = true;
 			this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.label1.Location = new System.Drawing.Point(3, 32);
+			this.label1.Location = new System.Drawing.Point(3, 40);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(108, 12);
+			this.label1.Size = new System.Drawing.Size(113, 15);
 			this.label1.TabIndex = 19;
 			this.label1.Text = "Compression &Level :";
 			// 
@@ -55,9 +55,9 @@
 			this.lVersion.Anchor = System.Windows.Forms.AnchorStyles.Left;
 			this.lVersion.AutoSize = true;
 			this.lVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.lVersion.Location = new System.Drawing.Point(3, 6);
+			this.lVersion.Location = new System.Drawing.Point(3, 8);
 			this.lVersion.Name = "lVersion";
-			this.lVersion.Size = new System.Drawing.Size(50, 12);
+			this.lVersion.Size = new System.Drawing.Size(52, 15);
 			this.lVersion.TabIndex = 16;
 			this.lVersion.Text = "&Version :";
 			// 
@@ -72,11 +72,12 @@
 			this.tableLayoutPanel1.Controls.Add(this.lVersion, 0, 0);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 2;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(250, 52);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(292, 65);
 			this.tableLayoutPanel1.TabIndex = 20;
 			// 
 			// Level
@@ -95,22 +96,24 @@
             "7",
             "8",
             "9 - Best Compression"});
-			this.Level.Location = new System.Drawing.Point(117, 28);
+			this.Level.Location = new System.Drawing.Point(122, 35);
+			this.Level.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.Level.Name = "Level";
-			this.Level.Size = new System.Drawing.Size(130, 20);
+			this.Level.Size = new System.Drawing.Size(167, 23);
 			this.Level.TabIndex = 2;
 			// 
 			// PackageVersion
 			// 
 			this.PackageVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.PackageVersion.Location = new System.Drawing.Point(117, 3);
+			this.PackageVersion.Location = new System.Drawing.Point(122, 4);
+			this.PackageVersion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.PackageVersion.Maximum = new decimal(new int[] {
             999999999,
             0,
             0,
             0});
 			this.PackageVersion.Name = "PackageVersion";
-			this.PackageVersion.Size = new System.Drawing.Size(130, 19);
+			this.PackageVersion.Size = new System.Drawing.Size(167, 23);
 			this.PackageVersion.TabIndex = 1;
 			this.PackageVersion.Value = new decimal(new int[] {
             1000,
@@ -120,9 +123,10 @@
 			// 
 			// bOK
 			// 
-			this.bOK.Location = new System.Drawing.Point(82, 57);
+			this.bOK.Location = new System.Drawing.Point(100, 73);
+			this.bOK.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.bOK.Name = "bOK";
-			this.bOK.Size = new System.Drawing.Size(75, 23);
+			this.bOK.Size = new System.Drawing.Size(87, 29);
 			this.bOK.TabIndex = 3;
 			this.bOK.Text = "OK";
 			this.bOK.UseVisualStyleBackColor = true;
@@ -130,9 +134,10 @@
 			// bCancel
 			// 
 			this.bCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.bCancel.Location = new System.Drawing.Point(163, 57);
+			this.bCancel.Location = new System.Drawing.Point(193, 73);
+			this.bCancel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.bCancel.Name = "bCancel";
-			this.bCancel.Size = new System.Drawing.Size(75, 23);
+			this.bCancel.Size = new System.Drawing.Size(87, 29);
 			this.bCancel.TabIndex = 4;
 			this.bCancel.Text = "Cancel";
 			this.bCancel.UseVisualStyleBackColor = true;
@@ -140,15 +145,17 @@
 			// PackOption
 			// 
 			this.AcceptButton = this.bOK;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.bCancel;
-			this.ClientSize = new System.Drawing.Size(250, 92);
+			this.ClientSize = new System.Drawing.Size(292, 115);
 			this.ControlBox = false;
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Controls.Add(this.bCancel);
 			this.Controls.Add(this.bOK);
+			this.Font = new System.Drawing.Font("Segoe UI", 9F);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "PackOption";

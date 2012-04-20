@@ -145,7 +145,16 @@ namespace MabiPacker
 		{
 			if (File.Exists(OpenPack.Text))
 			{
+				bContent.Enabled = true;
+			}else{
+				bContent.Enabled = false;
 			}
+		}
+
+		private void bContent_Click(object sender, EventArgs e)
+		{
+			PackBrowser b = new PackBrowser(OpenPack.Text);
+			b.Show();
 		}
 
 		private void bUnpack_Click(object sender, EventArgs e)

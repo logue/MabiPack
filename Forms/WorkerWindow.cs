@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Collections;
 using System.Net;
 using System.Reflection;
+
 namespace MabiPacker
 {
 	public partial class WorkerWindow : Form
@@ -22,6 +23,7 @@ namespace MabiPacker
 		{
 			InitializeComponent();
 		}
+
 		public void Pack(string InputDir, string OutputFile, uint OutputVer, int Level)
 		{
 			this.Name = Properties.Resources.Str_Pack;
