@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MabinogiResource;
-using Microsoft.Xna.Framework.Graphics;
 using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
+using Tao.DevIl;
 
 namespace MabiPacker
 {
@@ -67,7 +67,7 @@ namespace MabiPacker
 
 		private void m_Tree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
 		{
-			PreviewById((uint)e.Node.Tag);
+			if (e.Node.Tag != null) PreviewById((uint)e.Node.Tag);
 		}
 		/***********************************************************************************************/
 		private void InsertFileNode(uint id)
@@ -101,11 +101,17 @@ namespace MabiPacker
 								case ".psd" :
 								case ".bmp" :
 								case ".dds" :
+								case ".gif":
+								case ".png":
 									node = node.Nodes.Add(paths[i], paths[i], 4, 4);
 									break;
 								case ".ttf" :
 								case ".ttc":
 									node = node.Nodes.Add(paths[i], paths[i], 5, 5);
+									break;
+								case ".wav":
+								case ".mp3":
+									node = node.Nodes.Add(paths[i], paths[i], 6, 6);
 									break;
 								
 							}
@@ -155,11 +161,13 @@ namespace MabiPacker
 		}
 		private void PreviewById(uint id){
 			PackResource Res = m_Pack.GetFileByIndex(id);
+			Status.Text = "Now loading data for preview...";
+			this.Update();
 			if (Res != null)
 			{
-				PicturePanel.Visible = false;
-				TextView.Visible = false;
+				PicturePanel.Hide();
 				TextView.Clear();
+				TextView.Hide();
 
 				String InternalName = Res.GetName();
 				string Ext = System.IO.Path.GetExtension(@InternalName);
@@ -173,103 +181,141 @@ namespace MabiPacker
 
 				switch (Ext)
 				{
-					/*
 					case ".dds":
+					case ".psd":
 					case ".raw":
-						PictureView.Image = DDStoBMP(ms);
-						PicturePanel.Visible = true;
+						Bitmap bmp = DDSDataToBMP(buffer);
+						PictureView.Image = bmp;
+						PictureView.Update();
+						Status.Text = String.Format("Image file. {0} x {1}", PictureView.Width, PictureView.Height);
+						PicturePanel.Show();
 					break;
-					*/
+					
 					case ".jpg":
 					case ".gif":
 					case ".bmp":
 						// http://stackoverflow.com/questions/2868739/listof-byte-to-picturebox
-						
 						PictureView.Image = Image.FromStream(ms);
-						PicturePanel.Visible = true;
+						PictureView.Update();
+						Status.Text = String.Format("Image file. {0} x {1}", PictureView.Width, PictureView.Height);
+						PicturePanel.Show();
 						break;
 					
 					case ".xml":
 					case ".html":
 					case ".txt":
-						TextView.Text = Encoding.Unicode.GetString(buffer);
-						TextView.Visible = true;
-						syntaxHighlight();
-						
+						string text = Encoding.Unicode.GetString(buffer);
+						TextView.Text = text;
+						TextView.Update();
+						TextView.Show();
+						Status.Text = String.Format("ASCII file. {0} x {1}", PictureView.Width, PictureView.Height);
 						break;
 					case ".wav":
 					case ".mp3":
 						// http://msdn.microsoft.com/en-us/library/ms143770%28v=VS.100%29.aspx 
-						System.Media.SoundPlayer myPlayer = new System.Media.SoundPlayer(ms);
-						myPlayer.Play();
+						WavePlayer wave = new WavePlayer(buffer);
+						Status.Text = "Playing sound file.";
+						wave.Play();
+					break;
+					default:
+					Status.Text = "Not supported format.";
 					break;
 				}
+				ms.Dispose();
 			}
+			this.Update();
 		}
-		public Bitmap DDStoBMP(MemoryStream ms)
+		/// <summary>
+		/// Converts an in-memory image in DDS format to a System.Drawing.Bitmap
+		/// object for easy display in Windows forms.
+		/// </summary>
+		/// <param name="DDSData">Byte array containing DDS image data</param>
+		/// <returns>A Bitmap object that can be displayed</returns>
+		public static Bitmap DDSDataToBMP(byte[] DDSData)
 		{
-			// http://pr0jectze10.blogspot.jp/2011/06/xna40.html
-			int stride = 4;	// iピクセル辺りの色情報を表すデータの数（RGBAなので4つ）
-			Bitmap image = (Bitmap)Image.FromStream(ms);
-			// 画像をロックする領域  
-			Rectangle lock_rect = new Rectangle { X = 0, Y = 0, Width = image.Width, Height = image.Height };
+			// Create a DevIL image "name" (which is actually a number)
+			int img_name;
+			Il.ilGenImages(1, out img_name);
+			Il.ilBindImage(img_name);
 
-			// ロックする  
-			// Rectangle rect ロック領域  
-			// ImageLockMode flags ロック方法 今回は読み取るだけなのでReadOnlyを指定する  
-			// PixelFormat format 画像のデータ形式 RGBAデータがほしいのでPixelFormat.Format32bppPArgbを指定する  
-			BitmapData bitmap_data = image.LockBits(
-				lock_rect,
-				ImageLockMode.ReadOnly,
-				PixelFormat.Format32bppPArgb
-			);
+			// Load the DDS file into the bound DevIL image
+			Il.ilLoadL(Il.IL_DDS, DDSData, DDSData.Length);
 
-			byte[] buf = new byte[stride];
+			// Set a few size variables that will simplify later code
 
-			// 色情報取得  
-			for (int y = 0; y < image.Height; y++)
+			int ImgWidth = Il.ilGetInteger(Il.IL_IMAGE_WIDTH);
+			int ImgHeight = Il.ilGetInteger(Il.IL_IMAGE_HEIGHT);
+			Rectangle rect = new Rectangle(0, 0, ImgWidth, ImgHeight);
+
+			// Convert the DevIL image to a pixel byte array to copy into Bitmap
+			Il.ilConvertImage(Il.IL_BGRA, Il.IL_UNSIGNED_BYTE);
+
+			// Create a Bitmap to copy the image into, and prepare it to get data
+			Bitmap bmp = new Bitmap(ImgWidth, ImgHeight);
+			BitmapData bmd =
+			  bmp.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+
+			// Copy the pixel byte array from the DevIL image to the Bitmap
+			Il.ilCopyPixels(0, 0, 0,
+			  Il.ilGetInteger(Il.IL_IMAGE_WIDTH),
+			  Il.ilGetInteger(Il.IL_IMAGE_HEIGHT),
+			  1, Il.IL_BGRA, Il.IL_UNSIGNED_BYTE,
+			  bmd.Scan0);
+
+			// Clean up and return Bitmap
+			Il.ilDeleteImages(1, ref img_name);
+			bmp.UnlockBits(bmd);
+			return bmp;
+		}
+		/// <summary>
+		/// Playing sound via winmm.dll
+		/// </summary>
+		/// <param name="buffer">Byte array containing wave data</param>
+		// http://dobon.net/vb/dotnet/programing/playembeddedwave.html
+		public class WavePlayer
+		{
+			public enum PlaySoundFlags : int
 			{
-				for (int x = 0; x < image.Width; x++)
-				{
-					int pixel_target = x * stride + bitmap_data.Stride * y;
-					int array_index = (y * image.Width + x) * stride;
+				SND_SYNC = 0x0000,
+				SND_ASYNC = 0x0001,
+				SND_NODEFAULT = 0x0002,
+				SND_MEMORY = 0x0004,
+				SND_LOOP = 0x0008,
+				SND_NOSTOP = 0x0010,
+				SND_NOWAIT = 0x00002000,
+				SND_ALIAS = 0x00010000,
+				SND_ALIAS_ID = 0x00110000,
+				SND_FILENAME = 0x00020000,
+				SND_RESOURCE = 0x00040004,
+				SND_PURGE = 0x0040,
+				SND_APPLICATION = 0x0080
+			}
+			[System.Runtime.InteropServices.DllImport("winmm.dll")]
+			private static extern bool PlaySound(
+				IntPtr pszSound, IntPtr hmod, PlaySoundFlags fdwSound);
 
-					// ロックしたポインタから色情報を取得（BGRAの順番で格納されてる）  
-					for (int i = 0; i < stride; i++)
-						buf[array_index + i] =
-							System.Runtime.InteropServices.Marshal.ReadByte(
-							bitmap_data.Scan0,
-							pixel_target + stride - ((1 + i) % stride) - 1);
-				}
+			private System.Runtime.InteropServices.GCHandle gcHandle;
+			private byte[] waveBuffer = null;
+
+			public WavePlayer(byte[] buffer)
+			{
+				this.waveBuffer = buffer;
+				this.gcHandle = System.Runtime.InteropServices.GCHandle.Alloc(
+					buffer, System.Runtime.InteropServices.GCHandleType.Pinned);
+			}
+			public void Play(){
+				// Play wave asyncrous
+				PlaySound(this.gcHandle.AddrOfPinnedObject(), IntPtr.Zero,
+					PlaySoundFlags.SND_MEMORY | PlaySoundFlags.SND_ASYNC);
 			}
 
-			// ロックしたらアンロックを忘れずに！
-			image.UnlockBits(bitmap_data);
+			public void Stop(){
+				// Stop Wave
+				PlaySound(IntPtr.Zero, IntPtr.Zero, PlaySoundFlags.SND_PURGE);
 
-			return image;
-		}
-		private void syntaxHighlight()
-		{
-			Font f = new Font("Courier new", 10, FontStyle.Regular);
-			Regex r = new Regex("</*(.+?)[ >]");
-			regexHighLight(r, f, Color.Purple, 1);
-		}
-
-		private void regexHighLight(Regex r, Font font, Color color, int target)
-		{
-			Regex s = new Regex("\n");
-			string[] lines = s.Split(TextView.Text);
-			int i = 0;
-			foreach (string line in lines)
-			{
-				MatchCollection col = r.Matches(line);
-				foreach (Match m in col)
-				{
-					TextView.Select(TextView.GetFirstCharIndexFromLine(i) + m.Groups[target].Index, m.Groups[target].Length);
-					TextView.SelectionColor = color;
-					TextView.SelectionFont = font;
-				}
-				i++;
+				// free
+				this.gcHandle.Free();
+				this.waveBuffer = null;
 			}
 		}
 	}

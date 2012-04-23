@@ -34,8 +34,8 @@
 			this.IconList = new System.Windows.Forms.ImageList(this.components);
 			this.SplitContainer = new System.Windows.Forms.SplitContainer();
 			this.PicturePanel = new System.Windows.Forms.Panel();
-			this.TextView = new System.Windows.Forms.RichTextBox();
 			this.PictureView = new System.Windows.Forms.PictureBox();
+			this.TextView = new System.Windows.Forms.RichTextBox();
 			this.Layout = new System.Windows.Forms.TableLayoutPanel();
 			this.StatusBar = new System.Windows.Forms.StatusStrip();
 			this.Progress = new System.Windows.Forms.ToolStripProgressBar();
@@ -75,6 +75,7 @@
 			this.IconList.Images.SetKeyName(3, "xml.png");
 			this.IconList.Images.SetKeyName(4, "image.png");
 			this.IconList.Images.SetKeyName(5, "ttf.png");
+			this.IconList.Images.SetKeyName(6, "sound.png");
 			// 
 			// SplitContainer
 			// 
@@ -89,6 +90,7 @@
 			// SplitContainer.Panel2
 			// 
 			this.SplitContainer.Panel2.Controls.Add(this.PicturePanel);
+			this.SplitContainer.Panel2.Controls.Add(this.TextView);
 			this.SplitContainer.Size = new System.Drawing.Size(778, 508);
 			this.SplitContainer.SplitterDistance = 295;
 			this.SplitContainer.TabIndex = 1;
@@ -97,25 +99,14 @@
 			// 
 			this.PicturePanel.AutoScroll = true;
 			this.PicturePanel.BackColor = System.Drawing.SystemColors.ControlDark;
-			this.PicturePanel.Controls.Add(this.TextView);
+			this.PicturePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.PicturePanel.Controls.Add(this.PictureView);
 			this.PicturePanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.PicturePanel.Location = new System.Drawing.Point(0, 0);
 			this.PicturePanel.Name = "PicturePanel";
 			this.PicturePanel.Size = new System.Drawing.Size(479, 508);
-			this.PicturePanel.TabIndex = 3;
+			this.PicturePanel.TabIndex = 4;
 			this.PicturePanel.Visible = false;
-			// 
-			// TextView
-			// 
-			this.TextView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TextView.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.TextView.Location = new System.Drawing.Point(0, 0);
-			this.TextView.Name = "TextView";
-			this.TextView.Size = new System.Drawing.Size(479, 508);
-			this.TextView.TabIndex = 4;
-			this.TextView.Text = "";
-			this.TextView.Visible = false;
 			// 
 			// PictureView
 			// 
@@ -128,6 +119,18 @@
 			this.PictureView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.PictureView.TabIndex = 1;
 			this.PictureView.TabStop = false;
+			// 
+			// TextView
+			// 
+			this.TextView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.TextView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TextView.Font = new System.Drawing.Font("Courier New", 9F);
+			this.TextView.Location = new System.Drawing.Point(0, 0);
+			this.TextView.Name = "TextView";
+			this.TextView.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+			this.TextView.Size = new System.Drawing.Size(479, 508);
+			this.TextView.TabIndex = 5;
+			this.TextView.Text = "Sample";
 			// 
 			// Layout
 			// 
@@ -227,10 +230,10 @@
 		private System.Windows.Forms.StatusStrip StatusBar;
 		private System.Windows.Forms.ToolStripProgressBar Progress;
 		private System.Windows.Forms.ToolStripStatusLabel Status;
+		private System.Windows.Forms.ImageList IconList;
+		private System.Windows.Forms.RichTextBox TextView;
 		private System.Windows.Forms.Panel PicturePanel;
 		private System.Windows.Forms.PictureBox PictureView;
-		private System.Windows.Forms.RichTextBox TextView;
-		private System.Windows.Forms.ImageList IconList;
 		
     }
 }

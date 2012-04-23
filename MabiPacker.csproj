@@ -82,11 +82,10 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MabinogiResource.net, Version=1.0.4480.23614, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="MabinogiResource.net, Version=1.0.4487.24416, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\MabinogiResource.net.dll</HintPath>
+      <HintPath>DLLs\MabinogiResource.net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -100,6 +99,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tao.DevIl, Version=1.6.8.3, Culture=neutral, PublicKeyToken=7ec4053013524957, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLLs\Tao.DevIl.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Forms\PackBrowser.cs">
@@ -192,6 +195,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DLLs\DevIL.dll" />
+    <Content Include="DLLs\MabinogiResource.dll" />
+    <Content Include="DLLs\MabinogiResource.net.dll" />
+    <Content Include="DLLs\Tao.DevIl.dll" />
     <Content Include="Resources\bg.png" />
     <Content Include="Resources\binary.png" />
     <Content Include="Resources\export.png" />
