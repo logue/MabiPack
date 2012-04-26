@@ -13,38 +13,46 @@ namespace MabiPacker
 {
 	public partial class MainWindow : Form
 	{
-		private String MabiDir;
+		private String PackageDir;
 		private int MabiVer;
+        private String filter;
+        private Utility.MabinogiEnv ue;
 		
 		public MainWindow()
 		{
 			InitializeComponent();
-			Utility c = new Utility();
-			c.GetMabiEnv();
-			this.MabiDir = c.MabiDir;
-			this.MabiVer = c.MabiVer;
+            this.ue = new Utility.MabinogiEnv();
+
+			ue.GetMabiEnv();
+			this.PackageDir = ue.MabiDir + "\\Package";
+			this.MabiVer = ue.MabiVer;
 
 			this.Text = AssemblyProduct + String.Format(" v.{0}", AssemblyVersion);
+            this.filter = Properties.Resources.PackFileDesc + "(*.pack)|";
 
 			String PackageDir = (Properties.Settings.Default.LastPackFile != "") ? 
 				Properties.Settings.Default.LastPackFile : 
-				this.MabiDir + "\\Package";
+				this.PackageDir;
 #region Init Pack Tab
 			SaveAs.Text = PackageDir;
-			dSaveAs.Filter = Properties.Resources.PackFileFilter;
-			dSaveAs.InitialDirectory = this.MabiDir + "\\Package";
+			dSaveAs.Filter = this.filter;
+			dSaveAs.InitialDirectory = this.PackageDir;
 			InputDir.Text = Properties.Settings.Default.LastDataDir;
+
 			PackageVersion.Minimum = this.MabiVer;
 			PackageVersion.Value = (PackageVersion.Value > MabiVer) ? Properties.Settings.Default.LastPackVer : MabiVer;
 			Level.SelectedIndex = Properties.Settings.Default.CompressLevel;
 #endregion
 #region Init Unpack Tab
-			OpenPack.Text = this.MabiDir + "\\Package";
-			dOpenPack.InitialDirectory = this.MabiDir + "\\Package";
-			dOpenPack.Filter = Properties.Resources.PackFileFilter;
+			OpenPack.Text = this.PackageDir;
+			dOpenPack.InitialDirectory = this.PackageDir;
+            dOpenPack.Filter = this.filter;
+
 			string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 			ExtractTo.Text = path;
 			dExtractTo.SelectedPath = path;
+
+            
 #endregion
 #region Init About Tab
 			labelProductName.Text = AssemblyProduct;

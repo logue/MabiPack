@@ -20,7 +20,7 @@
       </requestedPrivileges>
       <applicationRequestMinimum>
         <defaultAssemblyRequest permissionSetReference="Custom" />
-        <PermissionSet class="System.Security.PermissionSet" version="1" ID="Custom" SameSite="site" />
+        <PermissionSet class="System.Security.PermissionSet" version="1" ID="Custom" SameSite="none" Unrestricted="true" />
       </applicationRequestMinimum>
     </security>
   </trustInfo>
@@ -32,7 +32,8 @@
     </application>
   </compatibility>
   <!-- Windows のコモン コントロールとダイアログのテーマを有効にします (Windows XP 以降) -->
-  <!-- <dependency>
+  <!--
+  <dependency>
     <dependentAssembly>
       <assemblyIdentity
           type="win32"
@@ -43,5 +44,6 @@
           language="*"
         />
     </dependentAssembly>
-  </dependency>-->
+  </dependency>
+  -->
 </asmv1:assembly>

@@ -25,28 +25,19 @@ namespace MabiPacker
 			else
 			{
 #region Drag & Drop Mode
-				Utility u = new Utility();
+				Utility.MabinogiEnv u = new Utility.MabinogiEnv();
 				u.GetMabiEnv();
 				string Query = String.Join(" ", args);
 				if (File.Exists(Query) && System.IO.Path.GetExtension(@Query) == ".pack")
 				{
-					// Unpack
-					FolderBrowserDialog ExtractTo = new FolderBrowserDialog();
-					ExtractTo.Description = "Select the directory where the extracted.";
-					if (ExtractTo.ShowDialog() == DialogResult.OK)
-					{
-						WorkerWindow w = new WorkerWindow();
-						w.Show();
-						w.Unpack(Query, ExtractTo.SelectedPath);
-						w.Dispose();
-					}
+                    Application.Run(new PackBrowser(Query));
 				}
 				else if (Directory.Exists(Query))
 				{
 					// Pack
 					SaveFileDialog dSaveAs = new SaveFileDialog();
 					dSaveAs.DefaultExt = "*.pack";
-					dSaveAs.Filter = Properties.Resources.PackFileFilter;
+					dSaveAs.Filter = Properties.Resources.PackFileDesc+"|(*pack)";
 					dSaveAs.InitialDirectory = u.MabiDir + "\\package\\";
 
 					if (dSaveAs.ShowDialog() == DialogResult.OK)
@@ -95,7 +86,7 @@ namespace MabiPacker
 				if (File.Exists(result["/input"]))
 				{
 					// Unpack mode
-					Utility u = new Utility();
+                    Utility.MabinogiEnv u = new Utility.MabinogiEnv();
 					u.GetMabiEnv();
 					if (result.ContainsKey("/output") == false)
 						result["/output"] = u.MabiDir;

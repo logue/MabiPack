@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2130B851-1BFF-4E41-8C96-D07A66FAD117}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MabiPacker</RootNamespace>
     <AssemblyName>MabiPacker</AssemblyName>
@@ -24,12 +24,14 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <SupportUrl>https://github.com/logue/MabiPack/issues</SupportUrl>
+    <SupportUrl>http://forum.logue.be/index.php%3ftopic=679.0</SupportUrl>
+    <ErrorReportUrl>https://github.com/logue/MabiPack/issues</ErrorReportUrl>
     <ProductName>MabiPacker</ProductName>
     <PublisherName>Logue</PublisherName>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.2.1.0</ApplicationVersion>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.2.1.2</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -60,13 +62,13 @@
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>1052E2E8A982B160F84F89D8D3C8FDC9738F10CE</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>8CBEC24E623A138874AD93170DF5B199C4E1E22A</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>MabiPacker_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -81,10 +83,17 @@
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MabinogiResource.net, Version=1.0.4487.24416, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLLs\MabinogiResource.net.dll</HintPath>
+      <HintPath>.\MabinogiResource.net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -101,7 +110,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Tao.DevIl, Version=1.6.8.3, Culture=neutral, PublicKeyToken=7ec4053013524957, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLLs\Tao.DevIl.dll</HintPath>
+      <HintPath>.\Tao.DevIl.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -195,30 +204,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DLLs\DevIL.dll" />
-    <Content Include="DLLs\MabinogiResource.dll" />
-    <Content Include="DLLs\MabinogiResource.net.dll" />
-    <Content Include="DLLs\Tao.DevIl.dll" />
-    <Content Include="Resources\bg.png" />
-    <Content Include="Resources\binary.png" />
-    <Content Include="Resources\export.png" />
+    <Content Include="MabinogiResource.dll" />
+    <Content Include="MabinogiResource.net.dll" />
+    <Content Include="DevIL.dll" />
     <Content Include="Resources\file.ico" />
-    <Content Include="Resources\folder.png" />
-    <Content Include="Resources\folder_open.png" />
     <Content Include="Resources\icon.ico" />
-    <Content Include="MabinogiResource.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\image.png" />
-    <Content Include="Resources\ttf.png" />
-    <Content Include="Resources\txt.png" />
-    <Content Include="Resources\xml.png" />
-    <None Include="Resources\logo.png" />
+    <Content Include="Tao.DevIl.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 および x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -242,20 +238,43 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="stdole">
-      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
+    <PublishFile Include="MabinogiResource.net.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Tao.DevIl.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>False</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <FileAssociation Include=".pack">
+      <Visible>False</Visible>
+      <Description>Mabinogi Package File</Description>
+      <Progid>1</Progid>
+      <DefaultIcon>Resources\file.ico</DefaultIcon>
+    </FileAssociation>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

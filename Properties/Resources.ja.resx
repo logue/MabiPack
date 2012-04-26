@@ -126,8 +126,8 @@
   <data name="Info" xml:space="preserve">
     <value>情報</value>
   </data>
-  <data name="PackFileFilter" xml:space="preserve">
-    <value>Mabinogiパッケージファイル (*.pack)|</value>
+  <data name="PackFileDesc" xml:space="preserve">
+    <value>Mabinogiパッケージファイル</value>
   </data>
   <data name="Str_Confirm" xml:space="preserve">
     <value>作業を開始します。

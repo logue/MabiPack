@@ -24,6 +24,7 @@ namespace MabiPacker
 		{
 			InitializeComponent();
 			this.PackFile = filename;
+            this.Text = "Package File Browser - MabiPacker";
 		}
 		private void PackBrowser_Shown(object sender, EventArgs e)
 		{
@@ -49,6 +50,7 @@ namespace MabiPacker
 				m_Tree.EndUpdate();
 				Progress.Visible = false;
 				Status.Text = "Ready";
+                this.Text = this.PackFile + " - MabiPacker";
 				this.Update();
 			}
 		}
@@ -57,7 +59,7 @@ namespace MabiPacker
 			m_Pack.Dispose();
 		}
 
-		private void tbExtract_Click(object sender, EventArgs e)
+		private void tbExport_Click(object sender, EventArgs e)
 		{
 			TreeNode node = m_Tree.SelectedNode;	// get selected node tag
 			if (node != null){
@@ -177,8 +179,6 @@ namespace MabiPacker
 				Res.GetData(buffer);
 				Res.Close();
 
-				var ms = new MemoryStream(buffer);
-
 				switch (Ext)
 				{
 					case ".dds":
@@ -195,20 +195,22 @@ namespace MabiPacker
 					case ".gif":
 					case ".bmp":
 						// http://stackoverflow.com/questions/2868739/listof-byte-to-picturebox
+						var ms = new MemoryStream(buffer);
 						PictureView.Image = Image.FromStream(ms);
+						ms.Dispose();
 						PictureView.Update();
 						Status.Text = String.Format("Image file. {0} x {1}", PictureView.Width, PictureView.Height);
 						PicturePanel.Show();
 						break;
-					
 					case ".xml":
 					case ".html":
 					case ".txt":
 						string text = Encoding.Unicode.GetString(buffer);
+						
 						TextView.Text = text;
 						TextView.Update();
 						TextView.Show();
-						Status.Text = String.Format("ASCII file. {0} x {1}", PictureView.Width, PictureView.Height);
+						Status.Text = String.Format("ASCII file. {0} chars", text.Length);
 						break;
 					case ".wav":
 					case ".mp3":
@@ -221,7 +223,7 @@ namespace MabiPacker
 					Status.Text = "Not supported format.";
 					break;
 				}
-				ms.Dispose();
+				
 			}
 			this.Update();
 		}

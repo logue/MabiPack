@@ -613,37 +613,7 @@
     <value>0</value>
   </data>
   <data name="tlUnpack.ColumnCount" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="bUnpack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="bUnpack.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bUnpack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>376, 36</value>
-  </data>
-  <data name="bUnpack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
-  </data>
-  <data name="bUnpack.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="bUnpack.Text" xml:space="preserve">
-    <value>Unpack</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.Name" xml:space="preserve">
-    <value>bUnpack</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.Parent" xml:space="preserve">
-    <value>tlUnpack</value>
-  </data>
-  <data name="&gt;&gt;bUnpack.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>5</value>
   </data>
   <data name="bContent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -655,7 +625,7 @@
     <value>False</value>
   </data>
   <data name="bContent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 36</value>
+    <value>3, 8</value>
   </data>
   <data name="bContent.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 25</value>
@@ -676,19 +646,49 @@
     <value>tlUnpack</value>
   </data>
   <data name="&gt;&gt;bContent.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="bUnpack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="bUnpack.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bUnpack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>376, 8</value>
+  </data>
+  <data name="bUnpack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 25</value>
+  </data>
+  <data name="bUnpack.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="bUnpack.Text" xml:space="preserve">
+    <value>Unpack</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.Name" xml:space="preserve">
+    <value>bUnpack</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.Parent" xml:space="preserve">
+    <value>tlUnpack</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tlUnpack.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
   <data name="tlUnpack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 91</value>
+    <value>3, 119</value>
   </data>
   <data name="tlUnpack.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tlUnpack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 64</value>
+    <value>454, 36</value>
   </data>
   <data name="tlUnpack.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -706,7 +706,7 @@
     <value>0</value>
   </data>
   <data name="tlUnpack.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="bUnpack" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="bContent" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,20" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="bContent" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="bUnpack" Row="1" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,20,Absolute,20" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="bExtractTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -735,6 +735,36 @@
   <data name="&gt;&gt;bExtractTo.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="cAssociate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cAssociate.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="cAssociate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 94</value>
+  </data>
+  <data name="cAssociate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>328, 19</value>
+  </data>
+  <data name="cAssociate.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="cAssociate.Text" xml:space="preserve">
+    <value>Associate *.pack Files (Require administrative permission)</value>
+  </data>
+  <data name="&gt;&gt;cAssociate.Name" xml:space="preserve">
+    <value>cAssociate</value>
+  </data>
+  <data name="&gt;&gt;cAssociate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cAssociate.Parent" xml:space="preserve">
+    <value>tUnpack</value>
+  </data>
+  <data name="&gt;&gt;cAssociate.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="ExtractTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
@@ -757,7 +787,7 @@
     <value>tUnpack</value>
   </data>
   <data name="&gt;&gt;ExtractTo.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="lOpenPack.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -787,7 +817,7 @@
     <value>tUnpack</value>
   </data>
   <data name="&gt;&gt;lOpenPack.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="lExtractTo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -814,7 +844,7 @@
     <value>tUnpack</value>
   </data>
   <data name="&gt;&gt;lExtractTo.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="OpenPack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -838,7 +868,7 @@
     <value>tUnpack</value>
   </data>
   <data name="&gt;&gt;OpenPack.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="bOpenPack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -865,7 +895,7 @@
     <value>tUnpack</value>
   </data>
   <data name="&gt;&gt;bOpenPack.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="tUnpack.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>

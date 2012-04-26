@@ -14,7 +14,7 @@ namespace MabiPacker.Forms
 		public PackOption()
 		{
 			InitializeComponent();
-			Utility c = new Utility();
+            Utility.MabinogiEnv c = new Utility.MabinogiEnv();
 			c.GetMabiEnv();
 			PackageVersion.Minimum = c.MabiVer;
 			PackageVersion.Value = (PackageVersion.Value > c.MabiVer) ? Properties.Settings.Default.LastPackVer : c.MabiVer;

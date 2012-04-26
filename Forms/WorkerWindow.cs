@@ -23,7 +23,20 @@ namespace MabiPacker
 		{
 			InitializeComponent();
 		}
-
+        /// <summary>
+        /// 使用されているリソースに後処理を実行します。
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 		public void Pack(string InputDir, string OutputFile, uint OutputVer, int Level)
 		{
 			this.Name = Properties.Resources.Str_Pack;
@@ -75,7 +88,8 @@ namespace MabiPacker
 			{
 				PackResource Res = m_Unpack.GetFileByIndex(i);
 				String InternalName = Res.GetName();
-				Status.Text = InternalName;
+				Status.Text = String.Format("Now Packing... ({0} / {1})", packed_files, i);
+                Console.WriteLine(InternalName);
 				try
 				{
 					// loading file content.
