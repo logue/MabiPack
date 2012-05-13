@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="dInputDirSelector.Description" xml:space="preserve">
+    <value>選擇數據目錄打包</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lInputDir.Text" xml:space="preserve">
     <value>選擇data文件夾：</value>
@@ -124,14 +127,20 @@
   <data name="lSaveAs.Text" xml:space="preserve">
     <value>保存的文件名：</value>
   </data>
+  <data name="dSaveAs.Title" xml:space="preserve">
+    <value>如果您要保存的*.pack文件</value>
+  </data>
   <data name="lVersion.Text" xml:space="preserve">
     <value>版本：</value>
   </data>
   <data name="uCurrentVer.Text" xml:space="preserve">
     <value>檢查當前版本的Pack的版本</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
+  <data name="lLevel.Text" xml:space="preserve">
     <value>壓縮級別：</value>
+  </data>
+  <data name="tAbout.Text" xml:space="preserve">
+    <value>關於</value>
   </data>
   <data name="bContent.Text" xml:space="preserve">
     <value>檢查內容</value>
@@ -141,6 +150,12 @@
   </data>
   <data name="lExtractTo.Text" xml:space="preserve">
     <value>擴展為：</value>
+  </data>
+  <data name="dExtractTo.Description" xml:space="preserve">
+    <value>選擇解壓縮文件目錄</value>
+  </data>
+  <data name="dOpenPack.Title" xml:space="preserve">
+    <value>打開*.pack文件</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft JhengHei, 9pt</value>

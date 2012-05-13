@@ -171,4 +171,7 @@ dataディレクトリの値を確認してください。</value>
   <data name="Str_Unpack" xml:space="preserve">
     <value>アンパック</value>
   </data>
+  <data name="Uri_PatchTxt" xml:space="preserve">
+    <value>http://patch.mabinogi.jp/patch/patch.txt</value>
+  </data>
 </root>

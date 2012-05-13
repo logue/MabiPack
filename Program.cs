@@ -17,121 +17,93 @@ namespace MabiPacker
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+
 			// Standard Mode
 			if (args.Length == 0)
 			{
 				Application.Run(new MainWindow());
 			}
-			else
+			else 
 			{
-#region Drag & Drop Mode
-				Utility.MabinogiEnv u = new Utility.MabinogiEnv();
-				u.GetMabiEnv();
-				string Query = String.Join(" ", args);
-				if (File.Exists(Query) && System.IO.Path.GetExtension(@Query) == ".pack")
-				{
-                    Application.Run(new PackBrowser(Query));
-				}
-				else if (Directory.Exists(Query))
-				{
-					// Pack
-					SaveFileDialog dSaveAs = new SaveFileDialog();
-					dSaveAs.DefaultExt = "*.pack";
-					dSaveAs.Filter = Properties.Resources.PackFileDesc+"|(*pack)";
-					dSaveAs.InitialDirectory = u.MabiDir + "\\package\\";
+				if (Win32.AttachConsole(System.UInt32.MaxValue)){
+					Utility.Worker w = new Utility.Worker(IntPtr.Zero);
+					Console.Title = "MabiPacker";
 
-					if (dSaveAs.ShowDialog() == DialogResult.OK)
+					// Console Mode
+					StreamWriter stdout = new StreamWriter(Console.OpenStandardOutput());
+					stdout.AutoFlush = true;
+
+					Console.SetOut(stdout);
+					Console.ForegroundColor = ConsoleColor.Cyan;
+					Console.WriteLine("\r\n*** MabiPacker Console Mode ***");
+
+					// Parse query strings
+					var options = new HashSet<string> {
+						"/input",	// input path
+						"/output",	// output path
+						"/version",	// version
+						"/level"	// Compress level (optional, default=-1)
+					};
+					string key = null;
+					var result = args
+						.GroupBy(s => options.Contains(s) ? key = s : key)
+						.ToDictionary(g => g.Key, g => g.Skip(1).FirstOrDefault());
+
+					if (result.ContainsKey("/input") == false)
 					{
-						MabiPacker.Forms.PackOption o = new MabiPacker.Forms.PackOption();
-						MabiPacker.Forms.PackOption.Instance = o;
-						if (o.ShowDialog() == DialogResult.OK)
-						{
-							WorkerWindow w = new WorkerWindow();
-							w.Show();
-							w.Pack(Query, dSaveAs.FileName, o.Version_Value, o.Level_Value);
-							w.Dispose();
-						}
-					}
-				}
-#endregion
-			}
-#region Console Mode
-			if (Win32.AttachConsole(System.UInt32.MaxValue) ){
-
-				// Console Mode
-				StreamWriter stdout = new StreamWriter(Console.OpenStandardOutput());
-				stdout.AutoFlush = true;
-				Console.SetOut(stdout);
-				Console.ForegroundColor = ConsoleColor.Cyan;
-				Console.WriteLine("\r\nMabiPacker Console Mode.");
-				
-				// Parse query strings
-				var options = new HashSet<string> {
-					"/input",	// input path
-					"/output",	// output path
-					"/version",	// version
-					"/level"	// Compress level (optional, default=-1)
-				};
-				string key = null;
-				var result = args
-					.GroupBy(s => options.Contains(s) ? key = s : key)
-					.ToDictionary(g => g.Key, g => g.Skip(1).FirstOrDefault()); 
-
-				if (result.ContainsKey("/input") == false)
-				{
-					Console.ForegroundColor = ConsoleColor.Red;
-					Console.WriteLine("Error: /input value is always required!");
-					Application.Exit();
-				}
-				if (File.Exists(result["/input"]))
-				{
-					// Unpack mode
-                    Utility.MabinogiEnv u = new Utility.MabinogiEnv();
-					u.GetMabiEnv();
-					if (result.ContainsKey("/output") == false)
-						result["/output"] = u.MabiDir;
-
-					Console.ForegroundColor = ConsoleColor.Yellow;
-					Console.WriteLine("Unpacking...");
-					// Pack mode
-					WorkerWindow w = new WorkerWindow();
-					w.Show();
-					w.Unpack(result["/input"], result["/output"]);
-					w.Dispose();
-				}
-				else if (Directory.Exists(result["/input"]) )
-				{
-					if (result.ContainsKey("/version") == false || result.ContainsKey("/output") == false){
 						Console.ForegroundColor = ConsoleColor.Red;
-						Console.WriteLine("Error : If /input value is directory, /version and /output value is required.");
+						Console.WriteLine("Error: /input value is always required!");
 						Console.ResetColor();
 						Application.Exit();
 					}
-					if (result.ContainsKey("/level") == false)
-						result["/level"] = "-1";
+					if (File.Exists(result["/input"]))
+					{
+						// Unpack mode
+						if (result.ContainsKey("/output") == false)
+						{
+							MabiEnvironment u = new MabiEnvironment();
+							result["/output"] = u.MabinogiDir;
+						}
 
-					Console.ForegroundColor = ConsoleColor.Green;
-					Console.WriteLine("Packing...");
-					// Pack mode
-					WorkerWindow w = new WorkerWindow();
-					w.Show();
-					w.Pack(result["/input"], result["/output"], uint.Parse(result["/version"]), int.Parse(result["/level"]));
-					w.Dispose();
+						Console.ForegroundColor = ConsoleColor.Yellow;
+						// Pack mode
+						w.Unpack(result["/input"], result["/output"]);
+					}
+					else if (Directory.Exists(result["/input"]))
+					{
+						if (result.ContainsKey("/version") == false || result.ContainsKey("/output") == false)
+						{
+							Console.ForegroundColor = ConsoleColor.Red;
+							Console.WriteLine("Error : If /input value is directory, /version and /output value is required.");
+							Console.ResetColor();
+							Application.Exit();
+						}
+						if (result.ContainsKey("/level") == false)
+							result["/level"] = "-1";
+
+						Console.ForegroundColor = ConsoleColor.Green;
+						// Pack mode
+						w.Pack(result["/input"], result["/output"], uint.Parse(result["/version"]), int.Parse(result["/level"]));
+					}
+					Console.ForegroundColor = ConsoleColor.Cyan;
+					Console.WriteLine("Finish.");
+					Console.ResetColor();
+					Win32.FreeConsole();
+				}else{
+					string Query = String.Join(" ", args);
+					if (File.Exists(Query) && System.IO.Path.GetExtension(@Query) == ".pack")
+					{
+						Application.Run(new PackBrowser(Query));
+					}
 				}
-				Console.ForegroundColor = ConsoleColor.Cyan;
-				Console.WriteLine("Finish.");
-				Console.ResetColor();
-
-				Win32.FreeConsole();
 			}
-#endregion
-			Application.Exit();
 		}
-	}
-	public class Win32{
-		[DllImport("kernel32.dll")]
-		public static extern Boolean AttachConsole(uint dwProcessId);
-		[DllImport("kernel32.dll")]
-		public static extern Boolean FreeConsole();
+		private class Win32
+		{
+			[DllImport("kernel32.dll")]
+			public static extern Boolean AttachConsole(uint dwProcessId);
+			[DllImport("kernel32.dll")]
+			public static extern Boolean FreeConsole();
+		}
 	}
 }

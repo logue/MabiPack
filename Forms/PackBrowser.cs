@@ -1,15 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MabinogiResource;
 using System.Drawing.Imaging;
-using System.Text.RegularExpressions;
+using MabinogiResource;
 using Tao.DevIl;
 
 namespace MabiPacker
@@ -18,13 +13,17 @@ namespace MabiPacker
     {
 		private TreeNode m_Root;
 		private PackResourceSet m_Pack;
+		private PackResource Res;
+		private Utility.Worker w;
+		private WavePlayer wave;
 		private string PackFile;
 
 		public PackBrowser(string filename)
 		{
 			InitializeComponent();
 			this.PackFile = filename;
-            this.Text = "Package File Browser - MabiPacker";
+			this.w = new Utility.Worker(this.Handle);
+			Utility.LoadAssembly();
 		}
 		private void PackBrowser_Shown(object sender, EventArgs e)
 		{
@@ -35,6 +34,7 @@ namespace MabiPacker
 				Status.Text = Properties.Resources.Str_Initialize;
 				uint files = m_Pack.GetFileCount();
 				Progress.Maximum = (int)files;
+				this.Text = this.PackFile + " - MabiPacker";
 				this.Update();
 				m_Tree.BeginUpdate();
 				m_Tree.Nodes.Clear();
@@ -43,14 +43,16 @@ namespace MabiPacker
 				{
 					InsertFileNode(i);
 					Progress.Value = (int)i;
-					Status.Text = String.Format("Loading Package... ({0} of {1})", i, files);
+					Status.Text = String.Format(Properties.Resources.Str_Loading, i, files);
 					this.Update();
 				}
 				m_Root.Expand();
 				m_Tree.EndUpdate();
+				m_Tree.Sort();
+				m_Tree.Refresh();
 				Progress.Visible = false;
-				Status.Text = "Ready";
-                this.Text = this.PackFile + " - MabiPacker";
+				
+				Status.Text = Properties.Resources.Str_Ready;
 				this.Update();
 			}
 		}
@@ -62,7 +64,7 @@ namespace MabiPacker
 		private void tbExport_Click(object sender, EventArgs e)
 		{
 			TreeNode node = m_Tree.SelectedNode;	// get selected node tag
-			if (node != null){
+			if (node != null && node.Tag != null){
 				UnpackById((uint)node.Tag);
 			}
 		}
@@ -70,6 +72,42 @@ namespace MabiPacker
 		private void m_Tree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
 		{
 			if (e.Node.Tag != null) PreviewById((uint)e.Node.Tag);
+		}
+		private void tbUnpack_Click(object sender, EventArgs e)
+		{
+			FolderBrowserDialog ExtractTo = new FolderBrowserDialog();
+			ExtractTo.Description = Properties.Resources.Str_ExtractTo;
+			if (ExtractTo.ShowDialog(this) == DialogResult.OK){
+				// Check output directory exsists.
+				if (Directory.Exists(ExtractTo.SelectedPath + "\\data"))
+				{
+					DialogResult overwrite = MessageBox.Show(Properties.Resources.Str_Overwrite, Properties.Resources.Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+					if (overwrite == DialogResult.No)
+					{
+						return;
+					}
+				}
+
+				DialogResult result = MessageBox.Show(
+					Properties.Resources.Str_Confirm,
+					Properties.Resources.Confirm,
+					MessageBoxButtons.OKCancel,
+					MessageBoxIcon.Question,
+					MessageBoxDefaultButton.Button1);
+
+				if (result == DialogResult.OK)
+				{
+					this.w.Unpack(this.PackFile, ExtractTo.SelectedPath);
+				}
+			}
+		}
+		private void PictureView_MouseDown(object sender, MouseEventArgs e)
+		{
+			PictureView.DoDragDrop(PictureView.Image, DragDropEffects.All);
+		}
+		private void pPlay_Click(object sender, EventArgs e)
+		{
+			this.wave.Play();
 		}
 		/***********************************************************************************************/
 		private void InsertFileNode(uint id)
@@ -130,46 +168,29 @@ namespace MabiPacker
 			}
 		}
 		private void UnpackById(uint id){
-			PackResource Res = m_Pack.GetFileByIndex(id);
+			Res = m_Pack.GetFileByIndex(id);
 			if (Res != null)
 			{
-				String InternalName = Res.GetName();
-				SaveFileDialog dSaveAs = new SaveFileDialog();
-				dSaveAs.FileName = System.IO.Path.GetFileName(InternalName);
-
-				if (dSaveAs.ShowDialog() == DialogResult.OK)
-				{
-					// loading file content.
-					byte[] buffer = new byte[Res.GetSize()];
-					Res.GetData(buffer);
-					Res.Close();
-
-					// Delete old
-					if (File.Exists(dSaveAs.FileName))
-					{
-						System.IO.File.Delete(dSaveAs.FileName);
-					}
-					// Write to file.
-					System.IO.FileStream fs = new System.IO.FileStream(dSaveAs.FileName, System.IO.FileMode.Create);
-					fs.Write(buffer, 0, buffer.Length);
-					fs.Close();
-
-					// Modify File time
-					System.IO.File.SetCreationTime(dSaveAs.FileName, Res.GetCreated());
-					System.IO.File.SetLastAccessTime(dSaveAs.FileName, Res.GetAccessed());
-					System.IO.File.SetLastWriteTime(dSaveAs.FileName, Res.GetModified());
-				}
+				w.UnpackFile(Res);
+			}
+		}
+		private void UnpackByName(string name){
+			Res = m_Pack.GetFileByName(name);
+			if (Res != null)
+			{
+				w.UnpackFile(Res);
 			}
 		}
 		private void PreviewById(uint id){
 			PackResource Res = m_Pack.GetFileByIndex(id);
-			Status.Text = "Now loading data for preview...";
+			Status.Text = Properties.Resources.Str_LoadingPreview;
 			this.Update();
 			if (Res != null)
 			{
 				PicturePanel.Hide();
 				TextView.Clear();
 				TextView.Hide();
+				pPlay.Hide();
 
 				String InternalName = Res.GetName();
 				string Ext = System.IO.Path.GetExtension(@InternalName);
@@ -214,10 +235,11 @@ namespace MabiPacker
 						break;
 					case ".wav":
 					case ".mp3":
+						pPlay.Show();
 						// http://msdn.microsoft.com/en-us/library/ms143770%28v=VS.100%29.aspx 
-						WavePlayer wave = new WavePlayer(buffer);
-						Status.Text = "Playing sound file.";
-						wave.Play();
+						this.wave = new WavePlayer(buffer);
+						this.wave.Play();
+						Status.Text = "Sound file. Click image to replay sound.";
 					break;
 					default:
 					Status.Text = "Not supported format.";
@@ -319,6 +341,105 @@ namespace MabiPacker
 				this.gcHandle.Free();
 				this.waveBuffer = null;
 			}
+		}
+		/// <summary>
+		/// Textbox Shortcut key Enabler
+		/// </summary>
+		/// <param name="msg"></param>
+		/// <param name="keyData"></param>
+		/// <returns></returns>
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			ContainerControl containerControl;
+			// Ctrl + A
+			if (keyData == (Keys.A | Keys.Control))
+			{
+				if (this.ActiveControl is TextBox)
+				{
+					((TextBox)this.ActiveControl).SelectAll();
+					return true;
+				}
+				else if (this.ActiveControl is ContainerControl)
+				{
+					containerControl = (ContainerControl)this.ActiveControl;
+					while (containerControl.ActiveControl is ContainerControl)
+					{
+						containerControl = containerControl.ActiveControl as ContainerControl;
+					}
+					if (containerControl.ActiveControl is TextBox)
+					{
+						((TextBox)containerControl.ActiveControl).SelectAll();
+						return true;
+					}
+				}
+			}
+			// Ctrl + C
+			else if (keyData == (Keys.C | Keys.Control))
+			{
+				if (this.ActiveControl is TextBox)
+				{
+					((TextBox)this.ActiveControl).Copy();
+					return true;
+				}
+				else if (this.ActiveControl is ContainerControl)
+				{
+					containerControl = (ContainerControl)this.ActiveControl;
+					while (containerControl.ActiveControl is ContainerControl)
+					{
+						containerControl = containerControl.ActiveControl as ContainerControl;
+					}
+					if (containerControl.ActiveControl is TextBox)
+					{
+						((TextBox)containerControl.ActiveControl).Copy();
+						return true;
+					}
+				}
+			}
+			// Ctrl + X
+			else if (keyData == (Keys.X | Keys.Control))
+			{
+				if (this.ActiveControl is TextBox)
+				{
+					((TextBox)this.ActiveControl).Cut();
+					return true;
+				}
+				else if (this.ActiveControl is ContainerControl)
+				{
+					containerControl = (ContainerControl)this.ActiveControl;
+					while (containerControl.ActiveControl is ContainerControl)
+					{
+						containerControl = containerControl.ActiveControl as ContainerControl;
+					}
+					if (containerControl.ActiveControl is TextBox)
+					{
+						((TextBox)containerControl.ActiveControl).Cut();
+						return true;
+					}
+				}
+			}
+			// Ctrl + V
+			else if (keyData == (Keys.V | Keys.Control))
+			{
+				if (this.ActiveControl is TextBox)
+				{
+					((TextBox)this.ActiveControl).Paste();
+					return true;
+				}
+				else if (this.ActiveControl is ContainerControl)
+				{
+					containerControl = (ContainerControl)this.ActiveControl;
+					while (containerControl.ActiveControl is ContainerControl)
+					{
+						containerControl = containerControl.ActiveControl as ContainerControl;
+					}
+					if (containerControl.ActiveControl is TextBox)
+					{
+						((TextBox)containerControl.ActiveControl).Paste();
+						return true;
+					}
+				}
+			}
+			return base.ProcessCmdKey(ref msg, keyData);
 		}
 	}
 }

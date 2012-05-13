@@ -168,4 +168,7 @@ data 디렉토리의 값을 확인하십시오.</value>
   <data name="Str_Unpack" xml:space="preserve">
     <value>포장</value>
   </data>
+  <data name="Uri_PatchTxt" xml:space="preserve">
+    <value>http://211.218.233.238/patch/patch.txt</value>
+  </data>
 </root>

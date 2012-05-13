@@ -121,7 +121,7 @@
     <value>10, 8</value>
   </metadata>
   <data name="dInputDirSelector.Description" xml:space="preserve">
-    <value>Choose data directory</value>
+    <value>Choose data directory to pack.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="bInputDirSelector.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -288,26 +288,29 @@
   <data name="&gt;&gt;bSaveAs.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="lVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
-  </data>
   <data name="lVersion.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="lVersion.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="lVersion.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="lVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 7</value>
+    <value>3, 0</value>
   </data>
   <data name="lVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 15</value>
+    <value>113, 29</value>
   </data>
   <data name="lVersion.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="lVersion.Text" xml:space="preserve">
     <value>&amp;Version :</value>
+  </data>
+  <data name="lVersion.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;lVersion.Name" xml:space="preserve">
     <value>lVersion</value>
@@ -321,14 +324,14 @@
   <data name="&gt;&gt;lVersion.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="PackageVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
+  <data name="PackageVersion.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="PackageVersion.Location" type="System.Drawing.Point, System.Drawing">
     <value>122, 3</value>
   </data>
   <data name="PackageVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 23</value>
+    <value>130, 23</value>
   </data>
   <data name="PackageVersion.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -355,7 +358,7 @@
     <value>NoControl</value>
   </data>
   <data name="bPack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>376, 36</value>
+    <value>376, 32</value>
   </data>
   <data name="bPack.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 25</value>
@@ -423,11 +426,11 @@
   <data name="layoutPack2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls /&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="uCurrentVer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
   <data name="uCurrentVer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="uCurrentVer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="uCurrentVer.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 8.25pt</value>
@@ -436,10 +439,10 @@
     <value>NoControl</value>
   </data>
   <data name="uCurrentVer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>303, 16</value>
+    <value>258, 0</value>
   </data>
   <data name="uCurrentVer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 13</value>
+    <value>193, 29</value>
   </data>
   <data name="uCurrentVer.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -448,7 +451,7 @@
     <value>Check Current Pack Version</value>
   </data>
   <data name="uCurrentVer.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
+    <value>BottomRight</value>
   </data>
   <data name="&gt;&gt;uCurrentVer.Name" xml:space="preserve">
     <value>uCurrentVer</value>
@@ -468,8 +471,8 @@
   <data name="tlPack.ColumnCount" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="Level.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
+  <data name="Level.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="Level.Items" xml:space="preserve">
     <value>Auto</value>
@@ -505,7 +508,7 @@
     <value>9 - Best Compression</value>
   </data>
   <data name="Level.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 35</value>
+    <value>122, 32</value>
   </data>
   <data name="Level.Size" type="System.Drawing.Size, System.Drawing">
     <value>130, 23</value>
@@ -525,47 +528,50 @@
   <data name="&gt;&gt;Level.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="lLevel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 39</value>
+  <data name="lLevel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 15</value>
+  <data name="lLevel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 29</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+  <data name="lLevel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 31</value>
+  </data>
+  <data name="lLevel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
+  <data name="lLevel.Text" xml:space="preserve">
     <value>Compression &amp;Level :</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="lLevel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+  <data name="&gt;&gt;lLevel.Name" xml:space="preserve">
+    <value>lLevel</value>
+  </data>
+  <data name="&gt;&gt;lLevel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lLevel.Parent" xml:space="preserve">
     <value>tlPack</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lLevel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="tlPack.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
   <data name="tlPack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 91</value>
+    <value>3, 94</value>
   </data>
   <data name="tlPack.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="tlPack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 64</value>
+    <value>454, 61</value>
   </data>
   <data name="tlPack.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -583,7 +589,7 @@
     <value>3</value>
   </data>
   <data name="tlPack.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="PackageVersion" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="uCurrentVer" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="Level" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lVersion" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="bPack" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,20" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="PackageVersion" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="uCurrentVer" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="Level" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="lLevel" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lVersion" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="bPack" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tPack.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -625,7 +631,7 @@
     <value>False</value>
   </data>
   <data name="bContent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 8</value>
+    <value>3, 33</value>
   </data>
   <data name="bContent.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 25</value>
@@ -655,7 +661,7 @@
     <value>True</value>
   </data>
   <data name="bUnpack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>376, 8</value>
+    <value>376, 33</value>
   </data>
   <data name="bUnpack.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 25</value>
@@ -682,13 +688,13 @@
     <value>Bottom</value>
   </data>
   <data name="tlUnpack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 119</value>
+    <value>3, 94</value>
   </data>
   <data name="tlUnpack.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tlUnpack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 36</value>
+    <value>454, 61</value>
   </data>
   <data name="tlUnpack.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -735,36 +741,6 @@
   <data name="&gt;&gt;bExtractTo.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="cAssociate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cAssociate.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="cAssociate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 94</value>
-  </data>
-  <data name="cAssociate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>328, 19</value>
-  </data>
-  <data name="cAssociate.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="cAssociate.Text" xml:space="preserve">
-    <value>Associate *.pack Files (Require administrative permission)</value>
-  </data>
-  <data name="&gt;&gt;cAssociate.Name" xml:space="preserve">
-    <value>cAssociate</value>
-  </data>
-  <data name="&gt;&gt;cAssociate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cAssociate.Parent" xml:space="preserve">
-    <value>tUnpack</value>
-  </data>
-  <data name="&gt;&gt;cAssociate.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="ExtractTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
@@ -787,7 +763,7 @@
     <value>tUnpack</value>
   </data>
   <data name="&gt;&gt;ExtractTo.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="lOpenPack.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -817,7 +793,7 @@
     <value>tUnpack</value>
   </data>
   <data name="&gt;&gt;lOpenPack.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="lExtractTo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -844,7 +820,7 @@
     <value>tUnpack</value>
   </data>
   <data name="&gt;&gt;lExtractTo.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="OpenPack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -868,7 +844,7 @@
     <value>tUnpack</value>
   </data>
   <data name="&gt;&gt;OpenPack.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="bOpenPack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -895,7 +871,7 @@
     <value>tUnpack</value>
   </data>
   <data name="&gt;&gt;bOpenPack.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="tUnpack.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 24</value>
@@ -1153,13 +1129,16 @@
     <value>370, 6</value>
   </metadata>
   <data name="dExtractTo.Description" xml:space="preserve">
-    <value>Extract to:</value>
+    <value>Choose unpacked file directory</value>
   </data>
   <metadata name="dOpenPack.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>487, 6</value>
   </metadata>
   <data name="dOpenPack.Filter" xml:space="preserve">
     <value>Mabinogi Package File (*.pack)|</value>
+  </data>
+  <data name="dOpenPack.Title" xml:space="preserve">
+    <value>Open *pack file</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

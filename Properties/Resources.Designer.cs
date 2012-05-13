@@ -110,6 +110,22 @@ namespace MabiPacker.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap play {
+            get {
+                object obj = ResourceManager.GetObject("play", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Please wait while the operation is cancelled. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Str_CancelMsg {
+            get {
+                return ResourceManager.GetString("Str_CancelMsg", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Work will be started.
         ///Are you sure? に類似しているローカライズされた文字列を検索します。
@@ -140,7 +156,7 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
-        ///   Work is done. に類似しているローカライズされた文字列を検索します。
+        ///   The operation was done. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Str_Done {
             get {
@@ -154,6 +170,15 @@ namespace MabiPacker.Properties {
         public static string Str_Error {
             get {
                 return ResourceManager.GetString("Str_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Extract to: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Str_ExtractTo {
+            get {
+                return ResourceManager.GetString("Str_ExtractTo", resourceCulture);
             }
         }
         
@@ -172,6 +197,33 @@ namespace MabiPacker.Properties {
         public static string Str_Initialize {
             get {
                 return ResourceManager.GetString("Str_Initialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The operation was interrupted by user. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Str_Interrupt {
+            get {
+                return ResourceManager.GetString("Str_Interrupt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Loading Package... ({0} of {1}) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Str_Loading {
+            get {
+                return ResourceManager.GetString("Str_Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Now loading data for preview... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Str_LoadingPreview {
+            get {
+                return ResourceManager.GetString("Str_LoadingPreview", resourceCulture);
             }
         }
         
@@ -203,11 +255,20 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
-        ///   Now Packing... Please take for few minutes. に類似しているローカライズされた文字列を検索します。
+        ///   Now Packing... ({0} / {1}) に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Str_Packing {
             get {
                 return ResourceManager.GetString("Str_Packing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ready. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Str_Ready {
+            get {
+                return ResourceManager.GetString("Str_Ready", resourceCulture);
             }
         }
         
@@ -217,6 +278,24 @@ namespace MabiPacker.Properties {
         public static string Str_Unpack {
             get {
                 return ResourceManager.GetString("Str_Unpack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Now Unpacking... ({0} / {1}) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Str_Unpacking {
+            get {
+                return ResourceManager.GetString("Str_Unpacking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   http://mabipatchinfo.nexon.net/patch/patch.txt に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Uri_PatchTxt {
+            get {
+                return ResourceManager.GetString("Uri_PatchTxt", resourceCulture);
             }
         }
     }

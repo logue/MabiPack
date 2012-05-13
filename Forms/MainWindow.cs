@@ -1,13 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Reflection;
+using System.Windows.Forms;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.WindowsAPICodePack.Shell;
 
 namespace MabiPacker
 {
@@ -16,16 +12,20 @@ namespace MabiPacker
 		private String PackageDir;
 		private int MabiVer;
         private String filter;
-        private Utility.MabinogiEnv ue;
+		private Utility.Worker w;
+		private MabiEnvironment ue;
+		private bool isVista;
 		
 		public MainWindow()
 		{
 			InitializeComponent();
-            this.ue = new Utility.MabinogiEnv();
 
-			ue.GetMabiEnv();
-			this.PackageDir = ue.MabiDir + "\\Package";
-			this.MabiVer = ue.MabiVer;
+			OperatingSystem osInfo = Environment.OSVersion;
+			this.isVista = (osInfo.Version.Major >= 6) ? true : false;
+			this.ue = new MabiEnvironment();
+
+			this.PackageDir = this.ue.MabinogiDir + "\\Package";
+			this.MabiVer = (int)this.ue.LocalVersion;
 
 			this.Text = AssemblyProduct + String.Format(" v.{0}", AssemblyVersion);
             this.filter = Properties.Resources.PackFileDesc + "(*.pack)|";
@@ -61,14 +61,18 @@ namespace MabiPacker
 			labelDescription.Text = AssemblyDescription;
 #endregion
 		}
+		private void MainWindow_Shown(object sender, EventArgs e)
+		{
+			w = new Utility.Worker(this.Handle);
+		}
+
 		private void FinishProcess(){
 			Properties.Settings.Default.LastDataDir = InputDir.Text;
 			Properties.Settings.Default.LastPackFile = SaveAs.Text;
 			Properties.Settings.Default.LastPackVer = (int)PackageVersion.Value;
-			Properties.Settings.Default.CompressLevel = Level.SelectedIndex;
-			MessageBox.Show(Properties.Resources.Str_Done, Properties.Resources.Info, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+			Properties.Settings.Default.CompressLevel = Level.SelectedIndex;	
 		}
-#region Pack Tab
+#region Pack Tab Event Handler
 		private void uCurrentVer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			System.Diagnostics.Process.Start("http://mabiplus.no-ip.org/global.html");
@@ -77,20 +81,49 @@ namespace MabiPacker
 
 		private void bInputDirSelector_Click(object sender, EventArgs e)
 		{
-			dInputDirSelector.SelectedPath = InputDir.Text;
-			if (dInputDirSelector.ShowDialog(this) == DialogResult.OK){
-				InputDir.Text = dInputDirSelector.SelectedPath;
-				Properties.Settings.Default.LastDataDir = dInputDirSelector.SelectedPath;
+			if (this.isVista){
+				CommonOpenFileDialog cfdInputDir = new CommonOpenFileDialog();
+				cfdInputDir.EnsureReadOnly = true;
+				cfdInputDir.IsFolderPicker = true;
+				cfdInputDir.AllowNonFileSystemItems = true;
+				cfdInputDir.InitialDirectory = InputDir.Text;
+				cfdInputDir.Title = dInputDirSelector.Description;
+
+				if (cfdInputDir.ShowDialog() == CommonFileDialogResult.Ok)
+				{
+					ShellContainer selectedSO = null;
+					selectedSO = cfdInputDir.FileAsShellObject as ShellContainer;
+					InputDir.Text = selectedSO.ParsingName;
+				}
+			}else{
+				dInputDirSelector.SelectedPath = InputDir.Text;
+				if (dInputDirSelector.ShowDialog(this) == DialogResult.OK){
+					InputDir.Text = dInputDirSelector.SelectedPath;
+					Properties.Settings.Default.LastDataDir = dInputDirSelector.SelectedPath;
+				}
 			}
 		}
 
 		private void bSaveAs_Click(object sender, EventArgs e)
 		{
-			dSaveAs.InitialDirectory = SaveAs.Text;
-			if (dSaveAs.ShowDialog(this) == DialogResult.OK)
-			{
-				SaveAs.Text = dSaveAs.FileName;
-				Properties.Settings.Default.LastPackFile = dSaveAs.FileName;
+			if (this.isVista){
+				CommonSaveFileDialog cfdSaveAs = new CommonSaveFileDialog();
+				cfdSaveAs.Title = dSaveAs.Title;
+				cfdSaveAs.AlwaysAppendDefaultExtension = true;
+				cfdSaveAs.DefaultExtension = ".pack";
+				cfdSaveAs.Filters.Add(new CommonFileDialogFilter(Properties.Resources.PackFileDesc, "*.pack"));
+				cfdSaveAs.DefaultDirectory = SaveAs.Text;
+				if (cfdSaveAs.ShowDialog() == CommonFileDialogResult.Ok)
+				{
+					SaveAs.Text = cfdSaveAs.FileName;
+				}
+			}else{
+				dSaveAs.InitialDirectory = SaveAs.Text;
+				if (dSaveAs.ShowDialog(this) == DialogResult.OK)
+				{
+					SaveAs.Text = dSaveAs.FileName;
+					Properties.Settings.Default.LastPackFile = dSaveAs.FileName;
+				}
 			}
 		}
 
@@ -122,30 +155,55 @@ namespace MabiPacker
 				MessageBoxDefaultButton.Button1);
 
 			if (result == DialogResult.OK){
-				WorkerWindow w = new WorkerWindow();
-				w.Show();
-				w.Pack(InputDir.Text, SaveAs.Text, (uint)PackageVersion.Value, Level.SelectedIndex-1);
-				w.Dispose();
+				this.w.Pack(InputDir.Text, SaveAs.Text, (uint)PackageVersion.Value, Level.SelectedIndex-1);
 				FinishProcess();
 			}
 		}
 #endregion
-#region Unpack Tab
+#region Unpack Tab Event Handler
 		private void bOpenPack_Click(object sender, EventArgs e)
 		{
-			dOpenPack.InitialDirectory = OpenPack.Text;
-			if (dOpenPack.ShowDialog(this) == DialogResult.OK)
-			{
-				OpenPack.Text = dOpenPack.FileName;
+			if (this.isVista){
+				CommonOpenFileDialog cfdOpenPack = new CommonOpenFileDialog();
+				cfdOpenPack.EnsureReadOnly = true;
+				cfdOpenPack.IsFolderPicker = false;
+				cfdOpenPack.AllowNonFileSystemItems = false;
+				cfdOpenPack.InitialDirectory = OpenPack.Text;
+				cfdOpenPack.Title = dOpenPack.Title;
+				cfdOpenPack.Filters.Add(new CommonFileDialogFilter(Properties.Resources.PackFileDesc, "*.pack"));
+
+				if (cfdOpenPack.ShowDialog() == CommonFileDialogResult.Ok)
+				{
+					OpenPack.Text = cfdOpenPack.FileName;
+				}
+			}else{
+				dOpenPack.InitialDirectory = OpenPack.Text;
+				if (dOpenPack.ShowDialog(this) == DialogResult.OK)
+				{
+					OpenPack.Text = dOpenPack.FileName;
+				}
 			}
 		}
 
 		private void bExtractTo_Click(object sender, EventArgs e)
 		{
-			dExtractTo.SelectedPath = ExtractTo.Text;
-			if (dExtractTo.ShowDialog(this) == DialogResult.OK)
-			{
-				ExtractTo.Text = dExtractTo.SelectedPath;
+			if (this.isVista){
+				CommonOpenFileDialog cfdExtractTo = new CommonOpenFileDialog();
+				cfdExtractTo.EnsureReadOnly = true;
+				cfdExtractTo.IsFolderPicker = true;
+				cfdExtractTo.AllowNonFileSystemItems = true;
+				cfdExtractTo.InitialDirectory = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+				cfdExtractTo.Title = dExtractTo.Description;
+				if (cfdExtractTo.ShowDialog() == CommonFileDialogResult.Ok)
+				{
+					ExtractTo.Text = cfdExtractTo.FileName;
+				}
+			}else{
+				dExtractTo.SelectedPath = ExtractTo.Text;
+				if (dExtractTo.ShowDialog(this) == DialogResult.OK)
+				{
+					ExtractTo.Text = dExtractTo.SelectedPath;
+				}
 			}
 		}
 
@@ -192,15 +250,12 @@ namespace MabiPacker
 
 			if (result == DialogResult.OK)
 			{
-				WorkerWindow w = new WorkerWindow();
-				w.Show();
 				w.Unpack(OpenPack.Text, ExtractTo.Text);
-				w.Dispose();
 				FinishProcess();
 			}
 		}
 #endregion
-#region About Tab
+#region About Tab Event Handler
 		private void lCopyright_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			System.Diagnostics.Process.Start("http://logue.be/");

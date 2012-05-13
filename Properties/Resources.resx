@@ -141,7 +141,7 @@ Please check data directory value.</value>
     <comment>Check data directory</comment>
   </data>
   <data name="Str_Done" xml:space="preserve">
-    <value>Work is done.</value>
+    <value>The operation was done.</value>
     <comment>Finish to Pack</comment>
   </data>
   <data name="Str_Overwrite" xml:space="preserve">
@@ -149,7 +149,7 @@ Please check data directory value.</value>
     <comment>Check Save file exsists</comment>
   </data>
   <data name="Str_Packing" xml:space="preserve">
-    <value>Now Packing... Please take for few minutes.</value>
+    <value>Now Packing... ({0} / {1})</value>
   </data>
   <data name="Str_Finish" xml:space="preserve">
     <value>Finish.</value>
@@ -159,11 +159,11 @@ Please check data directory value.</value>
   </data>
   <data name="Str_Pack" xml:space="preserve">
     <value>Pack</value>
-    <comment>for WorkerWindow Title</comment>
+    <comment>for Worker Title</comment>
   </data>
   <data name="Str_Unpack" xml:space="preserve">
     <value>Unpack</value>
-    <comment>for WorkerWindow Title</comment>
+    <comment>for Worker Title</comment>
   </data>
   <data name="Str_Copied" xml:space="preserve">
     <value>Copied to the clipboard.</value>
@@ -179,5 +179,32 @@ Please check data directory value.</value>
   </data>
   <data name="bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Str_CancelMsg" xml:space="preserve">
+    <value>Please wait while the operation is cancelled.</value>
+  </data>
+  <data name="Str_Loading" xml:space="preserve">
+    <value>Loading Package... ({0} of {1})</value>
+  </data>
+  <data name="Str_LoadingPreview" xml:space="preserve">
+    <value>Now loading data for preview...</value>
+  </data>
+  <data name="Str_Ready" xml:space="preserve">
+    <value>Ready.</value>
+  </data>
+  <data name="Str_Unpacking" xml:space="preserve">
+    <value>Now Unpacking... ({0} / {1})</value>
+  </data>
+  <data name="play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Str_ExtractTo" xml:space="preserve">
+    <value>Extract to:</value>
+  </data>
+  <data name="Str_Interrupt" xml:space="preserve">
+    <value>The operation was interrupted by user.</value>
+  </data>
+  <data name="Uri_PatchTxt" xml:space="preserve">
+    <value>http://mabipatchinfo.nexon.net/patch/patch.txt</value>
   </data>
 </root>

@@ -168,4 +168,7 @@
   <data name="Str_Unpack" xml:space="preserve">
     <value>拆开</value>
   </data>
+  <data name="Uri_PatchTxt" xml:space="preserve">
+    <value>http://vert.luoqi.com.cn/patch1.txt</value>
+  </data>
 </root>

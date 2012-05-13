@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace MabiPacker.Forms
 {
@@ -14,11 +7,6 @@ namespace MabiPacker.Forms
 		public PackOption()
 		{
 			InitializeComponent();
-            Utility.MabinogiEnv c = new Utility.MabinogiEnv();
-			c.GetMabiEnv();
-			PackageVersion.Minimum = c.MabiVer;
-			PackageVersion.Value = (PackageVersion.Value > c.MabiVer) ? Properties.Settings.Default.LastPackVer : c.MabiVer;
-			Level.SelectedIndex = Properties.Settings.Default.CompressLevel;
 		}
 		// Instance
 		private static PackOption _Instance;

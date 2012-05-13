@@ -117,12 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="dInputDirSelector.Description" xml:space="preserve">
+    <value>パックしたいdataディレクトリを選択</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lInputDir.Text" xml:space="preserve">
     <value>パックしたいデーターのフォルダを選択：</value>
   </data>
   <data name="lSaveAs.Text" xml:space="preserve">
     <value>保存ファイル名：</value>
+  </data>
+  <data name="dSaveAs.Title" xml:space="preserve">
+    <value>*.packファイルの保存先</value>
   </data>
   <data name="lVersion.Text" xml:space="preserve">
     <value>バージョン：</value>
@@ -133,17 +139,20 @@
   <data name="uCurrentVer.Text" xml:space="preserve">
     <value>現行のPackのバージョンを確認する</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>圧縮レベル：</value>
-  </data>
   <data name="tPack.Text" xml:space="preserve">
     <value>パック</value>
   </data>
-  <data name="bUnpack.Text" xml:space="preserve">
+  <data name="lLevel.Text" xml:space="preserve">
+    <value>圧縮レベル：</value>
+  </data>
+  <data name="tUnpack.Text" xml:space="preserve">
     <value>アンパック</value>
   </data>
   <data name="bContent.Text" xml:space="preserve">
     <value>内容物を確認</value>
+  </data>
+  <data name="bUnpack.Text" xml:space="preserve">
+    <value>アンパック</value>
   </data>
   <data name="lOpenPack.Text" xml:space="preserve">
     <value>アンパックしたい*.packファイルを選択：</value>
@@ -151,11 +160,14 @@
   <data name="lExtractTo.Text" xml:space="preserve">
     <value>展開先：</value>
   </data>
-  <data name="tUnpack.Text" xml:space="preserve">
-    <value>アンパック</value>
-  </data>
   <data name="tAbout.Text" xml:space="preserve">
     <value>MabiPackerについて</value>
+  </data>
+  <data name="dExtractTo.Description" xml:space="preserve">
+    <value>アンパックしたファイルの解凍先：</value>
+  </data>
+  <data name="dOpenPack.Title" xml:space="preserve">
+    <value>*.packファイルを開く</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Meiryo UI, 9pt</value>

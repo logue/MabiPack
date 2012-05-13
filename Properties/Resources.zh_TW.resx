@@ -168,4 +168,7 @@
   <data name="Str_Unpack" xml:space="preserve">
     <value>拆開</value>
   </data>
+  <data name="Uri_PatchTxt" xml:space="preserve">
+    <value>http://tw.mabipatch.mabinogi.gamania.com/mabinogi/patch.txt</value>
+  </data>
 </root>

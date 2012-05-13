@@ -30,8 +30,8 @@
     <PublisherName>Logue</PublisherName>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>1.2.1.2</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.2.2.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -91,9 +91,17 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MabinogiResource.net, Version=1.0.4487.24416, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="MabinogiResource.net, Version=1.0.4516.24688, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\MabinogiResource.net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -120,18 +128,14 @@
     <Compile Include="Forms\PackBrowser.designer.cs">
       <DependentUpon>PackBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="MabiEnviroment.cs" />
+    <Compile Include="ProgressDialog.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="Forms\PackOption.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\PackOption.Designer.cs">
       <DependentUpon>PackOption.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\WorkerWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\WorkerWindow.Designer.cs">
-      <DependentUpon>WorkerWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainWindow.cs">
       <SubType>Form</SubType>
@@ -141,7 +145,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\PackBrowser.ja.resx">
+      <DependentUpon>PackBrowser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\PackBrowser.resx">
+      <DependentUpon>PackBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PackBrowser.zh-CN.resx">
+      <DependentUpon>PackBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PackBrowser.zh-TW.resx">
       <DependentUpon>PackBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PackOption.resx">
@@ -161,21 +174,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainWindow.zh-TW.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WorkerWindow.ja.resx">
-      <DependentUpon>WorkerWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WorkerWindow.ko.resx">
-      <DependentUpon>WorkerWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WorkerWindow.resx">
-      <DependentUpon>WorkerWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WorkerWindow.zh-CN.resx">
-      <DependentUpon>WorkerWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WorkerWindow.zh-TW.resx">
-      <DependentUpon>WorkerWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ja.resx" />
     <EmbeddedResource Include="Properties\Resources.ko.resx" />
@@ -204,9 +202,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MabinogiResource.dll" />
+    <Content Include="DevIL.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="MabinogiResource.net.dll" />
-    <Content Include="DevIL.dll" />
+    <Content Include="Microsoft.WindowsAPICodePack.dll" />
+    <Content Include="Microsoft.WindowsAPICodePack.Shell.dll" />
     <Content Include="Resources\file.ico" />
     <Content Include="Resources\icon.ico" />
     <Content Include="Tao.DevIl.dll" />
