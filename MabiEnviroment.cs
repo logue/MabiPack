@@ -16,14 +16,14 @@
  */
 
 using System;
-using System.Net;
-using System.IO;
-using System.Collections.Generic;
-using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.Win32;
+using System.IO;
+using System.Net;
+using System.Text;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace MabiPacker
 {
@@ -40,6 +40,9 @@ namespace MabiPacker
 		public Uri PatchServer;
 		public uint Fullver;
 		public string LangPack;
+		// Define
+		public uint Code = 1226;
+		public uint LoginPort = 11000;
 
 		/// <summary>
 		/// Get Mabinogi Environment
@@ -55,13 +58,18 @@ namespace MabiPacker
 			this.Version = uint.Parse(p["main_version"]);
 			this.Arg = p["arg"];
 			this.LoginIP = p["login"];
-			this.Fullver = p.ContainsKey("main_fullversion") ? uint.Parse(p["main_fullversion"]) : 0;	// Maybe Korean server only.
-			this.LangPack = p.ContainsKey("lang") ? p["lang"] : "";
+			this.LangPack = p.ContainsKey("lang") ? p["lang"] : "";	// language.pack
+			
+			// Maybe Korean server only.
+			this.Fullver = p.ContainsKey("main_fullversion") ? uint.Parse(p["main_fullversion"]) : 0;
+			
 			// Notice:
 			// * US server seems not read main_ftp value.
-			// * In some countries in the HTTP patch to drop, in addition to the beginning of the address http://, to pass to the URI object.
+			// * In some countries uses HTTP for download patch, 
+			//   then the beginning of the address http://, to pass to the URI object.
 			// * Whether FTP is to be determined by the port.
-			this.PatchServer = new Uri("http://" + (p["main_ftp"] == "mabipatch.nexon.net/game/" ? "mabipatch.nexon.net" : p["main_ftp"]) );
+			this.PatchServer = new Uri("http://" + 
+				(p["main_ftp"] == "mabipatch.nexon.net/game/" ? "mabipatch.nexon.net" : p["main_ftp"]) );
 		}
 		/// <summary>
 		/// Get Mabinogi installed directory from Registory.
@@ -144,15 +152,23 @@ namespace MabiPacker
 		/// <param name="form">The window of a parent program.</param>
 		/// <returns>When client is launched returns true, otherwise returns false.</returns>
 		public bool Launch(Form form){
-			System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo();
-			if (System.IO.File.Exists(this.MabinogiDir + "\\HSLaunch.exe") && System.Diagnostics.Process.GetProcessesByName("HSLaunch.exe").Length == 0)
+			ProcessStartInfo psi = new ProcessStartInfo();
+			
+			// Whwn detect CrackShield, launch CrackShield first.
+			// If CrackShield process detected, ignore launch code.
+			if (File.Exists(this.MabinogiDir + "\\HSLaunch.exe") && 
+				File.Exists(this.MabinogiDir + "\\dinput8.dll") &&
+				Process.GetProcessesByName("HSLaunch.exe").Length == 0)
 			{
 				Console.WriteLine("Detect CrackSheild. Launch CrackShield first...");
 				RunElevated(this.MabinogiDir + "\\HSLaunch.exe", "", form, false);
 			}
-			String cArgs = "code:1622 ver:" + this.LocalVersion + " logip:" + this.LoginIP + " logport:11000 " + this.Arg;
+			String cArgs = "code:" + this.Code + " ver:" + this.LocalVersion + 
+				" logip:" + this.LoginIP + " logport:"+ this.LoginPort + " " + this.Arg;
 			Console.WriteLine("Command Line:" + MabinogiDir + "\\client.exe " + cArgs);
 			Console.WriteLine("Launch Mabinogi client.");
+			
+			// Multiple launch client is not checked. :)
 			return RunElevated(this.MabinogiDir + "\\client.exe", cArgs, form, false);
 		}
 		/// <summary>

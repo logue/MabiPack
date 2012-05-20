@@ -7,12 +7,12 @@ using Microsoft.WindowsAPICodePack.Shell;
 
 namespace MabiPacker
 {
-	public partial class MainWindow : Form
+	public partial class MainWindow : GlassForm
 	{
 		private String PackageDir;
 		private int MabiVer;
         private String filter;
-		private Utility.Worker w;
+		private Utility.Process w;
 		private MabiEnvironment ue;
 		private bool isVista;
 		
@@ -33,6 +33,15 @@ namespace MabiPacker
 			String PackageDir = (Properties.Settings.Default.LastPackFile != "") ? 
 				Properties.Settings.Default.LastPackFile : 
 				this.PackageDir;
+			if (isVista){
+				GlassExtensions.HookGlassRender(InputDir);
+				GlassExtensions.HookGlassRender(SaveAs);
+				GlassExtensions.HookGlassRender(Level);
+				//new GlassRenderer(Level, 0, 0);
+				GlassExtensions.HookGlassRender(PackageVersion);
+				GlassExtensions.HookGlassRender(OpenPack);
+				GlassExtensions.HookGlassRender(ExtractTo);
+			}
 #region Init Pack Tab
 			SaveAs.Text = PackageDir;
 			dSaveAs.Filter = this.filter;
@@ -40,7 +49,7 @@ namespace MabiPacker
 			InputDir.Text = Properties.Settings.Default.LastDataDir;
 
 			PackageVersion.Minimum = this.MabiVer;
-			PackageVersion.Value = (PackageVersion.Value > MabiVer) ? Properties.Settings.Default.LastPackVer : MabiVer;
+			PackageVersion.Value = this.MabiVer;
 			Level.SelectedIndex = Properties.Settings.Default.CompressLevel;
 #endregion
 #region Init Unpack Tab
@@ -63,7 +72,7 @@ namespace MabiPacker
 		}
 		private void MainWindow_Shown(object sender, EventArgs e)
 		{
-			w = new Utility.Worker(this.Handle);
+			w = new Utility.Process(this.Handle);
 		}
 
 		private void FinishProcess(){

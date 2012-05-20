@@ -16,7 +16,7 @@ namespace MabiPacker
 		static void Main(string[] args)
 		{
 			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
+			Application.SetCompatibleTextRenderingDefault(true);
 
 			// Standard Mode
 			if (args.Length == 0)
@@ -26,7 +26,7 @@ namespace MabiPacker
 			else 
 			{
 				if (Win32.AttachConsole(System.UInt32.MaxValue)){
-					Utility.Worker w = new Utility.Worker(IntPtr.Zero);
+					Utility.Process w = new Utility.Process(IntPtr.Zero);
 					Console.Title = "MabiPacker";
 
 					// Console Mode

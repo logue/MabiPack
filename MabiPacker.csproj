@@ -122,6 +122,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AeroFix.cs" />
     <Compile Include="Forms\PackBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,12 +132,6 @@
     <Compile Include="MabiEnviroment.cs" />
     <Compile Include="ProgressDialog.cs" />
     <Compile Include="Utility.cs" />
-    <Compile Include="Forms\PackOption.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\PackOption.Designer.cs">
-      <DependentUpon>PackOption.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,9 +151,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PackBrowser.zh-TW.resx">
       <DependentUpon>PackBrowser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PackOption.resx">
-      <DependentUpon>PackOption.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainWindow.ja.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
@@ -190,7 +182,9 @@
     <EmbeddedResource Include="Properties\Resources.zh_CN.resx" />
     <EmbeddedResource Include="Properties\Resources.zh_TW.resx" />
     <None Include="app.config" />
-    <None Include="Properties\app.manifest" />
+    <None Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -205,12 +199,8 @@
     <Content Include="DevIL.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MabinogiResource.net.dll" />
-    <Content Include="Microsoft.WindowsAPICodePack.dll" />
-    <Content Include="Microsoft.WindowsAPICodePack.Shell.dll" />
     <Content Include="Resources\file.ico" />
     <Content Include="Resources\icon.ico" />
-    <Content Include="Tao.DevIl.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -238,36 +228,8 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <PublishFile Include="MabinogiResource.net.dll">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="Tao.DevIl.dll">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>False</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-  </ItemGroup>
-  <ItemGroup>
-    <FileAssociation Include=".pack">
-      <Visible>False</Visible>
-      <Description>Mabinogi Package File</Description>
-      <Progid>1</Progid>
-      <DefaultIcon>Resources\file.ico</DefaultIcon>
-    </FileAssociation>
-  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

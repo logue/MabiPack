@@ -361,7 +361,7 @@
 			resources.ApplyResources(this, "$this");
 			this.Controls.Add(this.Tab);
 			this.Controls.Add(this.lcopyright);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.KeyPreview = true;
 			this.MaximizeBox = false;
 			this.Name = "MainWindow";

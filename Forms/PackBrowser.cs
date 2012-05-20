@@ -1,10 +1,11 @@
 ﻿using System;
-using System.IO;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using System.Drawing.Imaging;
 using MabinogiResource;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Tao.DevIl;
 
 namespace MabiPacker
@@ -14,26 +15,44 @@ namespace MabiPacker
 		private TreeNode m_Root;
 		private PackResourceSet m_Pack;
 		private PackResource Res;
-		private Utility.Worker w;
+		private Utility.Process w;
+		private Utility.Dialogs d;
+		private ProgressDialog pd;
 		private WavePlayer wave;
 		private string PackFile;
+		private bool isVista;
 
 		public PackBrowser(string filename)
 		{
+			// Set PrgressDialog
+			this.pd = new ProgressDialog(this.Handle);
+			this.pd.Title = this.Text;
+			this.pd.Line1 = Properties.Resources.Str_Initialize;
+			this.pd.CancelMessage = Properties.Resources.Str_CancelMsg;
+			this.pd.Animation = 151;
+			this.pd.ShowDialog();
+			
 			InitializeComponent();
+			OperatingSystem osInfo = Environment.OSVersion;
 			this.PackFile = filename;
-			this.w = new Utility.Worker(this.Handle);
-			Utility.LoadAssembly();
+			this.w = new Utility.Process(this.Handle);
+			this.d = new Utility.Dialogs(this.Handle);
+			this.isVista = (osInfo.Version.Major >= 6) ? true : false;
+
 		}
 		private void PackBrowser_Shown(object sender, EventArgs e)
 		{
+			
+			m_Tree.Enabled = false;
 			// Insert File tree
 			m_Pack = PackResourceSet.CreateFromFile(PackFile);
 			if (m_Pack != null)
 			{
 				Status.Text = Properties.Resources.Str_Initialize;
 				uint files = m_Pack.GetFileCount();
-				Progress.Maximum = (int)files;
+				this.pd.Maximum = files;
+				this.pd.Line1 = "Loading Package...";
+				this.pd.Animation = 151;
 				this.Text = this.PackFile + " - MabiPacker";
 				this.Update();
 				m_Tree.BeginUpdate();
@@ -42,19 +61,33 @@ namespace MabiPacker
 				for (uint i = 0; i < files; ++i)
 				{
 					InsertFileNode(i);
-					Progress.Value = (int)i;
+					this.pd.Value = i;
+					this.pd.Line2 = String.Format(Properties.Resources.Str_Loading, i, files);
 					Status.Text = String.Format(Properties.Resources.Str_Loading, i, files);
+					if (this.pd.HasUserCancelled)
+					{
+						m_Pack.Dispose();
+						this.Close();
+						this.pd.CloseDialog();
+						return;
+					}
 					this.Update();
 				}
 				m_Root.Expand();
 				m_Tree.EndUpdate();
+				this.pd.Animation = 150;
+				this.pd.Title = "Sorting - MabiPacker";
+				this.Update();
+				this.pd.Line1 = "Sorting...";
+				this.pd.Line3 = "Now sorting package file list...";
 				m_Tree.Sort();
 				m_Tree.Refresh();
-				Progress.Visible = false;
 				
 				Status.Text = Properties.Resources.Str_Ready;
 				this.Update();
 			}
+			m_Tree.Enabled = true;
+			this.pd.CloseDialog();
 		}
 		private void PackBrowser_FormClosing(object sender, FormClosingEventArgs e)
 		{
@@ -71,35 +104,13 @@ namespace MabiPacker
 
 		private void m_Tree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
 		{
+			m_Tree.Enabled = false;
 			if (e.Node.Tag != null) PreviewById((uint)e.Node.Tag);
+			m_Tree.Enabled = true;
 		}
 		private void tbUnpack_Click(object sender, EventArgs e)
 		{
-			FolderBrowserDialog ExtractTo = new FolderBrowserDialog();
-			ExtractTo.Description = Properties.Resources.Str_ExtractTo;
-			if (ExtractTo.ShowDialog(this) == DialogResult.OK){
-				// Check output directory exsists.
-				if (Directory.Exists(ExtractTo.SelectedPath + "\\data"))
-				{
-					DialogResult overwrite = MessageBox.Show(Properties.Resources.Str_Overwrite, Properties.Resources.Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-					if (overwrite == DialogResult.No)
-					{
-						return;
-					}
-				}
-
-				DialogResult result = MessageBox.Show(
-					Properties.Resources.Str_Confirm,
-					Properties.Resources.Confirm,
-					MessageBoxButtons.OKCancel,
-					MessageBoxIcon.Question,
-					MessageBoxDefaultButton.Button1);
-
-				if (result == DialogResult.OK)
-				{
-					this.w.Unpack(this.PackFile, ExtractTo.SelectedPath);
-				}
-			}
+			this.d.Unpack(this.PackFile);
 		}
 		private void PictureView_MouseDown(object sender, MouseEventArgs e)
 		{
@@ -117,6 +128,7 @@ namespace MabiPacker
 			if (pr != null)
 			{
 				string filePath = pr.GetName();
+				this.pd.Line3 = filePath;
 				string[] paths = filePath.Split('\\');
 				TreeNode node = m_Root;
 				for (uint i = 0; i < paths.Length; ++i)
@@ -133,6 +145,9 @@ namespace MabiPacker
 									break;
 								case ".txt" :
 									node = node.Nodes.Add(paths[i], paths[i], 2, 2);
+									if (@paths[i] == "!Readme.txt"){
+										PreviewById(id);
+									}
 									break;
 								case ".xml" :
 									node = node.Nodes.Add(paths[i], paths[i], 3, 3);

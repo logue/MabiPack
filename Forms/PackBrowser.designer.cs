@@ -39,7 +39,6 @@
 			this.TextView = new System.Windows.Forms.RichTextBox();
 			this.Layout = new System.Windows.Forms.TableLayoutPanel();
 			this.StatusBar = new System.Windows.Forms.StatusStrip();
-			this.Progress = new System.Windows.Forms.ToolStripProgressBar();
 			this.Status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.Toolbar = new System.Windows.Forms.ToolStrip();
 			this.tbExtract = new System.Windows.Forms.ToolStripButton();
@@ -63,12 +62,10 @@
 			// 
 			// SplitContainer.Panel1
 			// 
-			resources.ApplyResources(this.SplitContainer.Panel1, "SplitContainer.Panel1");
 			this.SplitContainer.Panel1.Controls.Add(this.m_Tree);
 			// 
 			// SplitContainer.Panel2
 			// 
-			resources.ApplyResources(this.SplitContainer.Panel2, "SplitContainer.Panel2");
 			this.SplitContainer.Panel2.Controls.Add(this.pPlay);
 			this.SplitContainer.Panel2.Controls.Add(this.PicturePanel);
 			this.SplitContainer.Panel2.Controls.Add(this.TextView);
@@ -94,8 +91,8 @@
 			// 
 			// pPlay
 			// 
-			resources.ApplyResources(this.pPlay, "pPlay");
 			this.pPlay.BackgroundImage = global::MabiPacker.Properties.Resources.play;
+			resources.ApplyResources(this.pPlay, "pPlay");
 			this.pPlay.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.pPlay.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.pPlay.Name = "pPlay";
@@ -112,18 +109,18 @@
 			// 
 			// PictureView
 			// 
-			resources.ApplyResources(this.PictureView, "PictureView");
 			this.PictureView.BackColor = System.Drawing.SystemColors.Control;
 			this.PictureView.BackgroundImage = global::MabiPacker.Properties.Resources.bg;
 			this.PictureView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			resources.ApplyResources(this.PictureView, "PictureView");
 			this.PictureView.Name = "PictureView";
 			this.PictureView.TabStop = false;
 			this.PictureView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureView_MouseDown);
 			// 
 			// TextView
 			// 
-			resources.ApplyResources(this.TextView, "TextView");
 			this.TextView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			resources.ApplyResources(this.TextView, "TextView");
 			this.TextView.Name = "TextView";
 			this.TextView.ReadOnly = true;
 			// 
@@ -137,28 +134,22 @@
 			// 
 			// StatusBar
 			// 
-			resources.ApplyResources(this.StatusBar, "StatusBar");
 			this.StatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Progress,
             this.Status});
+			resources.ApplyResources(this.StatusBar, "StatusBar");
 			this.StatusBar.Name = "StatusBar";
-			// 
-			// Progress
-			// 
-			resources.ApplyResources(this.Progress, "Progress");
-			this.Progress.Name = "Progress";
 			// 
 			// Status
 			// 
-			resources.ApplyResources(this.Status, "Status");
 			this.Status.Name = "Status";
+			resources.ApplyResources(this.Status, "Status");
 			// 
 			// Toolbar
 			// 
-			resources.ApplyResources(this.Toolbar, "Toolbar");
 			this.Toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbExtract,
             this.tbUnpack});
+			resources.ApplyResources(this.Toolbar, "Toolbar");
 			this.Toolbar.Name = "Toolbar";
 			// 
 			// tbExtract
@@ -175,8 +166,8 @@
 			// 
 			// PackBrowser
 			// 
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
 			resources.ApplyResources(this, "$this");
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.Controls.Add(this.Layout);
 			this.Name = "PackBrowser";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PackBrowser_FormClosing);
@@ -205,7 +196,6 @@
 		private System.Windows.Forms.TableLayoutPanel Layout;
         private System.Windows.Forms.SplitContainer SplitContainer;
 		private System.Windows.Forms.StatusStrip StatusBar;
-		private System.Windows.Forms.ToolStripProgressBar Progress;
 		private System.Windows.Forms.ToolStripStatusLabel Status;
 		private System.Windows.Forms.ImageList IconList;
 		private System.Windows.Forms.RichTextBox TextView;
