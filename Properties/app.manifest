@@ -1,17 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<asmv1:assembly
-		xmlns="urn:schemas-microsoft-com:asm.v1" 
-		xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" 
-		xmlns:asmv2="urn:schemas-microsoft-com:asm.v2"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		manifestVersion="1.0"
-	>
-  <assemblyIdentity 
-		version="1.0.0.0" 
-		processorArchitecture="*" 
-		name="Logue.MabiPacker"
-		type="win32"
-	 />
+<asmv1:assembly xmlns="urn:schemas-microsoft-com:asm.v1" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" manifestVersion="1.0">
+  <assemblyIdentity version="1.0.0.0" processorArchitecture="*" name="Logue.MabiPacker" type="win32" />
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
     <security>
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
@@ -39,12 +28,12 @@
     <application>
       <!-- このアプリケーションが動作するように設計されている、Windows のすべてのバージョンの一覧。Windows は最も互換性の高い環境を自動的に選択します。-->
       <!-- アプリケーションが Windows 7 で動作するように設計されている場合は、次の supportedOS ノードのコメントを解除します。-->
-			<!--supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/-->
+      <!--supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/-->
     </application>
   </compatibility>
-	<description>Mabinogi Package File Management Tool</description>
+  <description>Mabinogi Package File Management Tool</description>
   <!-- Windows のコモン コントロールとダイアログのテーマを有効にします (Windows XP 以降) -->
-	<!--dependency>
+  <!--dependency>
     <dependentAssembly>
 			<assemblyIdentity
             type="win32"

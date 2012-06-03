@@ -26,7 +26,7 @@ namespace MabiPacker
 			else 
 			{
 				if (Win32.AttachConsole(System.UInt32.MaxValue)){
-					Utility.Process w = new Utility.Process(IntPtr.Zero);
+					Worker w = new Worker(true);
 					Console.Title = "MabiPacker";
 
 					// Console Mode

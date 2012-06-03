@@ -25,7 +25,7 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
-namespace MabiPacker
+namespace MabiPacker // <-- Change here yourself
 {
 	class MabiEnvironment
 	{
@@ -41,35 +41,41 @@ namespace MabiPacker
 		public uint Fullver;
 		public string LangPack;
 		// Define
-		public uint Code = 1226;
+		public uint Code = 1622;
 		public uint LoginPort = 11000;
 
 		/// <summary>
 		/// Get Mabinogi Environment
 		/// </summary>
 		/// <param name="url">Url to Patch.txt</param>
-		public MabiEnvironment()
+		public MabiEnvironment(){
+			this.MabinogiDir = GetMabiDir();
+			this.LocalVersion = GetMabiVer();
+			this.isDownloadable = false;
+		}
+		
+		public MabiEnvironment(string url)
 		{
 			this.MabinogiDir = GetMabiDir();
 			this.LocalVersion = GetMabiVer();
 
-			Dictionary<string, string> p = PatchText(Properties.Resources.Uri_PatchTxt);
+			Dictionary<string, string> p = PatchText(url);
 			this.isDownloadable = (p["patch_accept"] == "0") ? false : true;
 			this.Version = uint.Parse(p["main_version"]);
 			this.Arg = p["arg"];
 			this.LoginIP = p["login"];
 			this.LangPack = p.ContainsKey("lang") ? p["lang"] : "";	// language.pack
-			
+
 			// Maybe Korean server only.
 			this.Fullver = p.ContainsKey("main_fullversion") ? uint.Parse(p["main_fullversion"]) : 0;
-			
+
 			// Notice:
 			// * US server seems not read main_ftp value.
 			// * In some countries uses HTTP for download patch, 
 			//   then the beginning of the address http://, to pass to the URI object.
 			// * Whether FTP is to be determined by the port.
-			this.PatchServer = new Uri("http://" + 
-				(p["main_ftp"] == "mabipatch.nexon.net/game/" ? "mabipatch.nexon.net" : p["main_ftp"]) );
+			this.PatchServer = new Uri("ftp://" +
+				(p["main_ftp"] == "mabipatch.nexon.net/game/" ? "mabipatch.nexon.net" : p["main_ftp"]));
 		}
 		/// <summary>
 		/// Get Mabinogi installed directory from Registory.
@@ -100,14 +106,20 @@ namespace MabiPacker
 		{
 			String MabiDir = this.GetMabiDir();
 			// Get Client Version from version.dat
-			string version_dat = MabiDir + "\\version.dat";
+			//string version_dat = MabiDir + "\\version.dat";
+			string version_dat = "version.dat";
 			if (File.Exists(version_dat))
 			{
 				byte[] data = File.ReadAllBytes(version_dat);
 				return BitConverter.ToUInt32(data, 0);
 			}
-			else
+			else if (File.Exists(MabiDir + "\\" + version_dat))
 			{
+				// binary is not exists same directory,
+				// load registory.
+				byte[] data = File.ReadAllBytes(MabiDir + "\\" + version_dat);
+				return BitConverter.ToUInt32(data, 0);
+			}else{
 				return 0;
 			}
 		}
@@ -120,8 +132,8 @@ namespace MabiPacker
 		{
 			string line = "";
 			ArrayList al = new ArrayList();
-			HttpWebRequest webreq = (HttpWebRequest) WebRequest.Create(url);
-			HttpWebResponse webres = (HttpWebResponse) webreq.GetResponse();
+			HttpWebRequest webreq = (HttpWebRequest)WebRequest.Create(url);
+			HttpWebResponse webres = (HttpWebResponse)webreq.GetResponse();
 			Stream st = webres.GetResponseStream();
 
 			// Fetch patch.txt
@@ -151,25 +163,45 @@ namespace MabiPacker
 		/// </summary>
 		/// <param name="form">The window of a parent program.</param>
 		/// <returns>When client is launched returns true, otherwise returns false.</returns>
-		public bool Launch(Form form){
+		public bool Launch(String[] args, Form form)
+		{
 			ProcessStartInfo psi = new ProcessStartInfo();
-			
-			// Whwn detect CrackShield, launch CrackShield first.
-			// If CrackShield process detected, ignore launch code.
-			if (File.Exists(this.MabinogiDir + "\\HSLaunch.exe") && 
-				File.Exists(this.MabinogiDir + "\\dinput8.dll") &&
-				Process.GetProcessesByName("HSLaunch.exe").Length == 0)
-			{
-				Console.WriteLine("Detect CrackSheild. Launch CrackShield first...");
-				RunElevated(this.MabinogiDir + "\\HSLaunch.exe", "", form, false);
+			String cArgs = "code:" + this.Code + " ver:" + this.LocalVersion +
+					" logip:" + this.LoginIP + " logport:" + this.LoginPort + " " + this.Arg + String.Join(" ", args);
+
+			if (File.Exists("client.exe")) {
+				if (File.Exists("HSLaunch.exe") &&
+					File.Exists("dinput8.dll") &&
+					Process.GetProcessesByName("HSLaunch.exe").Length == 0)
+				{
+					Console.WriteLine("Detect CrackSheild. Launch CrackShield first...");
+					RunElevated("HSLaunch.exe", "", form, false);
+				}
+				
+				Console.WriteLine("Command Line: client.exe " + cArgs);
+				Console.WriteLine("Launch Mabinogi client.");
+
+				// Multiple launch client is not checked. :)
+				return RunElevated("client.exe", cArgs, form, false);
+
+			}else{
+				String MabiDir = this.GetMabiDir();
+
+				// Whwn detect CrackShield, launch CrackShield first.
+				// If CrackShield process detected, ignore launch code.
+				if (File.Exists(MabiDir + "\\HSLaunch.exe") &&
+					File.Exists(MabiDir + "\\dinput8.dll") &&
+					Process.GetProcessesByName("HSLaunch.exe").Length == 0)
+				{
+					Console.WriteLine("Detect CrackSheild. Launch CrackShield first...");
+					RunElevated(MabiDir + "\\HSLaunch.exe", "", form, false);
+				}
+				Console.WriteLine("Command Line:" + MabinogiDir + "\\client.exe " + cArgs);
+				Console.WriteLine("Launch Mabinogi client.");
+
+				// Multiple launch client is not checked. :)
+				return RunElevated(MabiDir + "\\client.exe", cArgs, form, false);
 			}
-			String cArgs = "code:" + this.Code + " ver:" + this.LocalVersion + 
-				" logip:" + this.LoginIP + " logport:"+ this.LoginPort + " " + this.Arg;
-			Console.WriteLine("Command Line:" + MabinogiDir + "\\client.exe " + cArgs);
-			Console.WriteLine("Launch Mabinogi client.");
-			
-			// Multiple launch client is not checked. :)
-			return RunElevated(this.MabinogiDir + "\\client.exe", cArgs, form, false);
 		}
 		/// <summary>
 		/// Launch other program as Administrator.

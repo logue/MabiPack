@@ -4,8 +4,8 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using Be.Windows.Forms;
 using MabinogiResource;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Tao.DevIl;
 
 namespace MabiPacker
@@ -15,8 +15,8 @@ namespace MabiPacker
 		private TreeNode m_Root;
 		private PackResourceSet m_Pack;
 		private PackResource Res;
-		private Utility.Process w;
-		private Utility.Dialogs d;
+		private Worker w;
+		private Dialogs d;
 		private ProgressDialog pd;
 		private WavePlayer wave;
 		private string PackFile;
@@ -26,18 +26,16 @@ namespace MabiPacker
 		{
 			// Set PrgressDialog
 			this.pd = new ProgressDialog(this.Handle);
-			this.pd.Title = this.Text;
-			this.pd.Line1 = Properties.Resources.Str_Initialize;
-			this.pd.CancelMessage = Properties.Resources.Str_CancelMsg;
+			this.pd.Title = this.Name;
+			this.pd.Caption = Properties.Resources.Str_Initialize;
 			this.pd.Animation = 151;
 			this.pd.ShowDialog();
 			
 			InitializeComponent();
-			OperatingSystem osInfo = Environment.OSVersion;
 			this.PackFile = filename;
-			this.w = new Utility.Process(this.Handle);
-			this.d = new Utility.Dialogs(this.Handle);
-			this.isVista = (osInfo.Version.Major >= 6) ? true : false;
+			this.w = new Worker();
+			this.d = new Dialogs();
+			this.isVista = (Environment.OSVersion.Version.Major >= 6) ? true : false;
 
 		}
 		private void PackBrowser_Shown(object sender, EventArgs e)
@@ -45,49 +43,57 @@ namespace MabiPacker
 			
 			m_Tree.Enabled = false;
 			// Insert File tree
-			m_Pack = PackResourceSet.CreateFromFile(PackFile);
-			if (m_Pack != null)
-			{
-				Status.Text = Properties.Resources.Str_Initialize;
-				uint files = m_Pack.GetFileCount();
-				this.pd.Maximum = files;
-				this.pd.Line1 = "Loading Package...";
-				this.pd.Animation = 151;
-				this.Text = this.PackFile + " - MabiPacker";
-				this.Update();
-				m_Tree.BeginUpdate();
-				m_Tree.Nodes.Clear();
-				m_Root = m_Tree.Nodes.Add("data","data",0,0);
-				for (uint i = 0; i < files; ++i)
+			try{
+				m_Pack = PackResourceSet.CreateFromFile(PackFile);
+				if (m_Pack != null)
 				{
-					InsertFileNode(i);
-					this.pd.Value = i;
-					this.pd.Line2 = String.Format(Properties.Resources.Str_Loading, i, files);
-					Status.Text = String.Format(Properties.Resources.Str_Loading, i, files);
-					if (this.pd.HasUserCancelled)
+					Status.Text = Properties.Resources.Str_Initialize;
+					this.Text = this.PackFile + " - MabiPacker";
+					uint files = m_Pack.GetFileCount();
+					this.pd.Maximum = files;
+					this.pd.Caption = Properties.Resources.Str_Loading;
+					this.pd.Animation = 151;
+					this.Update();
+					m_Tree.BeginUpdate();
+					m_Tree.Nodes.Clear();
+					m_Root = m_Tree.Nodes.Add("data","data",0,0);
+					for (uint i = 0; i < files; ++i)
 					{
-						m_Pack.Dispose();
-						this.Close();
-						this.pd.CloseDialog();
-						return;
+						InsertFileNode(i);
+						string info = String.Format(Properties.Resources.Str_LoadingMsg,  i, files);
+						this.pd.Value = i;
+
+						this.pd.Message = info;
+						Status.Text = info;
+						if (this.pd.HasUserCancelled)
+						{
+							m_Pack.Dispose();
+							this.Close();
+							this.pd.CloseDialog();
+							return;
+						}
+						this.Update();
 					}
+					m_Root.Expand();
+					m_Tree.EndUpdate();
+					this.pd.CloseDialog();
+					this.Update();
+					this.pd.Animation = 150;
+					this.pd.ShowDialog(ProgressDialog.PROGDLG.MarqueeProgress, ProgressDialog.PROGDLG.NoCancel);
+					this.pd.Caption = Properties.Resources.Str_Sorting;
+					this.pd.Message = Properties.Resources.Str_SortingMsg;
+					m_Tree.Sort();
+					m_Tree.Refresh();
+
+					Status.Text = Properties.Resources.Str_Ready;
 					this.Update();
 				}
-				m_Root.Expand();
-				m_Tree.EndUpdate();
-				this.pd.Animation = 150;
-				this.pd.Title = "Sorting - MabiPacker";
-				this.Update();
-				this.pd.Line1 = "Sorting...";
-				this.pd.Line3 = "Now sorting package file list...";
-				m_Tree.Sort();
-				m_Tree.Refresh();
-				
-				Status.Text = Properties.Resources.Str_Ready;
-				this.Update();
+				m_Tree.Enabled = true;
+			}catch(Exception ex){
+				d.Error(ex,this.Name);
+			}finally{
+				this.pd.CloseDialog();
 			}
-			m_Tree.Enabled = true;
-			this.pd.CloseDialog();
 		}
 		private void PackBrowser_FormClosing(object sender, FormClosingEventArgs e)
 		{
@@ -104,13 +110,19 @@ namespace MabiPacker
 
 		private void m_Tree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
 		{
-			m_Tree.Enabled = false;
-			if (e.Node.Tag != null) PreviewById((uint)e.Node.Tag);
-			m_Tree.Enabled = true;
+			try{
+				m_Tree.Enabled = false;
+				PreviewById((uint)e.Node.Tag);
+				
+			}catch(Exception){
+
+			}finally{
+				m_Tree.Enabled = true;
+			}
 		}
 		private void tbUnpack_Click(object sender, EventArgs e)
 		{
-			this.d.Unpack(this.PackFile);
+			
 		}
 		private void PictureView_MouseDown(object sender, MouseEventArgs e)
 		{
@@ -128,7 +140,7 @@ namespace MabiPacker
 			if (pr != null)
 			{
 				string filePath = pr.GetName();
-				this.pd.Line3 = filePath;
+				this.pd.Detail = filePath;
 				string[] paths = filePath.Split('\\');
 				TreeNode node = m_Root;
 				for (uint i = 0; i < paths.Length; ++i)
@@ -141,7 +153,13 @@ namespace MabiPacker
 						if (Ext != ""){
 							switch (Ext) {
 								default:
-									node = node.Nodes.Add(paths[i], paths[i], 1, 1);
+								if (@paths[i] == "vf.dat")
+									{
+										node = node.Nodes.Add(paths[i], paths[i], 3, 3);
+										PreviewById(id);
+									}else{
+										node = node.Nodes.Add(paths[i], paths[i], 1, 1);
+									}
 									break;
 								case ".txt" :
 									node = node.Nodes.Add(paths[i], paths[i], 2, 2);
@@ -150,6 +168,7 @@ namespace MabiPacker
 									}
 									break;
 								case ".xml" :
+								case ".trn" :
 									node = node.Nodes.Add(paths[i], paths[i], 3, 3);
 									break;
 								case ".jpg" :
@@ -196,14 +215,15 @@ namespace MabiPacker
 				w.UnpackFile(Res);
 			}
 		}
-		private void PreviewById(uint id){
+		private void PreviewById(uint id){			
 			PackResource Res = m_Pack.GetFileByIndex(id);
 			Status.Text = Properties.Resources.Str_LoadingPreview;
 			this.Update();
 			if (Res != null)
 			{
 				PicturePanel.Hide();
-				TextView.Clear();
+				
+				hexBox.ResetText();
 				TextView.Hide();
 				pPlay.Hide();
 
@@ -218,35 +238,47 @@ namespace MabiPacker
 				switch (Ext)
 				{
 					case ".dds":
-					case ".psd":
-					case ".raw":
-						Bitmap bmp = DDSDataToBMP(buffer);
-						PictureView.Image = bmp;
-						PictureView.Update();
-						Status.Text = String.Format("Image file. {0} x {1}", PictureView.Width, PictureView.Height);
-						PicturePanel.Show();
-					break;
-					
 					case ".jpg":
 					case ".gif":
 					case ".bmp":
-						// http://stackoverflow.com/questions/2868739/listof-byte-to-picturebox
-						var ms = new MemoryStream(buffer);
-						PictureView.Image = Image.FromStream(ms);
-						ms.Dispose();
+						string Info = "";
+						if (Ext == ".dds"){
+							Bitmap bmp = DDSDataToBMP(buffer);
+							Info = "DDS (Direct Draw Surfice)";
+							PictureView.Image = bmp;
+						}else{
+							switch (Ext){
+								case ".jpg":
+									Info = "JPEG";
+								break;
+								case ".gif":
+									Info = "GIF";
+								break;
+								case ".bmp":
+									Info = "Bitmap";
+								break;
+								case ".png":
+									Info = "PNG (Portable Network Graphic)";
+								break;
+							}
+							var ms = new MemoryStream(buffer);
+							PictureView.Image = Image.FromStream(ms);
+							ms.Dispose();
+						}
 						PictureView.Update();
-						Status.Text = String.Format("Image file. {0} x {1}", PictureView.Width, PictureView.Height);
+						Status.Text = String.Format("{0} Image file. ({1} x {2})", Info, PictureView.Width, PictureView.Height);
 						PicturePanel.Show();
-						break;
+					break;
 					case ".xml":
 					case ".html":
 					case ".txt":
+					case ".trn":
 						string text = Encoding.Unicode.GetString(buffer);
-						
+						TextView.Clear();
 						TextView.Text = text;
 						TextView.Update();
 						TextView.Show();
-						Status.Text = String.Format("ASCII file. {0} chars", text.Length);
+						Status.Text = String.Format("Ascii file. ({0} bytes}", text.Length);
 						break;
 					case ".wav":
 					case ".mp3":
@@ -254,10 +286,20 @@ namespace MabiPacker
 						// http://msdn.microsoft.com/en-us/library/ms143770%28v=VS.100%29.aspx 
 						this.wave = new WavePlayer(buffer);
 						this.wave.Play();
-						Status.Text = "Sound file. Click image to replay sound.";
+						Status.Text = "Sound file.";
 					break;
 					default:
-					Status.Text = "Not supported format.";
+						if (InternalName == "vf.dat"){
+							TextView.Clear();
+							TextView.Text = Encoding.ASCII.GetString(buffer);
+							TextView.Update();
+							TextView.Show();
+							Status.Text = "Version infomation.";
+						}else{
+							DynamicByteProvider d = new DynamicByteProvider(buffer);
+							hexBox.ByteProvider = d;
+							Status.Text = "Unknown file.";
+						}
 					break;
 				}
 				

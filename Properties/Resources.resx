@@ -168,9 +168,6 @@ Please check data directory value.</value>
   <data name="Str_Copied" xml:space="preserve">
     <value>Copied to the clipboard.</value>
   </data>
-  <data name="Str_Error" xml:space="preserve">
-    <value>An error has been occurred while processing following file :</value>
-  </data>
   <data name="Str_NotFound" xml:space="preserve">
     <value>File does not exist.</value>
   </data>
@@ -180,11 +177,8 @@ Please check data directory value.</value>
   <data name="bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Str_CancelMsg" xml:space="preserve">
-    <value>Please wait while the operation is cancelled.</value>
-  </data>
-  <data name="Str_Loading" xml:space="preserve">
-    <value>Loading Package... ({0} of {1})</value>
+  <data name="Str_LoadingMsg" xml:space="preserve">
+    <value>Now Loading... ({0} / {1})</value>
   </data>
   <data name="Str_LoadingPreview" xml:space="preserve">
     <value>Now loading data for preview...</value>
@@ -206,5 +200,38 @@ Please check data directory value.</value>
   </data>
   <data name="Uri_PatchTxt" xml:space="preserve">
     <value>http://mabipatchinfo.nexon.net/patch/patch.txt</value>
+  </data>
+  <data name="ChoosePackDir" xml:space="preserve">
+    <value>Choose data directory to pack.</value>
+    <comment>Dialogs.cs</comment>
+  </data>
+  <data name="ChooseUnpackDir" xml:space="preserve">
+    <value>Choose directory of the unpacked files.</value>
+    <comment>Dialogs.cs</comment>
+  </data>
+  <data name="ChooseUnpackFile" xml:space="preserve">
+    <value>Choose *.pack file to unpack.</value>
+    <comment>Dialogs.cs</comment>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>The task was completed.</value>
+    <comment>Dialogs.cs</comment>
+  </data>
+  <data name="ErrorMsg" xml:space="preserve">
+    <value>An unexpected error occured.</value>
+    <comment>Dialogs.cs</comment>
+  </data>
+  <data name="SaveAsPackFile" xml:space="preserve">
+    <value>Save as *.pack file.</value>
+    <comment>Dialogs.cs</comment>
+  </data>
+  <data name="Str_Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Str_Sorting" xml:space="preserve">
+    <value>Sorting...</value>
+  </data>
+  <data name="Str_SortingMsg" xml:space="preserve">
+    <value>Now sorting package file list...</value>
   </data>
 </root>

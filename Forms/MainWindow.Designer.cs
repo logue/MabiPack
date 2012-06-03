@@ -29,13 +29,11 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-			this.dInputDirSelector = new System.Windows.Forms.FolderBrowserDialog();
 			this.bInputDirSelector = new System.Windows.Forms.Button();
 			this.InputDir = new System.Windows.Forms.TextBox();
 			this.lInputDir = new System.Windows.Forms.Label();
 			this.lSaveAs = new System.Windows.Forms.Label();
 			this.SaveAs = new System.Windows.Forms.TextBox();
-			this.dSaveAs = new System.Windows.Forms.SaveFileDialog();
 			this.bSaveAs = new System.Windows.Forms.Button();
 			this.lVersion = new System.Windows.Forms.Label();
 			this.PackageVersion = new System.Windows.Forms.NumericUpDown();
@@ -58,6 +56,10 @@
 			this.lExtractTo = new System.Windows.Forms.Label();
 			this.OpenPack = new System.Windows.Forms.TextBox();
 			this.bOpenPack = new System.Windows.Forms.Button();
+			this.tRepack = new System.Windows.Forms.TabPage();
+			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.label1 = new System.Windows.Forms.Label();
+			this.bRepack = new System.Windows.Forms.Button();
 			this.tAbout = new System.Windows.Forms.TabPage();
 			this.tlAbout = new System.Windows.Forms.TableLayoutPanel();
 			this.labelProductName = new System.Windows.Forms.Label();
@@ -65,24 +67,18 @@
 			this.labelDescription = new System.Windows.Forms.Label();
 			this.labelCopyright = new System.Windows.Forms.LinkLabel();
 			this.Logo = new System.Windows.Forms.PictureBox();
-			this.dExtractTo = new System.Windows.Forms.FolderBrowserDialog();
-			this.dOpenPack = new System.Windows.Forms.OpenFileDialog();
 			((System.ComponentModel.ISupportInitialize)(this.PackageVersion)).BeginInit();
 			this.Tab.SuspendLayout();
 			this.tPack.SuspendLayout();
 			this.tlPack.SuspendLayout();
 			this.tUnpack.SuspendLayout();
 			this.tlUnpack.SuspendLayout();
+			this.tRepack.SuspendLayout();
+			this.tableLayoutPanel1.SuspendLayout();
 			this.tAbout.SuspendLayout();
 			this.tlAbout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// dInputDirSelector
-			// 
-			resources.ApplyResources(this.dInputDirSelector, "dInputDirSelector");
-			this.dInputDirSelector.RootFolder = System.Environment.SpecialFolder.MyDocuments;
-			this.dInputDirSelector.ShowNewFolderButton = false;
 			// 
 			// bInputDirSelector
 			// 
@@ -96,6 +92,7 @@
 			this.InputDir.AllowDrop = true;
 			resources.ApplyResources(this.InputDir, "InputDir");
 			this.InputDir.Name = "InputDir";
+			this.InputDir.TextChanged += new System.EventHandler(this.InputDir_TextChanged);
 			// 
 			// lInputDir
 			// 
@@ -111,12 +108,6 @@
 			// 
 			resources.ApplyResources(this.SaveAs, "SaveAs");
 			this.SaveAs.Name = "SaveAs";
-			// 
-			// dSaveAs
-			// 
-			this.dSaveAs.DefaultExt = "*.pack";
-			this.dSaveAs.InitialDirectory = "C:\\Nexon\\Mabinogi\\Package";
-			this.dSaveAs.RestoreDirectory = true;
 			// 
 			// bSaveAs
 			// 
@@ -144,6 +135,7 @@
             0,
             0,
             0});
+			this.PackageVersion.ValueChanged += new System.EventHandler(this.PackageVersion_ValueChanged);
 			// 
 			// bPack
 			// 
@@ -174,6 +166,7 @@
 			// 
 			this.Tab.Controls.Add(this.tPack);
 			this.Tab.Controls.Add(this.tUnpack);
+			this.Tab.Controls.Add(this.tRepack);
 			this.Tab.Controls.Add(this.tAbout);
 			resources.ApplyResources(this.Tab, "Tab");
 			this.Tab.Name = "Tab";
@@ -295,6 +288,31 @@
 			this.bOpenPack.UseVisualStyleBackColor = true;
 			this.bOpenPack.Click += new System.EventHandler(this.bOpenPack_Click);
 			// 
+			// tRepack
+			// 
+			this.tRepack.Controls.Add(this.tableLayoutPanel1);
+			resources.ApplyResources(this.tRepack, "tRepack");
+			this.tRepack.Name = "tRepack";
+			this.tRepack.UseVisualStyleBackColor = true;
+			// 
+			// tableLayoutPanel1
+			// 
+			resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+			this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+			this.tableLayoutPanel1.Controls.Add(this.bRepack, 0, 1);
+			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+			// 
+			// label1
+			// 
+			resources.ApplyResources(this.label1, "label1");
+			this.label1.Name = "label1";
+			// 
+			// bRepack
+			// 
+			resources.ApplyResources(this.bRepack, "bRepack");
+			this.bRepack.Name = "bRepack";
+			this.bRepack.UseVisualStyleBackColor = true;
+			// 
 			// tAbout
 			// 
 			this.tAbout.Controls.Add(this.tlAbout);
@@ -342,17 +360,6 @@
 			this.Logo.TabStop = false;
 			this.Logo.Click += new System.EventHandler(this.Logo_Click);
 			// 
-			// dExtractTo
-			// 
-			resources.ApplyResources(this.dExtractTo, "dExtractTo");
-			this.dExtractTo.RootFolder = System.Environment.SpecialFolder.MyDocuments;
-			// 
-			// dOpenPack
-			// 
-			this.dOpenPack.DefaultExt = "*.pack";
-			resources.ApplyResources(this.dOpenPack, "dOpenPack");
-			this.dOpenPack.ReadOnlyChecked = true;
-			// 
 			// MainWindow
 			// 
 			this.AcceptButton = this.bPack;
@@ -365,7 +372,6 @@
 			this.KeyPreview = true;
 			this.MaximizeBox = false;
 			this.Name = "MainWindow";
-			this.Shown += new System.EventHandler(this.MainWindow_Shown);
 			((System.ComponentModel.ISupportInitialize)(this.PackageVersion)).EndInit();
 			this.Tab.ResumeLayout(false);
 			this.tPack.ResumeLayout(false);
@@ -376,6 +382,9 @@
 			this.tUnpack.PerformLayout();
 			this.tlUnpack.ResumeLayout(false);
 			this.tlUnpack.PerformLayout();
+			this.tRepack.ResumeLayout(false);
+			this.tableLayoutPanel1.ResumeLayout(false);
+			this.tableLayoutPanel1.PerformLayout();
 			this.tAbout.ResumeLayout(false);
 			this.tlAbout.ResumeLayout(false);
 			this.tlAbout.PerformLayout();
@@ -386,13 +395,11 @@
 
 		#endregion
 
-		private System.Windows.Forms.FolderBrowserDialog dInputDirSelector;
 		private System.Windows.Forms.Button bInputDirSelector;
 		private System.Windows.Forms.TextBox InputDir;
 		private System.Windows.Forms.Label lInputDir;
 		private System.Windows.Forms.Label lSaveAs;
 		private System.Windows.Forms.TextBox SaveAs;
-		private System.Windows.Forms.SaveFileDialog dSaveAs;
 		private System.Windows.Forms.Button bSaveAs;
 		private System.Windows.Forms.Label lVersion;
 		private System.Windows.Forms.NumericUpDown PackageVersion;
@@ -409,14 +416,13 @@
 		private System.Windows.Forms.Button bOpenPack;
 		private System.Windows.Forms.TextBox OpenPack;
 		private System.Windows.Forms.Label lOpenPack;
-		private System.Windows.Forms.FolderBrowserDialog dExtractTo;
-		private System.Windows.Forms.OpenFileDialog dOpenPack;
 		private System.Windows.Forms.TableLayoutPanel tlPack;
 		private System.Windows.Forms.Label lLevel;
 		private System.Windows.Forms.ComboBox Level;
 		private System.Windows.Forms.TableLayoutPanel tlUnpack;
 		private System.Windows.Forms.Button bUnpack;
 		private System.Windows.Forms.Button bContent;
+		private System.Windows.Forms.TabPage tRepack;
 		private System.Windows.Forms.TabPage tAbout;
 		private System.Windows.Forms.PictureBox Logo;
 		private System.Windows.Forms.TableLayoutPanel tlAbout;
@@ -424,6 +430,10 @@
 		private System.Windows.Forms.Label labelVersion;
 		private System.Windows.Forms.Label labelDescription;
 		private System.Windows.Forms.LinkLabel labelCopyright;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Button bRepack;
+		
 	}
 }
 

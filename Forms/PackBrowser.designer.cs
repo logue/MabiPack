@@ -33,11 +33,11 @@
 			this.SplitContainer = new System.Windows.Forms.SplitContainer();
 			this.m_Tree = new System.Windows.Forms.TreeView();
 			this.IconList = new System.Windows.Forms.ImageList(this.components);
+			this.hexBox = new Be.Windows.Forms.HexBox();
 			this.pPlay = new System.Windows.Forms.PictureBox();
 			this.PicturePanel = new System.Windows.Forms.Panel();
 			this.PictureView = new System.Windows.Forms.PictureBox();
 			this.TextView = new System.Windows.Forms.RichTextBox();
-			this.Layout = new System.Windows.Forms.TableLayoutPanel();
 			this.StatusBar = new System.Windows.Forms.StatusStrip();
 			this.Status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.Toolbar = new System.Windows.Forms.ToolStrip();
@@ -50,7 +50,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.pPlay)).BeginInit();
 			this.PicturePanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.PictureView)).BeginInit();
-			this.Layout.SuspendLayout();
 			this.StatusBar.SuspendLayout();
 			this.Toolbar.SuspendLayout();
 			this.SuspendLayout();
@@ -69,6 +68,7 @@
 			this.SplitContainer.Panel2.Controls.Add(this.pPlay);
 			this.SplitContainer.Panel2.Controls.Add(this.PicturePanel);
 			this.SplitContainer.Panel2.Controls.Add(this.TextView);
+			this.SplitContainer.Panel2.Controls.Add(this.hexBox);
 			// 
 			// m_Tree
 			// 
@@ -88,6 +88,18 @@
 			this.IconList.Images.SetKeyName(4, "image.png");
 			this.IconList.Images.SetKeyName(5, "ttf.png");
 			this.IconList.Images.SetKeyName(6, "sound.png");
+			// 
+			// hexBox
+			// 
+			resources.ApplyResources(this.hexBox, "hexBox");
+			this.hexBox.LineInfoForeColor = System.Drawing.Color.Empty;
+			this.hexBox.LineInfoVisible = true;
+			this.hexBox.Name = "hexBox";
+			this.hexBox.ReadOnly = true;
+			this.hexBox.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+			this.hexBox.StringViewVisible = true;
+			this.hexBox.UseFixedBytesPerLine = true;
+			this.hexBox.VScrollBarVisible = true;
 			// 
 			// pPlay
 			// 
@@ -109,10 +121,10 @@
 			// 
 			// PictureView
 			// 
+			resources.ApplyResources(this.PictureView, "PictureView");
 			this.PictureView.BackColor = System.Drawing.SystemColors.Control;
 			this.PictureView.BackgroundImage = global::MabiPacker.Properties.Resources.bg;
 			this.PictureView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			resources.ApplyResources(this.PictureView, "PictureView");
 			this.PictureView.Name = "PictureView";
 			this.PictureView.TabStop = false;
 			this.PictureView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureView_MouseDown);
@@ -123,14 +135,6 @@
 			resources.ApplyResources(this.TextView, "TextView");
 			this.TextView.Name = "TextView";
 			this.TextView.ReadOnly = true;
-			// 
-			// Layout
-			// 
-			resources.ApplyResources(this.Layout, "Layout");
-			this.Layout.Controls.Add(this.SplitContainer, 0, 1);
-			this.Layout.Controls.Add(this.StatusBar, 0, 2);
-			this.Layout.Controls.Add(this.Toolbar, 0, 0);
-			this.Layout.Name = "Layout";
 			// 
 			// StatusBar
 			// 
@@ -168,7 +172,9 @@
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
 			resources.ApplyResources(this, "$this");
-			this.Controls.Add(this.Layout);
+			this.Controls.Add(this.SplitContainer);
+			this.Controls.Add(this.Toolbar);
+			this.Controls.Add(this.StatusBar);
 			this.Name = "PackBrowser";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PackBrowser_FormClosing);
 			this.Shown += new System.EventHandler(this.PackBrowser_Shown);
@@ -180,8 +186,6 @@
 			this.PicturePanel.ResumeLayout(false);
 			this.PicturePanel.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.PictureView)).EndInit();
-			this.Layout.ResumeLayout(false);
-			this.Layout.PerformLayout();
 			this.StatusBar.ResumeLayout(false);
 			this.StatusBar.PerformLayout();
 			this.Toolbar.ResumeLayout(false);
@@ -193,11 +197,11 @@
         #endregion
 
 		private System.Windows.Forms.TreeView m_Tree;
-		private System.Windows.Forms.TableLayoutPanel Layout;
         private System.Windows.Forms.SplitContainer SplitContainer;
 		private System.Windows.Forms.StatusStrip StatusBar;
 		private System.Windows.Forms.ToolStripStatusLabel Status;
 		private System.Windows.Forms.ImageList IconList;
+		private Be.Windows.Forms.HexBox hexBox;
 		private System.Windows.Forms.RichTextBox TextView;
 		private System.Windows.Forms.Panel PicturePanel;
 		private System.Windows.Forms.PictureBox PictureView;
@@ -205,7 +209,6 @@
         private System.Windows.Forms.ToolStripButton tbExtract;
 		private System.Windows.Forms.ToolStripButton tbUnpack;
 		private System.Windows.Forms.PictureBox pPlay;
-		
     }
 }
 

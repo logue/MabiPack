@@ -2,7 +2,6 @@
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Microsoft.WindowsAPICodePack.Shell;
 
 namespace MabiPacker
@@ -12,8 +11,9 @@ namespace MabiPacker
 		private String PackageDir;
 		private int MabiVer;
         private String filter;
-		private Utility.Process w;
-		private MabiEnvironment ue;
+		private Worker w;
+		private Dialogs d;
+		private MabiEnvironment env;
 		private bool isVista;
 		
 		public MainWindow()
@@ -22,10 +22,12 @@ namespace MabiPacker
 
 			OperatingSystem osInfo = Environment.OSVersion;
 			this.isVista = (osInfo.Version.Major >= 6) ? true : false;
-			this.ue = new MabiEnvironment();
+			this.env = new MabiEnvironment(Properties.Resources.Uri_PatchTxt);
+			this.d = new Dialogs();
+			this.w = new Worker();
 
-			this.PackageDir = this.ue.MabinogiDir + "\\Package";
-			this.MabiVer = (int)this.ue.LocalVersion;
+			this.PackageDir = this.env.MabinogiDir + "\\Package";
+			this.MabiVer = (int)this.env.LocalVersion;
 
 			this.Text = AssemblyProduct + String.Format(" v.{0}", AssemblyVersion);
             this.filter = Properties.Resources.PackFileDesc + "(*.pack)|";
@@ -43,25 +45,16 @@ namespace MabiPacker
 				GlassExtensions.HookGlassRender(ExtractTo);
 			}
 #region Init Pack Tab
-			SaveAs.Text = PackageDir;
-			dSaveAs.Filter = this.filter;
-			dSaveAs.InitialDirectory = this.PackageDir;
-			InputDir.Text = Properties.Settings.Default.LastDataDir;
-
 			PackageVersion.Minimum = this.MabiVer;
-			PackageVersion.Value = this.MabiVer;
-			Level.SelectedIndex = Properties.Settings.Default.CompressLevel;
+			PackageVersion.Value = Int32.Parse(DateTime.Today.ToString("yyMMdd"));
+			uCurrentVer.Text = String.Format("(Current:{0} / Server:{1})", env.LocalVersion, env.Version);
+			SaveAs.Text = env.MabinogiDir+"\\Package\\custom-"+PackageVersion.Value.ToString()+".pack";
+			Level.SelectedIndex = -1;
 #endregion
 #region Init Unpack Tab
-			OpenPack.Text = this.PackageDir;
-			dOpenPack.InitialDirectory = this.PackageDir;
-            dOpenPack.Filter = this.filter;
 
 			string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 			ExtractTo.Text = path;
-			dExtractTo.SelectedPath = path;
-
-            
 #endregion
 #region Init About Tab
 			labelProductName.Text = AssemblyProduct;
@@ -69,17 +62,6 @@ namespace MabiPacker
 			labelCopyright.Text = AssemblyCopyright;
 			labelDescription.Text = AssemblyDescription;
 #endregion
-		}
-		private void MainWindow_Shown(object sender, EventArgs e)
-		{
-			w = new Utility.Process(this.Handle);
-		}
-
-		private void FinishProcess(){
-			Properties.Settings.Default.LastDataDir = InputDir.Text;
-			Properties.Settings.Default.LastPackFile = SaveAs.Text;
-			Properties.Settings.Default.LastPackVer = (int)PackageVersion.Value;
-			Properties.Settings.Default.CompressLevel = Level.SelectedIndex;	
 		}
 #region Pack Tab Event Handler
 		private void uCurrentVer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -90,130 +72,43 @@ namespace MabiPacker
 
 		private void bInputDirSelector_Click(object sender, EventArgs e)
 		{
-			if (this.isVista){
-				CommonOpenFileDialog cfdInputDir = new CommonOpenFileDialog();
-				cfdInputDir.EnsureReadOnly = true;
-				cfdInputDir.IsFolderPicker = true;
-				cfdInputDir.AllowNonFileSystemItems = true;
-				cfdInputDir.InitialDirectory = InputDir.Text;
-				cfdInputDir.Title = dInputDirSelector.Description;
-
-				if (cfdInputDir.ShowDialog() == CommonFileDialogResult.Ok)
-				{
-					ShellContainer selectedSO = null;
-					selectedSO = cfdInputDir.FileAsShellObject as ShellContainer;
-					InputDir.Text = selectedSO.ParsingName;
-				}
-			}else{
-				dInputDirSelector.SelectedPath = InputDir.Text;
-				if (dInputDirSelector.ShowDialog(this) == DialogResult.OK){
-					InputDir.Text = dInputDirSelector.SelectedPath;
-					Properties.Settings.Default.LastDataDir = dInputDirSelector.SelectedPath;
-				}
-			}
+			InputDir.Text = d.InputDir(InputDir.Text);
 		}
 
 		private void bSaveAs_Click(object sender, EventArgs e)
 		{
-			if (this.isVista){
-				CommonSaveFileDialog cfdSaveAs = new CommonSaveFileDialog();
-				cfdSaveAs.Title = dSaveAs.Title;
-				cfdSaveAs.AlwaysAppendDefaultExtension = true;
-				cfdSaveAs.DefaultExtension = ".pack";
-				cfdSaveAs.Filters.Add(new CommonFileDialogFilter(Properties.Resources.PackFileDesc, "*.pack"));
-				cfdSaveAs.DefaultDirectory = SaveAs.Text;
-				if (cfdSaveAs.ShowDialog() == CommonFileDialogResult.Ok)
-				{
-					SaveAs.Text = cfdSaveAs.FileName;
-				}
-			}else{
-				dSaveAs.InitialDirectory = SaveAs.Text;
-				if (dSaveAs.ShowDialog(this) == DialogResult.OK)
-				{
-					SaveAs.Text = dSaveAs.FileName;
-					Properties.Settings.Default.LastPackFile = dSaveAs.FileName;
-				}
+			SaveAs.Text = d.OutputFile(SaveAs.Text);
+		}
+
+		private void InputDir_TextChanged(object sender, EventArgs e){
+			if (Directory.Exists(InputDir.Text))
+			{
+				bPack.Enabled = true;
+			}
+			else
+			{
+				bPack.Enabled = false;
 			}
 		}
 
 		private void bPack_Click(object sender, EventArgs e)
 		{
-#region Pack precheck
-			// Check directory exsists
-			if (!Directory.Exists(InputDir.Text))
-			{
-				MessageBox.Show(Properties.Resources.Str_DataDirNotExists, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-				return;
-			}
-
-			// Check output file exsists.
-			if (File.Exists(SaveAs.Text))
-			{
-				DialogResult overwrite = MessageBox.Show(Properties.Resources.Str_Overwrite, Properties.Resources.Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-				if (overwrite == DialogResult.No)
-				{
-					return;
-				}
-			}
-#endregion
-			DialogResult result = MessageBox.Show(
-				Properties.Resources.Str_Confirm,
-				Properties.Resources.Confirm,
-				MessageBoxButtons.OKCancel,
-				MessageBoxIcon.Question,
-				MessageBoxDefaultButton.Button1);
-
-			if (result == DialogResult.OK){
-				this.w.Pack(InputDir.Text, SaveAs.Text, (uint)PackageVersion.Value, Level.SelectedIndex-1);
-				FinishProcess();
-			}
+			d.Pack(OpenPack.Text, ExtractTo.Text, UInt32.Parse(PackageVersion.Text), Int16.Parse(Level.Text));
+		}
+		private void PackageVersion_ValueChanged(object sender, EventArgs e)
+		{
+			SaveAs.Text = env.MabinogiDir + "\\Package\\custom-" + PackageVersion.Value.ToString() + ".pack";
 		}
 #endregion
 #region Unpack Tab Event Handler
 		private void bOpenPack_Click(object sender, EventArgs e)
 		{
-			if (this.isVista){
-				CommonOpenFileDialog cfdOpenPack = new CommonOpenFileDialog();
-				cfdOpenPack.EnsureReadOnly = true;
-				cfdOpenPack.IsFolderPicker = false;
-				cfdOpenPack.AllowNonFileSystemItems = false;
-				cfdOpenPack.InitialDirectory = OpenPack.Text;
-				cfdOpenPack.Title = dOpenPack.Title;
-				cfdOpenPack.Filters.Add(new CommonFileDialogFilter(Properties.Resources.PackFileDesc, "*.pack"));
-
-				if (cfdOpenPack.ShowDialog() == CommonFileDialogResult.Ok)
-				{
-					OpenPack.Text = cfdOpenPack.FileName;
-				}
-			}else{
-				dOpenPack.InitialDirectory = OpenPack.Text;
-				if (dOpenPack.ShowDialog(this) == DialogResult.OK)
-				{
-					OpenPack.Text = dOpenPack.FileName;
-				}
-			}
+			OpenPack.Text = d.InputFile(OpenPack.Text);
 		}
 
 		private void bExtractTo_Click(object sender, EventArgs e)
 		{
-			if (this.isVista){
-				CommonOpenFileDialog cfdExtractTo = new CommonOpenFileDialog();
-				cfdExtractTo.EnsureReadOnly = true;
-				cfdExtractTo.IsFolderPicker = true;
-				cfdExtractTo.AllowNonFileSystemItems = true;
-				cfdExtractTo.InitialDirectory = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-				cfdExtractTo.Title = dExtractTo.Description;
-				if (cfdExtractTo.ShowDialog() == CommonFileDialogResult.Ok)
-				{
-					ExtractTo.Text = cfdExtractTo.FileName;
-				}
-			}else{
-				dExtractTo.SelectedPath = ExtractTo.Text;
-				if (dExtractTo.ShowDialog(this) == DialogResult.OK)
-				{
-					ExtractTo.Text = dExtractTo.SelectedPath;
-				}
-			}
+			ExtractTo.Text = d.OutputDir(ExtractTo.Text);
 		}
 
 		private void OpenPack_TextChanged(object sender, EventArgs e)
@@ -221,8 +116,10 @@ namespace MabiPacker
 			if (File.Exists(OpenPack.Text))
 			{
 				bContent.Enabled = true;
+				bUnpack.Enabled = true;
 			}else{
 				bContent.Enabled = false;
+				bUnpack.Enabled = false;
 			}
 		}
 
@@ -234,34 +131,7 @@ namespace MabiPacker
 
 		private void bUnpack_Click(object sender, EventArgs e)
 		{
-			// Check input file exsists
-			if (!File.Exists(OpenPack.Text))
-			{
-				MessageBox.Show(Properties.Resources.Str_NotFound, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-				return;
-			}
-			// Check output directory exsists.
-			if (Directory.Exists(ExtractTo.Text+"\\data"))
-			{
-				DialogResult overwrite = MessageBox.Show(Properties.Resources.Str_Overwrite, Properties.Resources.Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-				if (overwrite == DialogResult.No)
-				{
-					return;
-				}
-			}
-
-			DialogResult result = MessageBox.Show(
-				Properties.Resources.Str_Confirm,
-				Properties.Resources.Confirm,
-				MessageBoxButtons.OKCancel,
-				MessageBoxIcon.Question,
-				MessageBoxDefaultButton.Button1);
-
-			if (result == DialogResult.OK)
-			{
-				w.Unpack(OpenPack.Text, ExtractTo.Text);
-				FinishProcess();
-			}
+			d.Unpack(OpenPack.Text,ExtractTo.Text);
 		}
 #endregion
 #region About Tab Event Handler
@@ -353,5 +223,7 @@ namespace MabiPacker
 			}
 		}
 #endregion
+
+		
 	}
 }

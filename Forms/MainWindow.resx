@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="dInputDirSelector.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>10, 8</value>
-  </metadata>
-  <data name="dInputDirSelector.Description" xml:space="preserve">
-    <value>Choose data directory to pack.</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="bInputDirSelector.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -258,9 +252,6 @@
   <data name="&gt;&gt;SaveAs.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <metadata name="dSaveAs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>157, 6</value>
-  </metadata>
   <data name="bSaveAs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
   </data>
@@ -353,6 +344,9 @@
   </data>
   <data name="bPack.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="bPack.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="bPack.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -618,6 +612,237 @@
   <data name="&gt;&gt;tPack.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="&gt;&gt;tlUnpack.Name" xml:space="preserve">
+    <value>tlUnpack</value>
+  </data>
+  <data name="&gt;&gt;tlUnpack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tlUnpack.Parent" xml:space="preserve">
+    <value>tUnpack</value>
+  </data>
+  <data name="&gt;&gt;tlUnpack.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tlUnpack.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="bContent" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="bUnpack" Row="1" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,20,Absolute,20" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;bExtractTo.Name" xml:space="preserve">
+    <value>bExtractTo</value>
+  </data>
+  <data name="&gt;&gt;bExtractTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bExtractTo.Parent" xml:space="preserve">
+    <value>tUnpack</value>
+  </data>
+  <data name="&gt;&gt;bExtractTo.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ExtractTo.Name" xml:space="preserve">
+    <value>ExtractTo</value>
+  </data>
+  <data name="&gt;&gt;ExtractTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ExtractTo.Parent" xml:space="preserve">
+    <value>tUnpack</value>
+  </data>
+  <data name="&gt;&gt;ExtractTo.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;lOpenPack.Name" xml:space="preserve">
+    <value>lOpenPack</value>
+  </data>
+  <data name="&gt;&gt;lOpenPack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lOpenPack.Parent" xml:space="preserve">
+    <value>tUnpack</value>
+  </data>
+  <data name="&gt;&gt;lOpenPack.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;lExtractTo.Name" xml:space="preserve">
+    <value>lExtractTo</value>
+  </data>
+  <data name="&gt;&gt;lExtractTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lExtractTo.Parent" xml:space="preserve">
+    <value>tUnpack</value>
+  </data>
+  <data name="&gt;&gt;lExtractTo.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;OpenPack.Name" xml:space="preserve">
+    <value>OpenPack</value>
+  </data>
+  <data name="&gt;&gt;OpenPack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OpenPack.Parent" xml:space="preserve">
+    <value>tUnpack</value>
+  </data>
+  <data name="&gt;&gt;OpenPack.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;bOpenPack.Name" xml:space="preserve">
+    <value>bOpenPack</value>
+  </data>
+  <data name="&gt;&gt;bOpenPack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bOpenPack.Parent" xml:space="preserve">
+    <value>tUnpack</value>
+  </data>
+  <data name="&gt;&gt;bOpenPack.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="tUnpack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tUnpack.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tUnpack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>466, 164</value>
+  </data>
+  <data name="tUnpack.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tUnpack.Text" xml:space="preserve">
+    <value>Unpack</value>
+  </data>
+  <data name="&gt;&gt;tUnpack.Name" xml:space="preserve">
+    <value>tUnpack</value>
+  </data>
+  <data name="&gt;&gt;tUnpack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tUnpack.Parent" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="&gt;&gt;tUnpack.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
+    <value>tRepack</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label1" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="bRepack" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="tRepack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tRepack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>466, 164</value>
+  </data>
+  <data name="tRepack.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="tRepack.Text" xml:space="preserve">
+    <value>Repack</value>
+  </data>
+  <data name="&gt;&gt;tRepack.Name" xml:space="preserve">
+    <value>tRepack</value>
+  </data>
+  <data name="&gt;&gt;tRepack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tRepack.Parent" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="&gt;&gt;tRepack.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;tlAbout.Name" xml:space="preserve">
+    <value>tlAbout</value>
+  </data>
+  <data name="&gt;&gt;tlAbout.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tlAbout.Parent" xml:space="preserve">
+    <value>tAbout</value>
+  </data>
+  <data name="&gt;&gt;tlAbout.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tlAbout.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelProductName" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelVersion" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelDescription" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelCopyright" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,50" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,Absolute,20,AutoSize,0,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;Logo.Name" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="&gt;&gt;Logo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Logo.Parent" xml:space="preserve">
+    <value>tAbout</value>
+  </data>
+  <data name="&gt;&gt;Logo.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tAbout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="tAbout.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tAbout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>466, 164</value>
+  </data>
+  <data name="tAbout.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tAbout.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="&gt;&gt;tAbout.Name" xml:space="preserve">
+    <value>tAbout</value>
+  </data>
+  <data name="&gt;&gt;tAbout.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tAbout.Parent" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="&gt;&gt;tAbout.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Tab.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="Tab.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="Tab.Size" type="System.Drawing.Size, System.Drawing">
+    <value>474, 192</value>
+  </data>
+  <data name="Tab.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;Tab.Name" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="&gt;&gt;Tab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Tab.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Tab.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="tlUnpack.ColumnCount" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
@@ -674,6 +899,72 @@
   </data>
   <data name="tlUnpack.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="bContent" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="bUnpack" Row="1" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,20,Absolute,20" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="bContent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="bContent.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bContent.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="bContent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 33</value>
+  </data>
+  <data name="bContent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 25</value>
+  </data>
+  <data name="bContent.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="bContent.Text" xml:space="preserve">
+    <value>Check Content</value>
+  </data>
+  <data name="&gt;&gt;bContent.Name" xml:space="preserve">
+    <value>bContent</value>
+  </data>
+  <data name="&gt;&gt;bContent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bContent.Parent" xml:space="preserve">
+    <value>tlUnpack</value>
+  </data>
+  <data name="&gt;&gt;bContent.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="bUnpack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="bUnpack.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="bUnpack.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="bUnpack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>382, 33</value>
+  </data>
+  <data name="bUnpack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 25</value>
+  </data>
+  <data name="bUnpack.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="bUnpack.Text" xml:space="preserve">
+    <value>Unpack</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.Name" xml:space="preserve">
+    <value>bUnpack</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.Parent" xml:space="preserve">
+    <value>tlUnpack</value>
+  </data>
+  <data name="&gt;&gt;bUnpack.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="bExtractTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -834,172 +1125,114 @@
   <data name="&gt;&gt;bOpenPack.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="tUnpack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tUnpack.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tUnpack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>466, 164</value>
-  </data>
-  <data name="tUnpack.TabIndex" type="System.Int32, mscorlib">
+  <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="tUnpack.Text" xml:space="preserve">
-    <value>Unpack</value>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
   </data>
-  <data name="&gt;&gt;tUnpack.Name" xml:space="preserve">
-    <value>tUnpack</value>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tUnpack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;tUnpack.Parent" xml:space="preserve">
-    <value>Tab</value>
-  </data>
-  <data name="&gt;&gt;tUnpack.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tlAbout.Name" xml:space="preserve">
-    <value>tlAbout</value>
-  </data>
-  <data name="&gt;&gt;tlAbout.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tlAbout.Parent" xml:space="preserve">
-    <value>tAbout</value>
-  </data>
-  <data name="&gt;&gt;tlAbout.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="tlAbout.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelProductName" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelVersion" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelDescription" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelCopyright" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,50" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,Absolute,20,AutoSize,0,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  <data name="&gt;&gt;bRepack.Name" xml:space="preserve">
+    <value>bRepack</value>
   </data>
-  <data name="&gt;&gt;Logo.Name" xml:space="preserve">
-    <value>Logo</value>
+  <data name="&gt;&gt;bRepack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Logo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;bRepack.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;Logo.Parent" xml:space="preserve">
-    <value>tAbout</value>
-  </data>
-  <data name="&gt;&gt;Logo.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;bRepack.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="tAbout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="tAbout.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>466, 164</value>
-  </data>
-  <data name="tAbout.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tAbout.Text" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="&gt;&gt;tAbout.Name" xml:space="preserve">
-    <value>tAbout</value>
-  </data>
-  <data name="&gt;&gt;tAbout.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tAbout.Parent" xml:space="preserve">
-    <value>Tab</value>
-  </data>
-  <data name="&gt;&gt;tAbout.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="Tab.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="Tab.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="Tab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>474, 192</value>
+  <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="Tab.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>466, 164</value>
   </data>
-  <data name="&gt;&gt;Tab.Name" xml:space="preserve">
-    <value>Tab</value>
+  <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;Tab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;Tab.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Tab.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
+    <value>tRepack</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="bContent.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="label1" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="bRepack" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="bContent.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="bContent.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 0</value>
   </data>
-  <data name="bContent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 33</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>436, 45</value>
   </data>
-  <data name="bContent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 25</value>
-  </data>
-  <data name="bContent.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="bContent.Text" xml:space="preserve">
-    <value>Check Content</value>
-  </data>
-  <data name="&gt;&gt;bContent.Name" xml:space="preserve">
-    <value>bContent</value>
-  </data>
-  <data name="&gt;&gt;bContent.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bContent.Parent" xml:space="preserve">
-    <value>tlUnpack</value>
-  </data>
-  <data name="&gt;&gt;bContent.ZOrder" xml:space="preserve">
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="bUnpack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>This tool is to merge multiple files into one Package, are intended to improve the operating speed.
+Expand All to once, much space is required at least 3G.
+</value>
   </data>
-  <data name="bUnpack.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
   </data>
-  <data name="bUnpack.Location" type="System.Drawing.Point, System.Drawing">
-    <value>382, 33</value>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="bUnpack.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
   </data>
-  <data name="bUnpack.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="bUnpack.Text" xml:space="preserve">
-    <value>Unpack</value>
+  <data name="bRepack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 85</value>
   </data>
-  <data name="&gt;&gt;bUnpack.Name" xml:space="preserve">
-    <value>bUnpack</value>
+  <data name="bRepack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
-  <data name="&gt;&gt;bUnpack.Type" xml:space="preserve">
+  <data name="bRepack.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="bRepack.Text" xml:space="preserve">
+    <value>Repack</value>
+  </data>
+  <data name="&gt;&gt;bRepack.Name" xml:space="preserve">
+    <value>bRepack</value>
+  </data>
+  <data name="&gt;&gt;bRepack.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;bUnpack.Parent" xml:space="preserve">
-    <value>tlUnpack</value>
+  <data name="&gt;&gt;bRepack.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;bUnpack.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;bRepack.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tlAbout.ColumnCount" type="System.Int32, mscorlib">
@@ -1223,21 +1456,6 @@
   </data>
   <data name="&gt;&gt;Logo.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <metadata name="dExtractTo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>370, 6</value>
-  </metadata>
-  <data name="dExtractTo.Description" xml:space="preserve">
-    <value>Choose unpacked file directory</value>
-  </data>
-  <metadata name="dOpenPack.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>487, 6</value>
-  </metadata>
-  <data name="dOpenPack.Filter" xml:space="preserve">
-    <value>Mabinogi Package File (*.pack)|</value>
-  </data>
-  <data name="dOpenPack.Title" xml:space="preserve">
-    <value>Open *pack file</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -2285,34 +2503,10 @@
   <data name="$this.Text" xml:space="preserve">
     <value>MabiPacker</value>
   </data>
-  <data name="&gt;&gt;dInputDirSelector.Name" xml:space="preserve">
-    <value>dInputDirSelector</value>
-  </data>
-  <data name="&gt;&gt;dInputDirSelector.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dSaveAs.Name" xml:space="preserve">
-    <value>dSaveAs</value>
-  </data>
-  <data name="&gt;&gt;dSaveAs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dExtractTo.Name" xml:space="preserve">
-    <value>dExtractTo</value>
-  </data>
-  <data name="&gt;&gt;dExtractTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dOpenPack.Name" xml:space="preserve">
-    <value>dOpenPack</value>
-  </data>
-  <data name="&gt;&gt;dOpenPack.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainWindow</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Microsoft.WindowsAPICodePack.Shell.GlassForm, Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</value>
+    <value>Microsoft.WindowsAPICodePack.Shell.GlassForm, Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>
