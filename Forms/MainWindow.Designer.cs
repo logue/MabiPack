@@ -56,10 +56,6 @@
 			this.lExtractTo = new System.Windows.Forms.Label();
 			this.OpenPack = new System.Windows.Forms.TextBox();
 			this.bOpenPack = new System.Windows.Forms.Button();
-			this.tRepack = new System.Windows.Forms.TabPage();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.label1 = new System.Windows.Forms.Label();
-			this.bRepack = new System.Windows.Forms.Button();
 			this.tAbout = new System.Windows.Forms.TabPage();
 			this.tlAbout = new System.Windows.Forms.TableLayoutPanel();
 			this.labelProductName = new System.Windows.Forms.Label();
@@ -73,8 +69,6 @@
 			this.tlPack.SuspendLayout();
 			this.tUnpack.SuspendLayout();
 			this.tlUnpack.SuspendLayout();
-			this.tRepack.SuspendLayout();
-			this.tableLayoutPanel1.SuspendLayout();
 			this.tAbout.SuspendLayout();
 			this.tlAbout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
@@ -166,7 +160,6 @@
 			// 
 			this.Tab.Controls.Add(this.tPack);
 			this.Tab.Controls.Add(this.tUnpack);
-			this.Tab.Controls.Add(this.tRepack);
 			this.Tab.Controls.Add(this.tAbout);
 			resources.ApplyResources(this.Tab, "Tab");
 			this.Tab.Name = "Tab";
@@ -288,31 +281,6 @@
 			this.bOpenPack.UseVisualStyleBackColor = true;
 			this.bOpenPack.Click += new System.EventHandler(this.bOpenPack_Click);
 			// 
-			// tRepack
-			// 
-			this.tRepack.Controls.Add(this.tableLayoutPanel1);
-			resources.ApplyResources(this.tRepack, "tRepack");
-			this.tRepack.Name = "tRepack";
-			this.tRepack.UseVisualStyleBackColor = true;
-			// 
-			// tableLayoutPanel1
-			// 
-			resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-			this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-			this.tableLayoutPanel1.Controls.Add(this.bRepack, 0, 1);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			// 
-			// label1
-			// 
-			resources.ApplyResources(this.label1, "label1");
-			this.label1.Name = "label1";
-			// 
-			// bRepack
-			// 
-			resources.ApplyResources(this.bRepack, "bRepack");
-			this.bRepack.Name = "bRepack";
-			this.bRepack.UseVisualStyleBackColor = true;
-			// 
 			// tAbout
 			// 
 			this.tAbout.Controls.Add(this.tlAbout);
@@ -382,9 +350,6 @@
 			this.tUnpack.PerformLayout();
 			this.tlUnpack.ResumeLayout(false);
 			this.tlUnpack.PerformLayout();
-			this.tRepack.ResumeLayout(false);
-			this.tableLayoutPanel1.ResumeLayout(false);
-			this.tableLayoutPanel1.PerformLayout();
 			this.tAbout.ResumeLayout(false);
 			this.tlAbout.ResumeLayout(false);
 			this.tlAbout.PerformLayout();
@@ -422,7 +387,6 @@
 		private System.Windows.Forms.TableLayoutPanel tlUnpack;
 		private System.Windows.Forms.Button bUnpack;
 		private System.Windows.Forms.Button bContent;
-		private System.Windows.Forms.TabPage tRepack;
 		private System.Windows.Forms.TabPage tAbout;
 		private System.Windows.Forms.PictureBox Logo;
 		private System.Windows.Forms.TableLayoutPanel tlAbout;
@@ -430,9 +394,6 @@
 		private System.Windows.Forms.Label labelVersion;
 		private System.Windows.Forms.Label labelDescription;
 		private System.Windows.Forms.LinkLabel labelCopyright;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Button bRepack;
 		
 	}
 }

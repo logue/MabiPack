@@ -49,7 +49,7 @@ namespace MabiPacker
 			PackageVersion.Value = Int32.Parse(DateTime.Today.ToString("yyMMdd"));
 			uCurrentVer.Text = String.Format("(Current:{0} / Server:{1})", env.LocalVersion, env.Version);
 			SaveAs.Text = env.MabinogiDir+"\\Package\\custom-"+PackageVersion.Value.ToString()+".pack";
-			Level.SelectedIndex = -1;
+			Level.SelectedIndex = 0;
 #endregion
 #region Init Unpack Tab
 
@@ -93,7 +93,11 @@ namespace MabiPacker
 
 		private void bPack_Click(object sender, EventArgs e)
 		{
-			d.Pack(OpenPack.Text, ExtractTo.Text, UInt32.Parse(PackageVersion.Text), Int16.Parse(Level.Text));
+			Console.WriteLine(InputDir.Text);
+			Console.WriteLine(SaveAs.Text);
+			Console.WriteLine(PackageVersion.Value);
+			Console.WriteLine(Level.SelectedIndex - 1);
+			d.Pack(InputDir.Text, SaveAs.Text, (uint)PackageVersion.Value, Level.SelectedIndex-1);
 		}
 		private void PackageVersion_ValueChanged(object sender, EventArgs e)
 		{
@@ -223,6 +227,15 @@ namespace MabiPacker
 			}
 		}
 #endregion
+
+		private void bRepack_Click(object sender, EventArgs e)
+		{
+			string[] files = Directory.GetFiles(this.env.MabinogiDir + "\\Package\\");
+			foreach (string file in files)
+			{
+				
+			}
+		}
 
 		
 	}

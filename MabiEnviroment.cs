@@ -47,13 +47,15 @@ namespace MabiPacker // <-- Change here yourself
 		/// <summary>
 		/// Get Mabinogi Environment
 		/// </summary>
-		/// <param name="url">Url to Patch.txt</param>
 		public MabiEnvironment(){
 			this.MabinogiDir = GetMabiDir();
 			this.LocalVersion = GetMabiVer();
 			this.isDownloadable = false;
 		}
-		
+		/// <summary>
+		/// Get Mabinogi Environment
+		/// </summary>
+		/// <param name="url">Url to Patch.txt</param>
 		public MabiEnvironment(string url)
 		{
 			this.MabinogiDir = GetMabiDir();
