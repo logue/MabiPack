@@ -3,7 +3,7 @@
   <PropertyGroup>
     <PublishUrlHistory>https://github.com/logue/MabiPack/downloads/|publish\</PublishUrlHistory>
     <InstallUrlHistory />
-    <SupportUrlHistory>http://forum.logue.be/index.php%3ftopic=679.0|https://github.com/logue/MabiPack/issues</SupportUrlHistory>
+    <SupportUrlHistory>http://mabiassist.logue.be/MabiPacker|http://forum.logue.be/index.php%3ftopic=679.0|https://github.com/logue/MabiPack/issues</SupportUrlHistory>
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />
     <ErrorReportUrlHistory>https://github.com/logue/MabiPack/issues</ErrorReportUrlHistory>

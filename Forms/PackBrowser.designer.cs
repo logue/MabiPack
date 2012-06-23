@@ -33,11 +33,11 @@
 			this.SplitContainer = new System.Windows.Forms.SplitContainer();
 			this.m_Tree = new System.Windows.Forms.TreeView();
 			this.IconList = new System.Windows.Forms.ImageList(this.components);
-			this.hexBox = new Be.Windows.Forms.HexBox();
 			this.pPlay = new System.Windows.Forms.PictureBox();
 			this.PicturePanel = new System.Windows.Forms.Panel();
 			this.PictureView = new System.Windows.Forms.PictureBox();
 			this.TextView = new System.Windows.Forms.RichTextBox();
+			this.hexBox = new Be.Windows.Forms.HexBox();
 			this.StatusBar = new System.Windows.Forms.StatusStrip();
 			this.Status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.Toolbar = new System.Windows.Forms.ToolStrip();
@@ -65,6 +65,7 @@
 			// 
 			// SplitContainer.Panel2
 			// 
+			resources.ApplyResources(this.SplitContainer.Panel2, "SplitContainer.Panel2");
 			this.SplitContainer.Panel2.Controls.Add(this.pPlay);
 			this.SplitContainer.Panel2.Controls.Add(this.PicturePanel);
 			this.SplitContainer.Panel2.Controls.Add(this.TextView);
@@ -89,18 +90,6 @@
 			this.IconList.Images.SetKeyName(5, "ttf.png");
 			this.IconList.Images.SetKeyName(6, "sound.png");
 			// 
-			// hexBox
-			// 
-			resources.ApplyResources(this.hexBox, "hexBox");
-			this.hexBox.LineInfoForeColor = System.Drawing.Color.Empty;
-			this.hexBox.LineInfoVisible = true;
-			this.hexBox.Name = "hexBox";
-			this.hexBox.ReadOnly = true;
-			this.hexBox.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-			this.hexBox.StringViewVisible = true;
-			this.hexBox.UseFixedBytesPerLine = true;
-			this.hexBox.VScrollBarVisible = true;
-			// 
 			// pPlay
 			// 
 			this.pPlay.BackgroundImage = global::MabiPacker.Properties.Resources.play;
@@ -121,13 +110,15 @@
 			// 
 			// PictureView
 			// 
-			resources.ApplyResources(this.PictureView, "PictureView");
 			this.PictureView.BackColor = System.Drawing.SystemColors.Control;
 			this.PictureView.BackgroundImage = global::MabiPacker.Properties.Resources.bg;
 			this.PictureView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			resources.ApplyResources(this.PictureView, "PictureView");
 			this.PictureView.Name = "PictureView";
 			this.PictureView.TabStop = false;
 			this.PictureView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureView_MouseDown);
+			this.PictureView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureView_MouseMove);
+			this.PictureView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureView_MouseUp);
 			// 
 			// TextView
 			// 
@@ -135,6 +126,18 @@
 			resources.ApplyResources(this.TextView, "TextView");
 			this.TextView.Name = "TextView";
 			this.TextView.ReadOnly = true;
+			// 
+			// hexBox
+			// 
+			resources.ApplyResources(this.hexBox, "hexBox");
+			this.hexBox.LineInfoForeColor = System.Drawing.Color.Empty;
+			this.hexBox.LineInfoVisible = true;
+			this.hexBox.Name = "hexBox";
+			this.hexBox.ReadOnly = true;
+			this.hexBox.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+			this.hexBox.StringViewVisible = true;
+			this.hexBox.UseFixedBytesPerLine = true;
+			this.hexBox.VScrollBarVisible = true;
 			// 
 			// StatusBar
 			// 

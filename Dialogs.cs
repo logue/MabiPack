@@ -151,6 +151,7 @@ namespace MabiPacker
 			if (Confirm(TaskName) !=false){
 				try{
 					w.Pack(InputDir,OutputFile,OutputVer,Level);
+					Done("Pack");
 				}catch (Exception e){
 					Console.WriteLine(e);
 					Error(e,TaskName);
@@ -165,6 +166,7 @@ namespace MabiPacker
 				try
 				{
 					w.Unpack(InputFile, OutputDir);
+					Done("Unpack");
 				}
 				catch (Exception e)
 				{

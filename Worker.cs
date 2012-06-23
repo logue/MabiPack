@@ -106,7 +106,15 @@ namespace MabiPacker
 			}
 			m_Pack.CreatePack(OutputFile);
 			m_Pack.Dispose();
-			Console.WriteLine("Finish.");
+			if (!isCLI)
+			{
+				this.pd.CloseDialog();
+			}
+			else
+			{
+				Console.WriteLine("Finish.");
+			}
+			
 		}
 		/// <summary>
 		/// Unpacking Package file process.

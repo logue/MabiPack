@@ -21,6 +21,8 @@ namespace MabiPacker
 		private WavePlayer wave;
 		private string PackFile;
 		private bool isVista;
+		bool bDrag = false;
+		Point posStart;
 
 		public PackBrowser(string filename)
 		{
@@ -127,6 +129,29 @@ namespace MabiPacker
 		private void PictureView_MouseDown(object sender, MouseEventArgs e)
 		{
 			PictureView.DoDragDrop(PictureView.Image, DragDropEffects.All);
+			// ドラッグ開始
+			bDrag = true;
+			posStart = e.Location;
+		}
+		private void PictureView_MouseUp(object sender, MouseEventArgs e)
+		{
+			// ドラッグ終了
+			bDrag = false;
+		}
+
+		private void PictureView_MouseMove(object sender, MouseEventArgs e)
+		{
+			// ドラッグ中ならスクロール
+			if (bDrag)
+			{
+				Point pos = new Point(
+					e.Location.X - posStart.X,
+					e.Location.Y - posStart.Y);
+
+				PicturePanel.AutoScrollPosition = new Point(
+					-PicturePanel.AutoScrollPosition.X - pos.X,
+					-PicturePanel.AutoScrollPosition.Y - pos.Y);
+			}
 		}
 		private void pPlay_Click(object sender, EventArgs e)
 		{
@@ -240,6 +265,7 @@ namespace MabiPacker
 					case ".dds":
 					case ".jpg":
 					case ".gif":
+					case ".png":
 					case ".bmp":
 						string Info = "";
 						if (Ext == ".dds"){
@@ -265,8 +291,12 @@ namespace MabiPacker
 							PictureView.Image = Image.FromStream(ms);
 							ms.Dispose();
 						}
+						
 						PictureView.Update();
 						Status.Text = String.Format("{0} Image file. ({1} x {2})", Info, PictureView.Width, PictureView.Height);
+						PictureView.SizeMode = PictureBoxSizeMode.AutoSize;
+						PicturePanel.AutoScroll = true;
+						PicturePanel.Update();
 						PicturePanel.Show();
 					break;
 					case ".xml":
@@ -278,7 +308,7 @@ namespace MabiPacker
 						TextView.Text = text;
 						TextView.Update();
 						TextView.Show();
-						Status.Text = String.Format("Ascii file. ({0} bytes}", text.Length);
+						Status.Text = String.Format("Ascii file.");
 						break;
 					case ".wav":
 					case ".mp3":
