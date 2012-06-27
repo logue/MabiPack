@@ -10,7 +10,7 @@ namespace MabiPacker
 		private string MabiDir;
 		public Dialogs (string MabiDir = "C:\\Nexon\\Mabinogi"){
 			this.MabiDir = MabiDir;
-			this.w = new Worker();
+			this.w = new Worker(false);
 			this.isVista = (Environment.OSVersion.Version.Major >= 6) ? true : false;
 		}
 		/* File Open Dialogs */
@@ -130,7 +130,7 @@ namespace MabiPacker
 			return InputDir;
 		}
 		public string OutputDir(string OutputDir = ""){
-		string caption = Properties.Resources.ChooseUnpackDir;
+			string caption = Properties.Resources.ChooseUnpackDir;
 			if (isVista){
 				CommonOpenFileDialog dOutputDir = new CommonOpenFileDialog();
 				dOutputDir.IsFolderPicker = true;

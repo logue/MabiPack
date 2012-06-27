@@ -50,9 +50,8 @@ namespace MabiPacker
 				this.pd.ShowDialog(ProgressDialog.PROGDLG.Normal);
 				this.pd.Caption = Properties.Resources.Str_Pack;
 
-			}else{
-				Console.WriteLine("Pack");
 			}
+			Console.WriteLine("Pack");
 			String internal_filename = "";
 			if (File.Exists(OutputFile))
 			{
@@ -92,29 +91,23 @@ namespace MabiPacker
 						Interrupt();
 						return;
 					}
-				}else{
-					Console.WriteLine( String.Format("{0} / {1} {2}", v, filelist.Length, internal_filename));
 				}
+				Console.WriteLine( String.Format("{0} / {1} {2}", v, filelist.Length, internal_filename));
 				v++;
 			}
 			// Start packing
 			if (!isCLI)
 			{
 				this.pd.Message = Properties.Resources.Str_Packing;
-			}else{
-				Console.WriteLine("Now Packing...");
 			}
+			Console.WriteLine("Now Packing...");
 			m_Pack.CreatePack(OutputFile);
 			m_Pack.Dispose();
 			if (!isCLI)
 			{
 				this.pd.CloseDialog();
 			}
-			else
-			{
-				Console.WriteLine("Finish.");
-			}
-			
+			Console.WriteLine("Finish.");			
 		}
 		/// <summary>
 		/// Unpacking Package file process.
@@ -125,11 +118,10 @@ namespace MabiPacker
 		{
 			if (!isCLI)
 			{
-				this.pd.ShowDialog(ProgressDialog.PROGDLG.Normal);
 				this.pd.Caption = Properties.Resources.Str_Unpack;
-			}else{
-				Console.WriteLine("Unpack");
+				this.pd.ShowDialog(ProgressDialog.PROGDLG.Normal);
 			}
+			Console.WriteLine("Unpack");
 				
 			m_Unpack = PackResourceSet.CreateFromFile(InputFile);
 
@@ -153,7 +145,7 @@ namespace MabiPacker
 				if (!isCLI)
 				{
 					this.pd.Message = String.Format(Properties.Resources.Str_Unpacking, i, packed_files);
-					this.pd.Detail = InternalName;
+					this.pd.Detail = "data\\" + InternalName;
 					this.pd.Value = i;
 					if (pd.HasUserCancelled)
 					{
@@ -161,9 +153,8 @@ namespace MabiPacker
 						Interrupt();
 						return;
 					}
-				}else{
-					Console.WriteLine(String.Format("{0}/{1} {2}", i, packed_files, InternalName));
 				}
+				Console.WriteLine(String.Format("{0}/{1} {2}", i, packed_files, InternalName));
 				// loading file content.
 				byte[] buffer = new byte[Res.GetSize()];
 				Res.GetData(buffer);
@@ -182,7 +173,12 @@ namespace MabiPacker
 				// Delete old
 				if (File.Exists(outputPath))
 				{
-					File.Delete(@outputPath);
+					//DateTime dtUpdate = System.IO.File.GetLastWriteTime(outputPath);
+					//if (dtUpdate > Res.GetModified()){	
+						File.Delete(@outputPath);
+					//}else{
+						//Todo Overwrite confirm dialog
+					//}
 				}
 				if (Directory.Exists(outputPath))
 				{
@@ -199,6 +195,9 @@ namespace MabiPacker
 				File.SetLastWriteTime(outputPath, Res.GetModified());
 			}
 			m_Unpack.Dispose();
+			if (!isCLI){
+				this.pd.CloseDialog();
+			}
 			Console.WriteLine("Finish.");
 		}
 		/// <summary>
@@ -206,22 +205,21 @@ namespace MabiPacker
 		/// </summary>
 		/// <param name="Res">PackResource </param>
 		public bool UnpackFile(PackResource Res){
-			if (!isCLI)
-			{
-				this.pd.ShowDialog(ProgressDialog.PROGDLG.Normal);
-				this.pd.Caption = Properties.Resources.Str_Unpack;
-			}
-			else
-			{
-				Console.WriteLine("Unpack");
-			}
-			try{
-				String InternalName = Res.GetName();
-				CommonSaveFileDialog dSaveAs = new CommonSaveFileDialog();
-				dSaveAs.DefaultFileName = Path.GetFileName(InternalName);
+			Console.WriteLine("Unpack");
+			
+			String InternalName = Res.GetName();
+			CommonSaveFileDialog dSaveAs = new CommonSaveFileDialog();
+			dSaveAs.DefaultFileName = Path.GetFileName(InternalName);
 
-				if (dSaveAs.ShowDialog() == CommonFileDialogResult.Ok)
+			if (dSaveAs.ShowDialog() == CommonFileDialogResult.Ok)
+			{
+				if (!isCLI)
 				{
+					this.pd.ShowDialog(ProgressDialog.PROGDLG.Normal);
+					this.pd.Caption = Properties.Resources.Str_Unpack;
+				}
+				
+				try{
 					// loading file content.
 					byte[] buffer = new byte[Res.GetSize()];
 					Res.GetData(buffer);
@@ -242,14 +240,19 @@ namespace MabiPacker
 					File.SetLastAccessTime(dSaveAs.FileName, Res.GetAccessed());
 					File.SetLastWriteTime(dSaveAs.FileName, Res.GetModified());
 				}
+				catch (Exception)
+				{
+					return false;
+				}
+				finally
+				{
+					Res.Close();
+					this.pd.CloseDialog();
+					Console.WriteLine("Finish.");
+				}
 				return true;
-
-			}catch(Exception){
-				return false;
-			}finally{
-				Res.Close();
-				Console.WriteLine("Finish.");
 			}
+			return false;
 		}
 			
 		/// <summary>

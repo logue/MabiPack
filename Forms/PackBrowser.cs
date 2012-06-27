@@ -35,7 +35,7 @@ namespace MabiPacker
 			
 			InitializeComponent();
 			this.PackFile = filename;
-			this.w = new Worker();
+			this.w = new Worker(false);
 			this.d = new Dialogs();
 			this.isVista = (Environment.OSVersion.Version.Major >= 6) ? true : false;
 
@@ -124,7 +124,11 @@ namespace MabiPacker
 		}
 		private void tbUnpack_Click(object sender, EventArgs e)
 		{
-			
+			string outputDir = d.OutputDir();
+			if (outputDir != ""){
+				d.Unpack(this.PackFile, outputDir);
+			}
+			return;
 		}
 		private void PictureView_MouseDown(object sender, MouseEventArgs e)
 		{
