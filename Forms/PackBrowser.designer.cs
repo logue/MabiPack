@@ -116,9 +116,6 @@
 			resources.ApplyResources(this.PictureView, "PictureView");
 			this.PictureView.Name = "PictureView";
 			this.PictureView.TabStop = false;
-			this.PictureView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureView_MouseDown);
-			this.PictureView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureView_MouseMove);
-			this.PictureView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureView_MouseUp);
 			// 
 			// TextView
 			// 

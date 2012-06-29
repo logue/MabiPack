@@ -21,8 +21,6 @@ namespace MabiPacker
 		private WavePlayer wave;
 		private string PackFile;
 		private bool isVista;
-		bool bDrag = false;
-		Point posStart;
 
 		public PackBrowser(string filename)
 		{
@@ -129,33 +127,6 @@ namespace MabiPacker
 				d.Unpack(this.PackFile, outputDir);
 			}
 			return;
-		}
-		private void PictureView_MouseDown(object sender, MouseEventArgs e)
-		{
-			PictureView.DoDragDrop(PictureView.Image, DragDropEffects.All);
-			// ドラッグ開始
-			bDrag = true;
-			posStart = e.Location;
-		}
-		private void PictureView_MouseUp(object sender, MouseEventArgs e)
-		{
-			// ドラッグ終了
-			bDrag = false;
-		}
-
-		private void PictureView_MouseMove(object sender, MouseEventArgs e)
-		{
-			// ドラッグ中ならスクロール
-			if (bDrag)
-			{
-				Point pos = new Point(
-					e.Location.X - posStart.X,
-					e.Location.Y - posStart.Y);
-
-				PicturePanel.AutoScrollPosition = new Point(
-					-PicturePanel.AutoScrollPosition.X - pos.X,
-					-PicturePanel.AutoScrollPosition.Y - pos.Y);
-			}
 		}
 		private void pPlay_Click(object sender, EventArgs e)
 		{
