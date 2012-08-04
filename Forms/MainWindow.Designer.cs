@@ -204,7 +204,8 @@
             resources.GetString("Level.Items7"),
             resources.GetString("Level.Items8"),
             resources.GetString("Level.Items9"),
-            resources.GetString("Level.Items10")});
+            resources.GetString("Level.Items10")
+			});
 			this.Level.Name = "Level";
 			// 
 			// lLevel

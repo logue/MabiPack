@@ -8,15 +8,18 @@ namespace MabiPacker
 		private bool isVista;
 		private Worker w;
 		private string MabiDir;
-		public Dialogs (string MabiDir = "C:\\Nexon\\Mabinogi"){
+		public Dialogs (string MabiDir = "C:\\Nexon\\Mabinogi")
+		{
 			this.MabiDir = MabiDir;
 			this.w = new Worker(false);
 			this.isVista = (Environment.OSVersion.Version.Major >= 6) ? true : false;
 		}
 		/* File Open Dialogs */
-		public string InputFile(string InputFile = ""){
+		public string InputFile(string InputFile = "")
+		{
 			string caption = Properties.Resources.ChoosePackDir;
-			if (this.isVista){
+			if (this.isVista)
+			{
 				CommonOpenFileDialog dInputFile = new CommonOpenFileDialog();
 				dInputFile.Title = caption;
 				dInputFile.DefaultExtension = ".pack";
@@ -29,13 +32,16 @@ namespace MabiPacker
 				{
 					InputFile = dInputFile.FileName;
 				}
-			}else{
+			}
+			else
+			{
 				OpenFileDialog dInputFile = new OpenFileDialog();
 				dInputFile.Title = caption;
 				dInputFile.DefaultExt = ".pack";
 				dInputFile.InitialDirectory = MabiDir + "\\Package\\";
 				dInputFile.Filter = Properties.Resources.PackFileDesc + "|(*.pack)";
-				if (dInputFile.ShowDialog() == DialogResult.OK){
+				if (dInputFile.ShowDialog() == DialogResult.OK)
+				{
 					InputFile = dInputFile.FileName;
 				}
 			}
@@ -44,7 +50,8 @@ namespace MabiPacker
 		public string OutputFile(string OutputFile = "")
 		{
 			string caption = Properties.Resources.ChooseUnpackFile;
-			if (this.isVista){
+			if (this.isVista)
+			{
 				CommonSaveFileDialog dOutputFile = new CommonSaveFileDialog();
 				dOutputFile.Title = caption;
 				dOutputFile.DefaultExtension = ".pack";
@@ -55,7 +62,9 @@ namespace MabiPacker
 				{
 					OutputFile = dOutputFile.FileName;
 				}
-			}else{
+			}
+			else
+			{
 				SaveFileDialog dOutputFile = new SaveFileDialog();
 				dOutputFile.InitialDirectory = OutputFile;
 				dOutputFile.Title = caption;
@@ -108,7 +117,8 @@ namespace MabiPacker
 		public string InputDir(string InputDir = "")
 		{
 			string caption = Properties.Resources.ChoosePackDir;
-			if (this.isVista){
+			if (this.isVista)
+			{
 				CommonOpenFileDialog dInputDir = new CommonOpenFileDialog();
 				dInputDir.IsFolderPicker = true;
 				dInputDir.Title = caption;
@@ -118,7 +128,9 @@ namespace MabiPacker
 				{
 					InputDir = dInputDir.FileName;
 				}
-			}else{
+			}
+			else
+			{
 				FolderBrowserDialog dInputDir = new FolderBrowserDialog();
 				dInputDir.SelectedPath = InputDir;
 				dInputDir.Description = caption;
@@ -129,9 +141,11 @@ namespace MabiPacker
 			}
 			return InputDir;
 		}
-		public string OutputDir(string OutputDir = ""){
+		public string OutputDir(string OutputDir = "")
+		{
 			string caption = Properties.Resources.ChooseUnpackDir;
-			if (isVista){
+			if (isVista)
+			{
 				CommonOpenFileDialog dOutputDir = new CommonOpenFileDialog();
 				dOutputDir.IsFolderPicker = true;
 				dOutputDir.Title = caption;
@@ -140,43 +154,34 @@ namespace MabiPacker
 				{
 					OutputDir = dOutputDir.FileName;
 				}
-			}else{
+			}
+			else
+			{
 				OpenFileDialog dOutputDir = new OpenFileDialog();
 				dOutputDir.InitialDirectory = OutputDir;
 			}
 			return OutputDir;
 		}
-		public void Pack(string InputDir, string OutputFile, uint OutputVer, int Level){
+		public void Pack(string InputDir, string OutputFile, uint OutputVer, int Level)
+		{
 			string TaskName = Properties.Resources.Str_Pack;
-			if (Confirm(TaskName) !=false){
-				try{
-					w.Pack(InputDir,OutputFile,OutputVer,Level);
-					Done("Pack");
-				}catch (Exception e){
-					Console.WriteLine(e);
-					Error(e,TaskName);
-				}
+			if (Confirm(TaskName))
+			{
+				w.Pack(InputDir, OutputFile, OutputVer, Level);
 			}
 		}
 		public void Unpack(string InputFile, string OutputDir)
 		{
 			string TaskName = Properties.Resources.Str_Unpack;
-			if (Confirm(TaskName) != false)
+			if (Confirm(TaskName))
 			{
-				try
-				{
-					w.Unpack(InputFile, OutputDir);
-					Done("Unpack");
-				}
-				catch (Exception e)
-				{
-					Console.WriteLine(e);
-					Error(e, TaskName);
-				}
+				w.Unpack(InputFile, OutputDir);
 			}
 		}
-		private bool Confirm(string TaskName){
-			if (isVista){
+		private bool Confirm(string TaskName)
+		{
+			if (isVista)
+			{
 				TaskDialog td = new TaskDialog();
 				TaskDialogStandardButtons button = TaskDialogStandardButtons.Yes;
 				button |= TaskDialogStandardButtons.No;
@@ -187,23 +192,28 @@ namespace MabiPacker
 				td.Text = Properties.Resources.Str_Confirm;
 				TaskDialogResult res = td.Show();
 
-				if (res.ToString() != "Yes"){
+				if (res.ToString() != "Yes")
+				{
 					return false;
 				}
-			}else{
+			}
+			else
+			{
 				DialogResult result = MessageBox.Show(
 				Properties.Resources.Str_Confirm,
 				Properties.Resources.Confirm,
 				MessageBoxButtons.YesNo,
 				MessageBoxIcon.Question,
 				MessageBoxDefaultButton.Button1);
-				if (result != DialogResult.Yes){
+				if (result != DialogResult.Yes)
+				{
 					return false;
 				}
 			}
 			return true;
 		}
-		private void Done(string TaskName){
+		private void Done(string TaskName)
+		{
 			TaskDialog td = new TaskDialog();
 			TaskDialogStandardButtons button = TaskDialogStandardButtons.Ok;
 			td.Icon = TaskDialogStandardIcon.Information;
@@ -213,7 +223,8 @@ namespace MabiPacker
 			td.Text = Properties.Resources.Complete;
 			TaskDialogResult res = td.Show();
 		}
-		public void Error(Exception e, string TaskName){
+		public void Error(Exception e, string TaskName)
+		{
 			// Error dialog
 			TaskDialog tdError = new TaskDialog();
 			TaskDialogStandardButtons button = TaskDialogStandardButtons.Ok;

@@ -17,7 +17,6 @@ namespace MabiPacker
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(true);
-
 			// Standard Mode
 			if (args.Length == 0)
 			{
@@ -25,18 +24,16 @@ namespace MabiPacker
 			}
 			else 
 			{
-				if (Win32.AttachConsole(System.UInt32.MaxValue)){
+				if (Win32.AttachConsole(System.UInt32.MaxValue))
+				{
 					Worker w = new Worker(true);
 					Console.Title = "MabiPacker";
-
 					// Console Mode
 					StreamWriter stdout = new StreamWriter(Console.OpenStandardOutput());
 					stdout.AutoFlush = true;
-
 					Console.SetOut(stdout);
 					Console.ForegroundColor = ConsoleColor.Cyan;
 					Console.WriteLine("\r\n*** MabiPacker Console Mode ***");
-
 					// Parse query strings
 					var options = new HashSet<string> {
 						"/input",	// input path
@@ -48,7 +45,6 @@ namespace MabiPacker
 					var result = args
 						.GroupBy(s => options.Contains(s) ? key = s : key)
 						.ToDictionary(g => g.Key, g => g.Skip(1).FirstOrDefault());
-
 					if (result.ContainsKey("/input") == false)
 					{
 						Console.ForegroundColor = ConsoleColor.Red;
@@ -64,7 +60,6 @@ namespace MabiPacker
 							MabiEnvironment u = new MabiEnvironment();
 							result["/output"] = u.MabinogiDir;
 						}
-
 						Console.ForegroundColor = ConsoleColor.Yellow;
 						// Pack mode
 						w.Unpack(result["/input"], result["/output"]);
@@ -80,7 +75,6 @@ namespace MabiPacker
 						}
 						if (result.ContainsKey("/level") == false)
 							result["/level"] = "-1";
-
 						Console.ForegroundColor = ConsoleColor.Green;
 						// Pack mode
 						w.Pack(result["/input"], result["/output"], uint.Parse(result["/version"]), int.Parse(result["/level"]));

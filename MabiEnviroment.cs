@@ -47,7 +47,8 @@ namespace MabiPacker // <-- Change here yourself
 		/// <summary>
 		/// Get Mabinogi Environment
 		/// </summary>
-		public MabiEnvironment(){
+		public MabiEnvironment()
+		{
 			this.MabinogiDir = GetMabiDir();
 			this.LocalVersion = GetMabiVer();
 			this.isDownloadable = false;

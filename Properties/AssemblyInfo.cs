@@ -12,7 +12,7 @@ using System.Resources;
 [assembly: AssemblyCompany("Logue")]
 [assembly: AssemblyProduct("MabiPacker")]
 [assembly: AssemblyCopyright("Copyright © Logue 2012")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Logue")]
 [assembly: AssemblyCulture("")]
 
 // ComVisible を false に設定すると、その型はこのアセンブリ内で COM コンポーネントから 
@@ -33,6 +33,6 @@ using System.Resources;
 // すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.1.0")]
-[assembly: AssemblyFileVersion("1.3.1.0")]
+[assembly: AssemblyVersion("1.3.1.2")]
+[assembly: AssemblyFileVersion("1.3.1.2")]
 [assembly: NeutralResourcesLanguageAttribute("en")]

@@ -10,8 +10,8 @@ using Tao.DevIl;
 
 namespace MabiPacker
 {
-    public partial class PackBrowser : Form
-    {
+	public partial class PackBrowser : Form
+	{
 		private TreeNode m_Root;
 		private PackResourceSet m_Pack;
 		private PackResource Res;
@@ -30,20 +30,18 @@ namespace MabiPacker
 			this.pd.Caption = Properties.Resources.Str_Initialize;
 			this.pd.Animation = 151;
 			this.pd.ShowDialog();
-			
 			InitializeComponent();
 			this.PackFile = filename;
 			this.w = new Worker(false);
 			this.d = new Dialogs();
 			this.isVista = (Environment.OSVersion.Version.Major >= 6) ? true : false;
-
 		}
 		private void PackBrowser_Shown(object sender, EventArgs e)
 		{
-			
 			m_Tree.Enabled = false;
 			// Insert File tree
-			try{
+			try
+			{
 				m_Pack = PackResourceSet.CreateFromFile(PackFile);
 				if (m_Pack != null)
 				{
@@ -62,7 +60,6 @@ namespace MabiPacker
 						InsertFileNode(i);
 						string info = String.Format(Properties.Resources.Str_LoadingMsg,  i, files);
 						this.pd.Value = i;
-
 						this.pd.Message = info;
 						Status.Text = info;
 						if (this.pd.HasUserCancelled)
@@ -84,14 +81,17 @@ namespace MabiPacker
 					this.pd.Message = Properties.Resources.Str_SortingMsg;
 					m_Tree.Sort();
 					m_Tree.Refresh();
-
 					Status.Text = Properties.Resources.Str_Ready;
 					this.Update();
 				}
 				m_Tree.Enabled = true;
-			}catch(Exception ex){
+			}
+			catch(Exception ex)
+			{
 				d.Error(ex,this.Name);
-			}finally{
+			}
+			finally
+			{
 				this.pd.CloseDialog();
 			}
 		}
@@ -99,31 +99,35 @@ namespace MabiPacker
 		{
 			m_Pack.Dispose();
 		}
-
 		private void tbExport_Click(object sender, EventArgs e)
 		{
 			TreeNode node = m_Tree.SelectedNode;	// get selected node tag
-			if (node != null && node.Tag != null){
+			if (node != null && node.Tag != null)
+			{
 				UnpackById((uint)node.Tag);
 			}
 		}
-
 		private void m_Tree_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
 		{
-			try{
+			try
+			{
 				m_Tree.Enabled = false;
 				PreviewById((uint)e.Node.Tag);
-				
-			}catch(Exception){
-
-			}finally{
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+			finally
+			{
 				m_Tree.Enabled = true;
 			}
 		}
 		private void tbUnpack_Click(object sender, EventArgs e)
 		{
 			string outputDir = d.OutputDir();
-			if (outputDir != ""){
+			if (outputDir != "")
+			{
 				d.Unpack(this.PackFile, outputDir);
 			}
 			return;
@@ -136,7 +140,6 @@ namespace MabiPacker
 		private void InsertFileNode(uint id)
 		{
 			PackResource pr = m_Pack.GetFileByIndex(id);
-
 			if (pr != null)
 			{
 				string filePath = pr.GetName();
@@ -150,36 +153,40 @@ namespace MabiPacker
 					{
 						// Add( name , text)
 						string Ext = System.IO.Path.GetExtension(@paths[i]);
-						if (Ext != ""){
+						if (Ext != "")
+						{
 							switch (Ext) {
 								default:
-								if (@paths[i] == "vf.dat")
+									if (@paths[i] == "vf.dat")
 									{
 										node = node.Nodes.Add(paths[i], paths[i], 3, 3);
 										PreviewById(id);
-									}else{
+									}
+									else
+									{
 										node = node.Nodes.Add(paths[i], paths[i], 1, 1);
 									}
 									break;
-								case ".txt" :
+								case ".txt":
 									node = node.Nodes.Add(paths[i], paths[i], 2, 2);
-									if (@paths[i] == "!Readme.txt"){
+									if (@paths[i] == "!Readme.txt")
+									{
 										PreviewById(id);
 									}
 									break;
-								case ".xml" :
-								case ".trn" :
+								case ".xml":
+								case ".trn":
 									node = node.Nodes.Add(paths[i], paths[i], 3, 3);
 									break;
-								case ".jpg" :
-								case ".psd" :
-								case ".bmp" :
-								case ".dds" :
+								case ".jpg":
+								case ".psd":
+								case ".bmp":
+								case ".dds":
 								case ".gif":
 								case ".png":
 									node = node.Nodes.Add(paths[i], paths[i], 4, 4);
 									break;
-								case ".ttf" :
+								case ".ttf":
 								case ".ttc":
 									node = node.Nodes.Add(paths[i], paths[i], 5, 5);
 									break;
@@ -187,9 +194,10 @@ namespace MabiPacker
 								case ".mp3":
 									node = node.Nodes.Add(paths[i], paths[i], 6, 6);
 									break;
-								
 							}
-						}else{
+						}
+						else
+						{
 							node = node.Nodes.Add(paths[i], paths[i]);
 						}
 						node.Tag = id;
@@ -201,40 +209,39 @@ namespace MabiPacker
 				}
 			}
 		}
-		private void UnpackById(uint id){
+		private void UnpackById(uint id)
+		{
 			Res = m_Pack.GetFileByIndex(id);
 			if (Res != null)
 			{
 				w.UnpackFile(Res);
 			}
 		}
-		private void UnpackByName(string name){
+		private void UnpackByName(string name)
+		{
 			Res = m_Pack.GetFileByName(name);
 			if (Res != null)
 			{
 				w.UnpackFile(Res);
 			}
 		}
-		private void PreviewById(uint id){			
+		private void PreviewById(uint id)
+		{
 			PackResource Res = m_Pack.GetFileByIndex(id);
 			Status.Text = Properties.Resources.Str_LoadingPreview;
 			this.Update();
 			if (Res != null)
 			{
 				PicturePanel.Hide();
-				
 				hexBox.ResetText();
 				TextView.Hide();
 				pPlay.Hide();
-
 				String InternalName = Res.GetName();
 				string Ext = System.IO.Path.GetExtension(@InternalName);
-
 				// loading file content.
 				byte[] buffer = new byte[Res.GetSize()];
 				Res.GetData(buffer);
 				Res.Close();
-
 				switch (Ext)
 				{
 					case ".dds":
@@ -243,11 +250,14 @@ namespace MabiPacker
 					case ".png":
 					case ".bmp":
 						string Info = "";
-						if (Ext == ".dds"){
+						if (Ext == ".dds")
+						{
 							Bitmap bmp = DDSDataToBMP(buffer);
 							Info = "DDS (Direct Draw Surfice)";
 							PictureView.Image = bmp;
-						}else{
+						}
+						else
+						{
 							switch (Ext){
 								case ".jpg":
 									Info = "JPEG";
@@ -266,7 +276,6 @@ namespace MabiPacker
 							PictureView.Image = Image.FromStream(ms);
 							ms.Dispose();
 						}
-						
 						PictureView.Update();
 						Status.Text = String.Format("{0} Image file. ({1} x {2})", Info, PictureView.Width, PictureView.Height);
 						PictureView.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -288,26 +297,28 @@ namespace MabiPacker
 					case ".wav":
 					case ".mp3":
 						pPlay.Show();
-						// http://msdn.microsoft.com/en-us/library/ms143770%28v=VS.100%29.aspx 
+						// http://msdn.microsoft.com/en-us/library/ms143770%28v=VS.100%29.aspx
 						this.wave = new WavePlayer(buffer);
 						this.wave.Play();
 						Status.Text = "Sound file.";
 					break;
 					default:
-						if (InternalName == "vf.dat"){
+						if (InternalName == "vf.dat")
+						{
 							TextView.Clear();
 							TextView.Text = Encoding.ASCII.GetString(buffer);
 							TextView.Update();
 							TextView.Show();
 							Status.Text = "Version infomation.";
-						}else{
+						}
+						else
+						{
 							DynamicByteProvider d = new DynamicByteProvider(buffer);
 							hexBox.ByteProvider = d;
 							Status.Text = "Unknown file.";
 						}
 					break;
 				}
-				
 			}
 			this.Update();
 		}
@@ -323,31 +334,24 @@ namespace MabiPacker
 			int img_name;
 			Il.ilGenImages(1, out img_name);
 			Il.ilBindImage(img_name);
-
 			// Load the DDS file into the bound DevIL image
 			Il.ilLoadL(Il.IL_DDS, DDSData, DDSData.Length);
-
 			// Set a few size variables that will simplify later code
-
 			int ImgWidth = Il.ilGetInteger(Il.IL_IMAGE_WIDTH);
 			int ImgHeight = Il.ilGetInteger(Il.IL_IMAGE_HEIGHT);
 			Rectangle rect = new Rectangle(0, 0, ImgWidth, ImgHeight);
-
 			// Convert the DevIL image to a pixel byte array to copy into Bitmap
 			Il.ilConvertImage(Il.IL_BGRA, Il.IL_UNSIGNED_BYTE);
-
 			// Create a Bitmap to copy the image into, and prepare it to get data
 			Bitmap bmp = new Bitmap(ImgWidth, ImgHeight);
 			BitmapData bmd =
-			  bmp.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
-
+				bmp.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
 			// Copy the pixel byte array from the DevIL image to the Bitmap
 			Il.ilCopyPixels(0, 0, 0,
-			  Il.ilGetInteger(Il.IL_IMAGE_WIDTH),
-			  Il.ilGetInteger(Il.IL_IMAGE_HEIGHT),
-			  1, Il.IL_BGRA, Il.IL_UNSIGNED_BYTE,
-			  bmd.Scan0);
-
+				Il.ilGetInteger(Il.IL_IMAGE_WIDTH),
+				Il.ilGetInteger(Il.IL_IMAGE_HEIGHT),
+				1, Il.IL_BGRA, Il.IL_UNSIGNED_BYTE,
+				bmd.Scan0);
 			// Clean up and return Bitmap
 			Il.ilDeleteImages(1, ref img_name);
 			bmp.UnlockBits(bmd);
@@ -379,26 +383,24 @@ namespace MabiPacker
 			[System.Runtime.InteropServices.DllImport("winmm.dll")]
 			private static extern bool PlaySound(
 				IntPtr pszSound, IntPtr hmod, PlaySoundFlags fdwSound);
-
 			private System.Runtime.InteropServices.GCHandle gcHandle;
 			private byte[] waveBuffer = null;
-
 			public WavePlayer(byte[] buffer)
 			{
 				this.waveBuffer = buffer;
 				this.gcHandle = System.Runtime.InteropServices.GCHandle.Alloc(
 					buffer, System.Runtime.InteropServices.GCHandleType.Pinned);
 			}
-			public void Play(){
+			public void Play()
+			{
 				// Play wave asyncrous
 				PlaySound(this.gcHandle.AddrOfPinnedObject(), IntPtr.Zero,
 					PlaySoundFlags.SND_MEMORY | PlaySoundFlags.SND_ASYNC);
 			}
-
-			public void Stop(){
+			public void Stop()
+			{
 				// Stop Wave
 				PlaySound(IntPtr.Zero, IntPtr.Zero, PlaySoundFlags.SND_PURGE);
-
 				// free
 				this.gcHandle.Free();
 				this.waveBuffer = null;

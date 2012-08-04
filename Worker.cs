@@ -6,7 +6,8 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace MabiPacker
 {
-	class Worker{
+	class Worker
+	{
 		private ProgressDialog pd;
 		private PackResourceSetCreater m_Pack;
 		private PackResourceSet m_Unpack;
@@ -18,13 +19,15 @@ namespace MabiPacker
 		/// Initialize Worker Progress Window.
 		/// </summary>
 		/// <param name="ShowDoneMsg">Show MessageBox and Progress. (default is true)</param>
-		public Worker (bool isCLI){
+		public Worker (bool isCLI)
+		{
 			this.isCLI = isCLI;
 			this.env = new MabiEnvironment();
 			this.MabiDir = env.MabinogiDir;
 			this.isVista = (Environment.OSVersion.Version.Major >= 6) ? true : false;
 
-			if (!this.isCLI){
+			if (!this.isCLI)
+			{
 				// Set PrgressDialog
 				this.pd = new ProgressDialog();
 				this.pd.Title = "MabiPacker";
@@ -36,6 +39,8 @@ namespace MabiPacker
 		{
 			this.isCLI = true;
 		}
+		~Worker(){
+		}
 		/// <summary>
 		/// Packing Package file process.
 		/// </summary>
@@ -43,13 +48,12 @@ namespace MabiPacker
 		/// <param name="OutputFile">Set filename of outputted *.pack file, with path.</param>
 		/// <param name="OutputVer">Set version of *.pack file.</param>
 		/// <param name="OutputVer">Set compress level of *.pack file.</param>
-		public void Pack(string InputDir, string OutputFile, uint OutputVer, int Level=-1)
+		public void Pack(string InputDir, string OutputFile, uint OutputVer, int Level = -1)
 		{
 			if (!isCLI)
 			{
 				this.pd.ShowDialog(ProgressDialog.PROGDLG.Normal);
 				this.pd.Caption = Properties.Resources.Str_Pack;
-
 			}
 			Console.WriteLine("Pack");
 			String internal_filename = "";
@@ -60,7 +64,6 @@ namespace MabiPacker
 			// Get Filelist
 			string[] filelist = Directory.GetFiles(InputDir, "*", SearchOption.AllDirectories);
 			Array.Sort(filelist);
-
 			if (!isCLI)
 			{
 				this.pd.Maximum = (uint)filelist.Length;
@@ -73,11 +76,10 @@ namespace MabiPacker
 			}
 			// Instance
 			m_Pack = new PackResourceSetCreater(OutputVer, Level);
-			uint v=0;
+			uint v = 0;
 			// store file list for pack
 			foreach (string path in filelist)
 			{
-					
 				internal_filename = path.Replace(InputDir + "\\", "");
 				m_Pack.AddFile(internal_filename, path);
 				if (!isCLI)
@@ -101,20 +103,28 @@ namespace MabiPacker
 				this.pd.Message = Properties.Resources.Str_Packing;
 			}
 			Console.WriteLine("Now Packing...");
-			m_Pack.CreatePack(OutputFile);
+			try
+			{
+				m_Pack.CreatePack(OutputFile);
+			}
+			catch (System.Runtime.InteropServices.SEHException e)
+			{
+				Console.WriteLine(e);
+				this.pd.CloseDialog();
+			}
 			m_Pack.Dispose();
 			if (!isCLI)
 			{
 				this.pd.CloseDialog();
 			}
-			Console.WriteLine("Finish.");			
+			Console.WriteLine("Finish.");
 		}
 		/// <summary>
 		/// Unpacking Package file process.
 		/// </summary>
 		/// <param name="InputFile">Set filename of unpack file..</param>
 		/// <param name="OutputDir">Set output distnation of Unpacked files.</param>
-		public void Unpack(string InputFile , string OutputDir)
+		public void Unpack(string InputFile, string OutputDir)
 		{
 			if (!isCLI)
 			{
@@ -122,7 +132,7 @@ namespace MabiPacker
 				this.pd.ShowDialog(ProgressDialog.PROGDLG.Normal);
 			}
 			Console.WriteLine("Unpack");
-				
+
 			m_Unpack = PackResourceSet.CreateFromFile(InputFile);
 
 			uint packed_files = m_Unpack.GetFileCount();
@@ -136,12 +146,10 @@ namespace MabiPacker
 					return;
 				}
 			}
-
 			for (uint i = 0; i < packed_files; ++i)
 			{
 				PackResource Res = m_Unpack.GetFileByIndex(i);
 				String InternalName = Res.GetName();
-
 				if (!isCLI)
 				{
 					this.pd.Message = String.Format(Properties.Resources.Str_Unpacking, i, packed_files);
@@ -159,22 +167,19 @@ namespace MabiPacker
 				byte[] buffer = new byte[Res.GetSize()];
 				Res.GetData(buffer);
 				Res.Close();
-
 				// Get output Directory Name
 				String outputPath = @OutputDir + "\\data\\" + InternalName;
-
 				// Create directory
 				String DirPath = Regex.Replace(outputPath, @"([^\\]*?)$", "");
 				if (!Directory.Exists(DirPath))
 				{
 					Directory.CreateDirectory(DirPath);
 				}
-
 				// Delete old
 				if (File.Exists(outputPath))
 				{
 					//DateTime dtUpdate = System.IO.File.GetLastWriteTime(outputPath);
-					//if (dtUpdate > Res.GetModified()){	
+					//if (dtUpdate > Res.GetModified()){
 						File.Delete(@outputPath);
 					//}else{
 						//Todo Overwrite confirm dialog
@@ -188,14 +193,14 @@ namespace MabiPacker
 				FileStream fs = new FileStream(outputPath, System.IO.FileMode.Create);
 				fs.Write(buffer, 0, buffer.Length);
 				fs.Close();
-
 				// Modify File time
 				File.SetCreationTime(outputPath, Res.GetCreated());
 				File.SetLastAccessTime(outputPath, Res.GetAccessed());
 				File.SetLastWriteTime(outputPath, Res.GetModified());
 			}
 			m_Unpack.Dispose();
-			if (!isCLI){
+			if (!isCLI)
+			{
 				this.pd.CloseDialog();
 			}
 			Console.WriteLine("Finish.");
@@ -204,13 +209,13 @@ namespace MabiPacker
 		/// Unpacking file
 		/// </summary>
 		/// <param name="Res">PackResource </param>
-		public bool UnpackFile(PackResource Res){
+		public bool UnpackFile(PackResource Res)
+		{
 			Console.WriteLine("Unpack");
-			
+
 			String InternalName = Res.GetName();
 			CommonSaveFileDialog dSaveAs = new CommonSaveFileDialog();
 			dSaveAs.DefaultFileName = Path.GetFileName(InternalName);
-
 			if (dSaveAs.ShowDialog() == CommonFileDialogResult.Ok)
 			{
 				if (!isCLI)
@@ -218,13 +223,12 @@ namespace MabiPacker
 					this.pd.ShowDialog(ProgressDialog.PROGDLG.Normal);
 					this.pd.Caption = Properties.Resources.Str_Unpack;
 				}
-				
-				try{
+				try
+				{
 					// loading file content.
 					byte[] buffer = new byte[Res.GetSize()];
 					Res.GetData(buffer);
 					Res.Close();
-
 					// Delete old
 					if (File.Exists(dSaveAs.FileName))
 					{
@@ -234,7 +238,6 @@ namespace MabiPacker
 					FileStream fs = new FileStream(dSaveAs.FileName, System.IO.FileMode.Create);
 					fs.Write(buffer, 0, buffer.Length);
 					fs.Close();
-
 					// Modify File time
 					File.SetCreationTime(dSaveAs.FileName, Res.GetCreated());
 					File.SetLastAccessTime(dSaveAs.FileName, Res.GetAccessed());
@@ -254,11 +257,11 @@ namespace MabiPacker
 			}
 			return false;
 		}
-			
 		/// <summary>
 		/// Show message box when process aborted.
 		/// </summary>
-		private void Interrupt(){
+		private void Interrupt()
+		{
 			if (!isCLI)
 			{
 				this.pd.CloseDialog();
@@ -271,8 +274,10 @@ namespace MabiPacker
 				td.Caption = Properties.Resources.Info;
 				td.Text = Properties.Resources.Str_Interrupt;
 				TaskDialogResult res = td.Show();
-					*/ 
-			}else{
+				*/
+			}
+			else
+			{
 				Console.WriteLine("Interrupted!");
 			}
 		}
