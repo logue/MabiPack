@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>https://github.com/logue/MabiPack/downloads/|publish\</PublishUrlHistory>
+    <PublishUrlHistory>https://github.com/logue/MabiPack/releases/|https://github.com/logue/MabiPack/downloads/|publish\</PublishUrlHistory>
     <InstallUrlHistory />
     <SupportUrlHistory>http://mabiassist.logue.be/MabiPacker|http://forum.logue.be/index.php%3ftopic=679.0|https://github.com/logue/MabiPack/issues</SupportUrlHistory>
     <UpdateUrlHistory />
@@ -13,16 +13,7 @@
   <PropertyGroup>
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <StartArguments>
-    </StartArguments>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <StartArguments>
-    </StartArguments>
-    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
 </Project>

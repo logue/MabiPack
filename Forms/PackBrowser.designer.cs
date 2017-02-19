@@ -127,7 +127,7 @@
 			// hexBox
 			// 
 			resources.ApplyResources(this.hexBox, "hexBox");
-			this.hexBox.LineInfoForeColor = System.Drawing.Color.Empty;
+			this.hexBox.InfoForeColor = System.Drawing.Color.Empty;
 			this.hexBox.LineInfoVisible = true;
 			this.hexBox.Name = "hexBox";
 			this.hexBox.ReadOnly = true;
