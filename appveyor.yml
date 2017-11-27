@@ -1,0 +1,11 @@
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU 
+before_build:
+- cmd: nuget restore
+build:
+  verbosity: minimal
+artifacts:
+- path: \bin\Release\*
+  name: MabiPacker.$(GitVersion_LegacySemVerPadded)
+  type: zip

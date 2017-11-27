@@ -4,10 +4,8 @@ using System.Text.RegularExpressions;
 using MabinogiResource;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
-namespace MabiPacker
-{
-	class Worker
-	{
+namespace MabiPacker {
+	class Worker {
 		private ProgressDialog pd;
 		private PackResourceSetCreater m_Pack;
 		private PackResourceSet m_Unpack;
@@ -19,28 +17,23 @@ namespace MabiPacker
 		/// Initialize Worker Progress Window.
 		/// </summary>
 		/// <param name="ShowDoneMsg">Show MessageBox and Progress. (default is true)</param>
-		public Worker (bool isCLI)
-		{
+		public Worker (bool isCLI) {
 			this.isCLI = isCLI;
-			this.env = new MabiEnvironment();
+			this.env = new MabiEnvironment ();
 			this.MabiDir = env.MabinogiDir;
 			this.isVista = (Environment.OSVersion.Version.Major >= 6) ? true : false;
 
-			if (!this.isCLI)
-			{
+			if (!this.isCLI) {
 				// Set PrgressDialog
-				this.pd = new ProgressDialog();
+				this.pd = new ProgressDialog ();
 				this.pd.Title = "MabiPacker";
 				this.pd.Value = 0;
 				this.pd.Caption = Properties.Resources.Str_Initialize;
 			}
 		}
-		public Worker()
-		{
+		public Worker () {
 			this.isCLI = true;
-		}
-		~Worker(){
-		}
+		}~Worker () { }
 		/// <summary>
 		/// Packing Package file process.
 		/// </summary>
@@ -48,210 +41,177 @@ namespace MabiPacker
 		/// <param name="OutputFile">Set filename of outputted *.pack file, with path.</param>
 		/// <param name="OutputVer">Set version of *.pack file.</param>
 		/// <param name="OutputVer">Set compress level of *.pack file.</param>
-		public void Pack(string InputDir, string OutputFile, uint OutputVer, int Level = -1)
-		{
-			if (!isCLI)
-			{
-				this.pd.ShowDialog(ProgressDialog.PROGDLG.Normal);
+		public void Pack (string InputDir, string OutputFile, uint OutputVer, int Level = -1) {
+			if (!isCLI) {
+				this.pd.ShowDialog (ProgressDialog.PROGDLG.Normal);
 				this.pd.Caption = Properties.Resources.Str_Pack;
 			}
-			Console.WriteLine("Pack");
+			Console.WriteLine ("Pack");
 			String internal_filename = "";
-			if (File.Exists(OutputFile))
-			{
-				System.IO.File.Delete(@OutputFile);
+			if (File.Exists (OutputFile)) {
+				System.IO.File.Delete (@OutputFile);
 			}
 			// Get Filelist
-			string[] filelist = Directory.GetFiles(InputDir, "*", SearchOption.AllDirectories);
-			Array.Sort(filelist);
-			if (!isCLI)
-			{
-				this.pd.Maximum = (uint)filelist.Length;
+			string[] filelist = Directory.GetFiles (InputDir, "*", SearchOption.AllDirectories);
+			Array.Sort (filelist);
+			if (!isCLI) {
+				this.pd.Maximum = (uint) filelist.Length;
 				this.pd.Value = 0;
-				if (this.pd.HasUserCancelled)
-				{
-					Interrupt();
+				if (this.pd.HasUserCancelled) {
+					Interrupt ();
 					return;
 				}
 			}
 			// Instance
-			m_Pack = new PackResourceSetCreater(OutputVer, Level);
+			m_Pack = new PackResourceSetCreater (OutputVer, Level);
 			uint v = 0;
 			// store file list for pack
-			foreach (string path in filelist)
-			{
-				internal_filename = path.Replace(InputDir + "\\", "");
-				m_Pack.AddFile(internal_filename, path);
-				if (!isCLI)
-				{
+			foreach (string path in filelist) {
+				internal_filename = path.Replace (InputDir + "\\", "");
+				m_Pack.AddFile (internal_filename, path);
+				if (!isCLI) {
 					this.pd.Value = v;
-					this.pd.Message = String.Format("Now checking file...({0} / {1})", v, filelist.Length);
+					this.pd.Message = String.Format ("Now checking file...({0} / {1})", v, filelist.Length);
 					this.pd.Detail = internal_filename;
-					if (this.pd.HasUserCancelled)
-					{
-						m_Pack.Dispose();
-						Interrupt();
+					if (this.pd.HasUserCancelled) {
+						m_Pack.Dispose ();
+						Interrupt ();
 						return;
 					}
 				}
-				Console.WriteLine( String.Format("{0} / {1} {2}", v, filelist.Length, internal_filename));
+				Console.WriteLine (String.Format ("{0} / {1} {2}", v, filelist.Length, internal_filename));
 				v++;
 			}
 			// Start packing
-			if (!isCLI)
-			{
+			if (!isCLI) {
 				this.pd.Message = Properties.Resources.Str_Packing;
 			}
-			Console.WriteLine("Now Packing...");
-			try
-			{
-				m_Pack.CreatePack(OutputFile);
+			Console.WriteLine ("Now Packing...");
+			try {
+				m_Pack.CreatePack (OutputFile);
+			} catch (System.Runtime.InteropServices.SEHException e) {
+				Console.WriteLine (e);
+				this.pd.CloseDialog ();
 			}
-			catch (System.Runtime.InteropServices.SEHException e)
-			{
-				Console.WriteLine(e);
-				this.pd.CloseDialog();
+			m_Pack.Dispose ();
+			if (!isCLI) {
+				this.pd.CloseDialog ();
 			}
-			m_Pack.Dispose();
-			if (!isCLI)
-			{
-				this.pd.CloseDialog();
-			}
-			Console.WriteLine("Finish.");
+			Console.WriteLine ("Finish.");
 		}
 		/// <summary>
 		/// Unpacking Package file process.
 		/// </summary>
 		/// <param name="InputFile">Set filename of unpack file..</param>
 		/// <param name="OutputDir">Set output distnation of Unpacked files.</param>
-		public void Unpack(string InputFile, string OutputDir)
-		{
-			if (!isCLI)
-			{
+		public void Unpack (string InputFile, string OutputDir) {
+			if (!isCLI) {
 				this.pd.Caption = Properties.Resources.Str_Unpack;
-				this.pd.ShowDialog(ProgressDialog.PROGDLG.Normal);
+				this.pd.ShowDialog (ProgressDialog.PROGDLG.Normal);
 			}
-			Console.WriteLine("Unpack");
+			Console.WriteLine ("Unpack");
 
-			m_Unpack = PackResourceSet.CreateFromFile(InputFile);
+			m_Unpack = PackResourceSet.CreateFromFile (InputFile);
 
-			uint packed_files = m_Unpack.GetFileCount();
-			if (!isCLI)
-			{
+			uint packed_files = m_Unpack.GetFileCount ();
+			if (!isCLI) {
 				pd.Maximum = packed_files;
-				if (this.pd.HasUserCancelled)
-				{
-					m_Unpack.Dispose();
-					this.pd.CloseDialog();
+				if (this.pd.HasUserCancelled) {
+					m_Unpack.Dispose ();
+					this.pd.CloseDialog ();
 					return;
 				}
 			}
-			for (uint i = 0; i < packed_files; ++i)
-			{
-				PackResource Res = m_Unpack.GetFileByIndex(i);
-				String InternalName = Res.GetName();
-				if (!isCLI)
-				{
-					this.pd.Message = String.Format(Properties.Resources.Str_Unpacking, i, packed_files);
+			for (uint i = 0; i < packed_files; ++i) {
+				PackResource Res = m_Unpack.GetFileByIndex (i);
+				String InternalName = Res.GetName ();
+				if (!isCLI) {
+					this.pd.Message = String.Format (Properties.Resources.Str_Unpacking, i, packed_files);
 					this.pd.Detail = "data\\" + InternalName;
 					this.pd.Value = i;
-					if (pd.HasUserCancelled)
-					{
-						m_Unpack.Dispose();
-						Interrupt();
+					if (pd.HasUserCancelled) {
+						m_Unpack.Dispose ();
+						Interrupt ();
 						return;
 					}
 				}
-				Console.WriteLine(String.Format("{0}/{1} {2}", i, packed_files, InternalName));
+				Console.WriteLine (String.Format ("{0}/{1} {2}", i, packed_files, InternalName));
 				// loading file content.
-				byte[] buffer = new byte[Res.GetSize()];
-				Res.GetData(buffer);
-				Res.Close();
+				byte[] buffer = new byte[Res.GetSize ()];
+				Res.GetData (buffer);
+				Res.Close ();
 				// Get output Directory Name
 				String outputPath = @OutputDir + "\\data\\" + InternalName;
 				// Create directory
-				String DirPath = Regex.Replace(outputPath, @"([^\\]*?)$", "");
-				if (!Directory.Exists(DirPath))
-				{
-					Directory.CreateDirectory(DirPath);
+				String DirPath = Regex.Replace (outputPath, @"([^\\]*?)$", "");
+				if (!Directory.Exists (DirPath)) {
+					Directory.CreateDirectory (DirPath);
 				}
 				// Delete old
-				if (File.Exists(outputPath))
-				{
+				if (File.Exists (outputPath)) {
 					//DateTime dtUpdate = System.IO.File.GetLastWriteTime(outputPath);
 					//if (dtUpdate > Res.GetModified()){
-						File.Delete(@outputPath);
+					File.Delete (@outputPath);
 					//}else{
-						//Todo Overwrite confirm dialog
+					//Todo Overwrite confirm dialog
 					//}
 				}
-				if (Directory.Exists(outputPath))
-				{
-					Directory.Delete(@outputPath);
+				if (Directory.Exists (outputPath)) {
+					Directory.Delete (@outputPath);
 				}
 				// Write to file.
-				FileStream fs = new FileStream(outputPath, System.IO.FileMode.Create);
-				fs.Write(buffer, 0, buffer.Length);
-				fs.Close();
+				FileStream fs = new FileStream (outputPath, System.IO.FileMode.Create);
+				fs.Write (buffer, 0, buffer.Length);
+				fs.Close ();
 				// Modify File time
-				File.SetCreationTime(outputPath, Res.GetCreated());
-				File.SetLastAccessTime(outputPath, Res.GetAccessed());
-				File.SetLastWriteTime(outputPath, Res.GetModified());
+				File.SetCreationTime (outputPath, Res.GetCreated ());
+				File.SetLastAccessTime (outputPath, Res.GetAccessed ());
+				File.SetLastWriteTime (outputPath, Res.GetModified ());
 			}
-			m_Unpack.Dispose();
-			if (!isCLI)
-			{
-				this.pd.CloseDialog();
+			m_Unpack.Dispose ();
+			if (!isCLI) {
+				this.pd.CloseDialog ();
 			}
-			Console.WriteLine("Finish.");
+			Console.WriteLine ("Finish.");
 		}
 		/// <summary>
 		/// Unpacking file
 		/// </summary>
 		/// <param name="Res">PackResource </param>
-		public bool UnpackFile(PackResource Res)
-		{
-			Console.WriteLine("Unpack");
+		public bool UnpackFile (PackResource Res) {
+			Console.WriteLine ("Unpack");
 
-			String InternalName = Res.GetName();
-			CommonSaveFileDialog dSaveAs = new CommonSaveFileDialog();
-			dSaveAs.DefaultFileName = Path.GetFileName(InternalName);
-			if (dSaveAs.ShowDialog() == CommonFileDialogResult.Ok)
-			{
-				if (!isCLI)
-				{
-					this.pd.ShowDialog(ProgressDialog.PROGDLG.Normal);
+			String InternalName = Res.GetName ();
+			CommonSaveFileDialog dSaveAs = new CommonSaveFileDialog ();
+			dSaveAs.DefaultFileName = Path.GetFileName (InternalName);
+			if (dSaveAs.ShowDialog () == CommonFileDialogResult.Ok) {
+				if (!isCLI) {
+					this.pd.ShowDialog (ProgressDialog.PROGDLG.Normal);
 					this.pd.Caption = Properties.Resources.Str_Unpack;
 				}
-				try
-				{
+				try {
 					// loading file content.
-					byte[] buffer = new byte[Res.GetSize()];
-					Res.GetData(buffer);
-					Res.Close();
+					byte[] buffer = new byte[Res.GetSize ()];
+					Res.GetData (buffer);
+					Res.Close ();
 					// Delete old
-					if (File.Exists(dSaveAs.FileName))
-					{
-						File.Delete(dSaveAs.FileName);
+					if (File.Exists (dSaveAs.FileName)) {
+						File.Delete (dSaveAs.FileName);
 					}
 					// Write to file.
-					FileStream fs = new FileStream(dSaveAs.FileName, System.IO.FileMode.Create);
-					fs.Write(buffer, 0, buffer.Length);
-					fs.Close();
+					FileStream fs = new FileStream (dSaveAs.FileName, System.IO.FileMode.Create);
+					fs.Write (buffer, 0, buffer.Length);
+					fs.Close ();
 					// Modify File time
-					File.SetCreationTime(dSaveAs.FileName, Res.GetCreated());
-					File.SetLastAccessTime(dSaveAs.FileName, Res.GetAccessed());
-					File.SetLastWriteTime(dSaveAs.FileName, Res.GetModified());
-				}
-				catch (Exception)
-				{
+					File.SetCreationTime (dSaveAs.FileName, Res.GetCreated ());
+					File.SetLastAccessTime (dSaveAs.FileName, Res.GetAccessed ());
+					File.SetLastWriteTime (dSaveAs.FileName, Res.GetModified ());
+				} catch (Exception) {
 					return false;
-				}
-				finally
-				{
-					Res.Close();
-					this.pd.CloseDialog();
-					Console.WriteLine("Finish.");
+				} finally {
+					Res.Close ();
+					this.pd.CloseDialog ();
+					Console.WriteLine ("Finish.");
 				}
 				return true;
 			}
@@ -260,11 +220,9 @@ namespace MabiPacker
 		/// <summary>
 		/// Show message box when process aborted.
 		/// </summary>
-		private void Interrupt()
-		{
-			if (!isCLI)
-			{
-				this.pd.CloseDialog();
+		private void Interrupt () {
+			if (!isCLI) {
+				this.pd.CloseDialog ();
 				/*
 				TaskDialog td = new TaskDialog();
 				TaskDialogStandardButtons button = TaskDialogStandardButtons.Close;
@@ -275,10 +233,8 @@ namespace MabiPacker
 				td.Text = Properties.Resources.Str_Interrupt;
 				TaskDialogResult res = td.Show();
 				*/
-			}
-			else
-			{
-				Console.WriteLine("Interrupted!");
+			} else {
+				Console.WriteLine ("Interrupted!");
 			}
 		}
 	}
