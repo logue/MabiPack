@@ -2,11 +2,12 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using Be.Windows.Forms;
 using MabinogiResource;
-using Tao.DevIl;
+using Pfim;
 
 namespace MabiPacker {
 	public partial class PackBrowser : Form {
@@ -19,6 +20,7 @@ namespace MabiPacker {
 		private WavePlayer wave;
 		private string PackFile;
 		private bool isVista;
+		private static GCHandle handle;
 
 		public PackBrowser (string filename) {
 			// Set PrgressDialog
@@ -149,6 +151,7 @@ namespace MabiPacker {
 										case ".psd":
 										case ".bmp":
 										case ".dds":
+										case ".tga":
 										case ".gif":
 										case ".png":
 										node = node.Nodes.Add (paths[i], paths[i], 4, 4);
@@ -201,34 +204,45 @@ namespace MabiPacker {
 				Res.Close ();
 				switch (Ext) {
 					case ".dds":
+					case ".tga":
 					case ".jpg":
 					case ".gif":
 					case ".png":
 					case ".bmp":
-						string Info = "";
-						if (Ext == ".dds") {
-							Bitmap bmp = DDSDataToBMP (buffer);
-							Info = "DDS (Direct Draw Surfice)";
-							PictureView.Image = bmp;
-						} else {
-							switch (Ext) {
-								case ".jpg":
-									Info = "JPEG";
-									break;
-								case ".gif":
-									Info = "GIF";
-									break;
-								case ".bmp":
-									Info = "Bitmap";
-									break;
-								case ".png":
-									Info = "PNG (Portable Network Graphic)";
-									break;
-							}
-							var ms = new MemoryStream (buffer);
-							PictureView.Image = Image.FromStream (ms);
-							ms.Dispose ();
+						if (handle.IsAllocated) {
+							handle.Free ();
 						}
+
+						string Info = "";
+						var ms = new MemoryStream (buffer);
+
+						switch (Ext) {
+							case ".dds":
+							case ".tga":
+								Info = "DDS (Direct Draw Surfice)";
+								break;
+							case ".jpg":
+								Info = "JPEG";
+
+								break;
+							case ".gif":
+								Info = "GIF";
+								break;
+							case ".bmp":
+								Info = "Bitmap";
+								break;
+							case ".png":
+								Info = "PNG (Portable Network Graphic)";
+								break;
+						}
+
+						if (Ext == ".tga" || Ext == ".dds") {
+							PictureView.Image = DDS2Bitmap (ms);
+						} else {
+							PictureView.Image = Image.FromStream (ms);
+						}
+						ms.Dispose ();
+
 						PictureView.Update ();
 						Status.Text = String.Format ("{0} Image file. ({1} x {2})", Info, PictureView.Width, PictureView.Height);
 						PictureView.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -272,39 +286,59 @@ namespace MabiPacker {
 			}
 			this.Update ();
 		}
-		/// <summary>
-		/// Converts an in-memory image in DDS format to a System.Drawing.Bitmap
-		/// object for easy display in Windows forms.
-		/// </summary>
-		/// <param name="DDSData">Byte array containing DDS image data</param>
-		/// <returns>A Bitmap object that can be displayed</returns>
-		public static Bitmap DDSDataToBMP (byte[] DDSData) {
-			// Create a DevIL image "name" (which is actually a number)
-			int img_name;
-			Il.ilGenImages (1, out img_name);
-			Il.ilBindImage (img_name);
-			// Load the DDS file into the bound DevIL image
-			Il.ilLoadL (Il.IL_DDS, DDSData, DDSData.Length);
-			// Set a few size variables that will simplify later code
-			int ImgWidth = Il.ilGetInteger (Il.IL_IMAGE_WIDTH);
-			int ImgHeight = Il.ilGetInteger (Il.IL_IMAGE_HEIGHT);
-			Rectangle rect = new Rectangle (0, 0, ImgWidth, ImgHeight);
-			// Convert the DevIL image to a pixel byte array to copy into Bitmap
-			Il.ilConvertImage (Il.IL_BGRA, Il.IL_UNSIGNED_BYTE);
-			// Create a Bitmap to copy the image into, and prepare it to get data
-			Bitmap bmp = new Bitmap (ImgWidth, ImgHeight);
-			BitmapData bmd =
-				bmp.LockBits (rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
-			// Copy the pixel byte array from the DevIL image to the Bitmap
-			Il.ilCopyPixels (0, 0, 0,
-				Il.ilGetInteger (Il.IL_IMAGE_WIDTH),
-				Il.ilGetInteger (Il.IL_IMAGE_HEIGHT),
-				1, Il.IL_BGRA, Il.IL_UNSIGNED_BYTE,
-				bmd.Scan0);
-			// Clean up and return Bitmap
-			Il.ilDeleteImages (1, ref img_name);
-			bmp.UnlockBits (bmd);
-			return bmp;
+		private Bitmap DDS2Bitmap (MemoryStream ms) {
+			var image = Pfim.Pfim.FromStream (ms);
+			PixelFormat format;
+			switch (image.Format) {
+				case Pfim.ImageFormat.Rgb24:
+					format = PixelFormat.Format24bppRgb;
+					break;
+
+				case Pfim.ImageFormat.Rgba32:
+					format = PixelFormat.Format32bppArgb;
+					break;
+
+				case Pfim.ImageFormat.R5g5b5:
+					format = PixelFormat.Format16bppRgb555;
+					break;
+
+				case Pfim.ImageFormat.R5g6b5:
+					format = PixelFormat.Format16bppRgb565;
+					break;
+
+				case Pfim.ImageFormat.R5g5b5a1:
+					format = PixelFormat.Format16bppArgb1555;
+					break;
+
+				case Pfim.ImageFormat.Rgb8:
+					format = PixelFormat.Format8bppIndexed;
+					break;
+
+				default:
+					return null;
+			}
+			handle = GCHandle.Alloc (image.Data, GCHandleType.Pinned);
+			var ptr = Marshal.UnsafeAddrOfPinnedArrayElement (image.Data, 0);
+			var bitmap = new Bitmap (image.Width, image.Height, image.Stride, format, ptr);
+
+			if (format != null && format == PixelFormat.Format8bppIndexed) {
+				var palette = bitmap.Palette;
+				for (int i = 0; i < 256; i++) {
+					palette.Entries[i] = Color.FromArgb ((byte) i, (byte) i, (byte) i);
+				}
+				bitmap.Palette = palette;
+			}
+
+			// While frameworks like WPF and ImageSharp natively understand 8bit gray values.
+			// WinForms can only work with an 8bit palette that we construct of gray values.
+			if (format == PixelFormat.Format8bppIndexed) {
+				var palette = bitmap.Palette;
+				for (int i = 0; i < 256; i++) {
+					palette.Entries[i] = Color.FromArgb ((byte) i, (byte) i, (byte) i);
+				}
+				bitmap.Palette = palette;
+			}
+			return bitmap;
 		}
 		/// <summary>
 		/// Playing sound via winmm.dll
@@ -313,21 +347,22 @@ namespace MabiPacker {
 		// http://dobon.net/vb/dotnet/programing/playembeddedwave.html
 		public class WavePlayer {
 			public enum PlaySoundFlags : int {
-					SND_SYNC = 0x0000,
-					SND_ASYNC = 0x0001,
-					SND_NODEFAULT = 0x0002,
-					SND_MEMORY = 0x0004,
-					SND_LOOP = 0x0008,
-					SND_NOSTOP = 0x0010,
-					SND_NOWAIT = 0x00002000,
-					SND_ALIAS = 0x00010000,
-					SND_ALIAS_ID = 0x00110000,
-					SND_FILENAME = 0x00020000,
-					SND_RESOURCE = 0x00040004,
-					SND_PURGE = 0x0040,
-					SND_APPLICATION = 0x0080
-				}
-				[System.Runtime.InteropServices.DllImport ("winmm.dll")]
+				SND_SYNC = 0x0000,
+				SND_ASYNC = 0x0001,
+				SND_NODEFAULT = 0x0002,
+				SND_MEMORY = 0x0004,
+				SND_LOOP = 0x0008,
+				SND_NOSTOP = 0x0010,
+				SND_NOWAIT = 0x00002000,
+				SND_ALIAS = 0x00010000,
+				SND_ALIAS_ID = 0x00110000,
+				SND_FILENAME = 0x00020000,
+				SND_RESOURCE = 0x00040004,
+				SND_PURGE = 0x0040,
+				SND_APPLICATION = 0x0080
+			}
+
+			[System.Runtime.InteropServices.DllImport ("winmm.dll")]
 			private static extern bool PlaySound (
 				IntPtr pszSound, IntPtr hmod, PlaySoundFlags fdwSound);
 			private System.Runtime.InteropServices.GCHandle gcHandle;
