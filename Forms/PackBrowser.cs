@@ -1,25 +1,28 @@
-﻿using System;
+﻿using Be.Windows.Forms;
+using MabinogiResource;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using Be.Windows.Forms;
-using MabinogiResource;
-using Pfim;
 
-namespace MabiPacker {
-	public partial class PackBrowser : Form {
-		private TreeNode m_Root;
+namespace MabiPacker
+{
+    public partial class PackBrowser : Form {
+        // MabinogiResource.net.dll
 		private PackResourceSet m_Pack;
 		private PackResource Res;
-		private Worker w;
+
+        private TreeNode m_Root;
+        private WavePlayer wave;
+
+        private Worker w;
 		private Dialogs d;
 		private ProgressDialog pd;
-		private WavePlayer wave;
+		
 		private string PackFile;
-		private bool isVista;
 		private static GCHandle handle;
 
 		public PackBrowser (string filename) {
@@ -33,7 +36,6 @@ namespace MabiPacker {
 			this.PackFile = filename;
 			this.w = new Worker (false);
 			this.d = new Dialogs ();
-			this.isVista = (Environment.OSVersion.Version.Major >= 6) ? true : false;
 		}
 		private void PackBrowser_Shown (object sender, EventArgs e) {
 			m_Tree.Enabled = false;
@@ -114,8 +116,12 @@ namespace MabiPacker {
 		private void pPlay_Click (object sender, EventArgs e) {
 			this.wave.Play ();
 		}
-		/***********************************************************************************************/
-		private void InsertFileNode (uint id) {
+        /***********************************************************************************************/
+        /// <summary>
+        /// Draw file tree (Left panel)
+        /// </summary>
+        /// <param name="id"></param>
+        private void InsertFileNode (uint id) {
 			PackResource pr = m_Pack.GetFileByIndex (id);
 			if (pr != null) {
 				string filePath = pr.GetName ();
@@ -126,43 +132,43 @@ namespace MabiPacker {
 					int index = node.Nodes.IndexOfKey (paths[i]);
 					if (index < 0) {
 						// Add( name , text)
-						string Ext = System.IO.Path.GetExtension (@paths[i]);
+						string Ext = Path.GetExtension (@paths[i]);
 						if (Ext != "") {
 							switch (Ext) {
-								default : if (@paths[i] == "vf.dat") {
-									node = node.Nodes.Add (paths[i], paths[i], 3, 3);
-									PreviewById (id);
-								}
-								else {
-									node = node.Nodes.Add (paths[i], paths[i], 1, 1);
-								}
-								break;
 								case ".txt":
-										node = node.Nodes.Add (paths[i], paths[i], 2, 2);
+									node = node.Nodes.Add (paths[i], paths[i], 2, 2);
 									if (@paths[i] == "!Readme.txt") {
 										PreviewById (id);
 									}
 									break;
 								case ".xml":
-										case ".trn":
-										node = node.Nodes.Add (paths[i], paths[i], 3, 3);
+								case ".trn":
+									node = node.Nodes.Add (paths[i], paths[i], 3, 3);
 									break;
 								case ".jpg":
-										case ".psd":
-										case ".bmp":
-										case ".dds":
-										case ".tga":
-										case ".gif":
-										case ".png":
-										node = node.Nodes.Add (paths[i], paths[i], 4, 4);
+								case ".psd":
+								case ".bmp":
+								case ".dds":
+								case ".tga":
+								case ".gif":
+								case ".png":
+									node = node.Nodes.Add (paths[i], paths[i], 4, 4);
 									break;
 								case ".ttf":
-										case ".ttc":
-										node = node.Nodes.Add (paths[i], paths[i], 5, 5);
+								case ".ttc":
+									node = node.Nodes.Add (paths[i], paths[i], 5, 5);
 									break;
 								case ".wav":
-										case ".mp3":
-										node = node.Nodes.Add (paths[i], paths[i], 6, 6);
+								case ".mp3":
+									node = node.Nodes.Add (paths[i], paths[i], 6, 6);
+									break;
+								default:
+									if (@paths[i] == "vf.dat") {
+										node = node.Nodes.Add (paths[i], paths[i], 3, 3);
+										PreviewById (id);
+									} else {
+										node = node.Nodes.Add (paths[i], paths[i], 1, 1);
+									}
 									break;
 							}
 						} else {
@@ -175,18 +181,30 @@ namespace MabiPacker {
 				}
 			}
 		}
+        /// <summary>
+        /// Unpack selected file by Id
+        /// </summary>
+        /// <param name="id"></param>
 		private void UnpackById (uint id) {
 			Res = m_Pack.GetFileByIndex (id);
 			if (Res != null) {
 				w.UnpackFile (Res);
 			}
 		}
+        /// <summary>
+        /// Unpack selected file by file name (unused)
+        /// </summary>
+        /// <param name="name"></param>
 		private void UnpackByName (string name) {
 			Res = m_Pack.GetFileByName (name);
 			if (Res != null) {
 				w.UnpackFile (Res);
 			}
 		}
+        /// <summary>
+        /// Open selected file to display right panel.
+        /// </summary>
+        /// <param name="id"></param>
 		private void PreviewById (uint id) {
 			PackResource Res = m_Pack.GetFileByIndex (id);
 			Status.Text = Properties.Resources.Str_LoadingPreview;
@@ -197,12 +215,14 @@ namespace MabiPacker {
 				TextView.Hide ();
 				pPlay.Hide ();
 				String InternalName = Res.GetName ();
-				string Ext = System.IO.Path.GetExtension (@InternalName);
+				string Ext = Path.GetExtension (@InternalName);
 				// loading file content.
 				byte[] buffer = new byte[Res.GetSize ()];
 				Res.GetData (buffer);
 				Res.Close ();
-				switch (Ext) {
+
+                MemoryStream ms = new MemoryStream(buffer);
+                switch (Ext) {
 					case ".dds":
 					case ".tga":
 					case ".jpg":
@@ -214,7 +234,6 @@ namespace MabiPacker {
 						}
 
 						string Info = "";
-						var ms = new MemoryStream (buffer);
 
 						switch (Ext) {
 							case ".dds":
@@ -241,7 +260,7 @@ namespace MabiPacker {
 						} else {
 							PictureView.Image = Image.FromStream (ms);
 						}
-						ms.Dispose ();
+						
 
 						PictureView.Update ();
 						Status.Text = String.Format ("{0} Image file. ({1} x {2})", Info, PictureView.Width, PictureView.Height);
@@ -283,9 +302,15 @@ namespace MabiPacker {
 						}
 						break;
 				}
-			}
+                ms.Dispose();
+            }
 			this.Update ();
 		}
+        /// <summary>
+        /// Convert DDS data to Bitmap data.
+        /// </summary>
+        /// <param name="ms"></param>
+        /// <returns></returns>
 		private Bitmap DDS2Bitmap (MemoryStream ms) {
 			var image = Pfim.Pfim.FromStream (ms);
 			PixelFormat format;
@@ -320,15 +345,6 @@ namespace MabiPacker {
 			handle = GCHandle.Alloc (image.Data, GCHandleType.Pinned);
 			var ptr = Marshal.UnsafeAddrOfPinnedArrayElement (image.Data, 0);
 			var bitmap = new Bitmap (image.Width, image.Height, image.Stride, format, ptr);
-
-			if (format != null && format == PixelFormat.Format8bppIndexed) {
-				var palette = bitmap.Palette;
-				for (int i = 0; i < 256; i++) {
-					palette.Entries[i] = Color.FromArgb ((byte) i, (byte) i, (byte) i);
-				}
-				bitmap.Palette = palette;
-			}
-
 			// While frameworks like WPF and ImageSharp natively understand 8bit gray values.
 			// WinForms can only work with an 8bit palette that we construct of gray values.
 			if (format == PixelFormat.Format8bppIndexed) {
@@ -362,15 +378,14 @@ namespace MabiPacker {
 				SND_APPLICATION = 0x0080
 			}
 
-			[System.Runtime.InteropServices.DllImport ("winmm.dll")]
+			[DllImport ("winmm.dll")]
 			private static extern bool PlaySound (
 				IntPtr pszSound, IntPtr hmod, PlaySoundFlags fdwSound);
-			private System.Runtime.InteropServices.GCHandle gcHandle;
+			private GCHandle gcHandle;
 			private byte[] waveBuffer = null;
 			public WavePlayer (byte[] buffer) {
 				this.waveBuffer = buffer;
-				this.gcHandle = System.Runtime.InteropServices.GCHandle.Alloc (
-					buffer, System.Runtime.InteropServices.GCHandleType.Pinned);
+				this.gcHandle = GCHandle.Alloc (buffer, GCHandleType.Pinned);
 			}
 			public void Play () {
 				// Play wave asyncrous
