@@ -39,7 +39,6 @@ namespace MabiPacker {
 			#region Init Pack Tab
 			PackageVersion.Minimum = this.MabiVer;
 			PackageVersion.Value = Int32.Parse (DateTime.Today.ToString ("yyMMdd"));
-			uCurrentVer.Text = String.Format ("(Current:{0} / Server:{1})", env.LocalVersion, env.Version);
 			SaveAs.Text = env.MabinogiDir + "\\Package\\custom-" + PackageVersion.Value.ToString () + ".pack";
 			Level.SelectedIndex = 0;
 			#endregion
@@ -56,10 +55,6 @@ namespace MabiPacker {
 			#endregion
 		}
 		#region Pack Tab Event Handler
-		private void uCurrentVer_LinkClicked (object sender, LinkLabelLinkClickedEventArgs e) {
-			System.Diagnostics.Process.Start ("http://mabiplus.no-ip.org/global.html");
-			return;
-		}
 		private void bInputDirSelector_Click (object sender, EventArgs e) {
 			InputDir.Text = d.InputDir (InputDir.Text);
 		}
@@ -110,11 +105,11 @@ namespace MabiPacker {
 		#endregion
 		#region About Tab Event Handler
 		private void lCopyright_LinkClicked (object sender, LinkLabelLinkClickedEventArgs e) {
-			System.Diagnostics.Process.Start ("http://logue.be/");
+			System.Diagnostics.Process.Start ("https://logue.be/");
 			return;
 		}
 		private void Logo_Click (object sender, EventArgs e) {
-			System.Diagnostics.Process.Start ("http://mabiassist.logue.be/MabiPacker");
+			System.Diagnostics.Process.Start ("https://mabiassist.logue.be/MabiPacker");
 			return;
 		}
 		public string AssemblyTitle {
