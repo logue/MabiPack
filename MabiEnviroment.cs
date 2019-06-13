@@ -55,28 +55,7 @@ namespace MabiPacker // <-- Change here yourself
 		/// Get Mabinogi Environment
 		/// </summary>
 		/// <param name="url">Url to Patch.txt</param>
-		public MabiEnvironment (string url) {
-			this.MabinogiDir = GetMabiDir ();
-			this.LocalVersion = GetMabiVer ();
 
-			Dictionary<string, string> p = PatchText (url);
-			this.isDownloadable = (p["patch_accept"] == "0") ? false : true;
-			this.Version = uint.Parse (p["main_version"]);
-			this.Arg = p["arg"];
-			this.LoginIP = p["login"];
-			this.LangPack = p.ContainsKey ("lang") ? p["lang"] : ""; // language.pack
-
-			// Maybe Korean server only.
-			this.Fullver = p.ContainsKey ("main_fullversion") ? uint.Parse (p["main_fullversion"]) : 0;
-
-			// Notice:
-			// * US server seems not read main_ftp value.
-			// * In some countries uses HTTP for download patch, 
-			//   then the beginning of the address http://, to pass to the URI object.
-			// * Whether FTP is to be determined by the port.
-			this.PatchServer = new Uri ("ftp://" +
-				(p["main_ftp"] == "mabipatch.nexon.net/game/" ? "mabipatch.nexon.net" : p["main_ftp"]));
-		}
 		/// <summary>
 		/// Get Mabinogi installed directory from Registory.
 		/// </summary>
@@ -121,31 +100,7 @@ namespace MabiPacker // <-- Change here yourself
 		/// </summary>
 		/// <param name="url">URL to patch text.</param>
 		/// <returns>Key-value data of patch.txt.</returns>
-		private Dictionary<string, string> PatchText (string url) {
-			string line = "";
-			ArrayList al = new ArrayList ();
-			HttpWebRequest webreq = (HttpWebRequest) WebRequest.Create (url);
-			HttpWebResponse webres = (HttpWebResponse) webreq.GetResponse ();
-			Stream st = webres.GetResponseStream ();
 
-			// Fetch patch.txt
-			Encoding enc = Encoding.GetEncoding ("UTF-8"); // assume UTF-8
-			StreamReader sr = new StreamReader (st, enc);
-
-			Dictionary<string, string> data = new Dictionary<string, string> ();
-			while ((line = sr.ReadLine ()) != null) {
-				if (line.Trim ().Length == 0 || line[0].Equals ('#')) {
-					continue;
-				}
-				string[] result = line.Split (new char[] { '=' }, 2);
-				if (result.Length == 2) {
-					data.Add (result[0], result[1]);
-				}
-			}
-			webres.Close ();
-			sr.Close ();
-			return data;
-		}
 		/// <summary>
 		/// Launch Mabinogi client. If Crackshild is detected, launch crackshield.
 		/// Notice : The parent program MUST be put on the same directory as client.exe. 
