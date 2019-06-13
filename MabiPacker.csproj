@@ -23,14 +23,14 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <SupportUrl>http://mabiassist.logue.be/MabiPacker</SupportUrl>
+    <SupportUrl>https://mabiassist.logue.be/MabiPacker</SupportUrl>
     <ErrorReportUrl>https://github.com/logue/MabiPack/issues</ErrorReportUrl>
     <ProductName>MabiPacker</ProductName>
     <PublisherName>Logue</PublisherName>
     <SuiteName>MabinogiAssist</SuiteName>
     <TrustUrlParameters>true</TrustUrlParameters>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.3.2.%2a</ApplicationVersion>
+    <ApplicationVersion>1.3.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>

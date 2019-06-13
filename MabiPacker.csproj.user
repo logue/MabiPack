@@ -4,7 +4,7 @@
   <PropertyGroup>
     <PublishUrlHistory>https://github.com/logue/MabiPack/releases/|https://github.com/logue/MabiPack/downloads/|publish\</PublishUrlHistory>
     <InstallUrlHistory />
-    <SupportUrlHistory>http://mabiassist.logue.be/MabiPacker|https://github.com/logue/MabiPack/issues</SupportUrlHistory>
+    <SupportUrlHistory>https://mabiassist.logue.be/MabiPacker|https://github.com/logue/MabiPack/issues</SupportUrlHistory>
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />
     <ErrorReportUrlHistory>https://github.com/logue/MabiPack/issues</ErrorReportUrlHistory>

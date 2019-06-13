@@ -30,12 +30,12 @@ namespace MabiPacker // <-- Change here yourself
         public uint LocalVersion;
         // Server Enviroment
         public bool isDownloadable;
-        public uint Version;
-        public string Arg;
-        public string LoginIP;
-        public Uri PatchServer;
-        public uint Fullver;
-        public string LangPack;
+        //public uint Version;
+        public string Arg = null;
+        public string LoginIP = null;
+        //public Uri PatchServer;
+        //public uint Fullver;
+        //public string LangPack;
         // Define
         public uint Code = 1622;
         public uint LoginPort = 11000;

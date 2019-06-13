@@ -20,7 +20,8 @@ namespace MabiPacker
             InitializeComponent();
             OperatingSystem osInfo = Environment.OSVersion;
             this.isVista = (osInfo.Version.Major >= 6) ? true : false;
-            this.env = new MabiEnvironment(Properties.Resources.Uri_PatchTxt);
+            //this.env = new MabiEnvironment(Properties.Resources.Uri_PatchTxt);
+            this.env = new MabiEnvironment();
             this.d = new Dialogs();
             this.w = new Worker();
             this.PackageDir = this.env.MabinogiDir + "\\Package";
