@@ -227,11 +227,38 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
+        ///   Finished. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_Finish {
+            get {
+                return ResourceManager.GetString("String_Finish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Initializing... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_Initializing {
+            get {
+                return ResourceManager.GetString("String_Initializing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Mabinogi Package File に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string String_PackFileDesciption {
             get {
                 return ResourceManager.GetString("String_PackFileDesciption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Now Packing... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_Packing {
+            get {
+                return ResourceManager.GetString("String_Packing", resourceCulture);
             }
         }
         
@@ -278,6 +305,15 @@ namespace MabiPacker.Properties {
         public static string String_TarminateMessageMain {
             get {
                 return ResourceManager.GetString("String_TarminateMessageMain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Now Unpacking... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_Unpacking {
+            get {
+                return ResourceManager.GetString("String_Unpacking", resourceCulture);
             }
         }
     }

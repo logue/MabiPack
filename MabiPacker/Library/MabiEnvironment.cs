@@ -100,7 +100,7 @@ namespace MabiPacker.Library
                     }
                 }
             }
-            string reg = (string)regkey.GetValue("");   // Returns Mabinogi Directory
+            string reg = (string)regkey.GetValue("ExecutablePath");   // Returns Mabinogi Directory
             regkey.Close();
             return reg;
 

@@ -4,12 +4,14 @@ using System.IO;
 using System.Threading;
 namespace MabiPacker.Library
 {
-    internal class Packer
+    internal class Packer : IDisposable
     {
-        private readonly string _OutputFile;
-        private readonly string[] _Files;
-        private readonly string _Distination;
-        private readonly PackResourceSetCreater _Instance;
+        private readonly string _outputFile;
+        private readonly string[] _files;
+        private readonly string _distination;
+        private readonly int _level;
+        private readonly uint _version;
+        private readonly uint _count;
         /// <summary>
         /// Constructor
         /// </summary>
@@ -19,59 +21,89 @@ namespace MabiPacker.Library
         /// <param name="Level">Set compress level of *.pack file.</param>
         public Packer(string OutputFile, string Distination, uint Version, int Level = -1)
         {
-            _Instance = new PackResourceSetCreater(Version, Level);
-            _OutputFile = OutputFile;
-            _Distination = Distination;
-            _Files = Directory.GetFiles(Distination, "*", SearchOption.AllDirectories);
+            _version = Version;
+            _level = Level;
+            _outputFile = OutputFile;
+            _distination = Distination;
+            _files = Directory.GetFiles(Distination, "*", SearchOption.AllDirectories);
+            _count = (uint)_files.Length;
         }
         /// <summary>
         /// Destructor
         /// </summary>
         ~Packer()
         {
-            _Instance.Dispose();
+            Dispose();
         }
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        public void Dispose()
+        {
 
+        }
+        /// <summary>
+        /// Get files to pack.
+        /// </summary>
+        /// <returns></returns>
+        public uint Count()
+        {
+            return _count;
+        }
         /// <summary>
         /// Packing Process
         /// </summary>
         /// <param name="p"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public bool Pack(IProgress<uint> p, CancellationToken token)
+        public bool Pack(IProgress<Entry> p, CancellationToken token)
         {
             // Get Filelist
             uint i = 0;
-            uint count = (uint)_Files.Length;
-            foreach (string Path in _Files)
+            using (PackResourceSetCreater Instance = new PackResourceSetCreater(_version, _level))
             {
+                foreach (string Path in _files)
+                {
+                    Instance.AddFile(Path.Replace(_distination + "\\", ""), Path);
+                    if (token.IsCancellationRequested)
+                    {
+                        return false;
+                    }
+                    Entry entry = new Entry
+                    {
+                        Index = i,
+                        Name = Path
+                    };
 
-                _Instance.AddFile(Path.Replace(_Distination + "\\", ""), Path);
-                if (token.IsCancellationRequested)
-                {
-                    return false;
+                    p.Report(entry);
                 }
-                if (p != null)
-                {
-                    p.Report(i++ * 100 / count);
-                }
+                return Instance.CreatePack(_outputFile);
             }
-            return _Instance.CreatePack(_OutputFile);
         }
         /// <summary>
         /// Packing Process
         /// </summary>
         /// <param name="p"></param>
-        /// <param name="token"></param>
         /// <returns></returns>
-        public bool Pack()
+        public bool Pack(IProgress<Entry> p)
         {
-
-            foreach (string Path in _Files)
+            uint i = 0;
+            using (PackResourceSetCreater Instance = new PackResourceSetCreater(_version, _level))
             {
-                _Instance.AddFile(Path.Replace(_Distination + "\\", ""), Path);
+                foreach (string Path in _files)
+                {
+
+                    Instance.AddFile(Path.Replace(_distination + "\\", ""), Path);
+                    Entry entry = new Entry
+                    {
+                        Index = i,
+                        Name = Path
+                    };
+
+                    p.Report(entry);
+                }
+                return Instance.CreatePack(_outputFile);
             }
-            return _Instance.CreatePack(_OutputFile);
         }
     }
 }

@@ -131,10 +131,10 @@
     <value>パックしたいdataディレクトリ：</value>
   </data>
   <data name="Label_UnpackDistination" xml:space="preserve">
-    <value>アンパックしたファイルの展開先：</value>
+    <value>ファイルの展開先：</value>
   </data>
   <data name="Label_UnpackFile" xml:space="preserve">
-    <value>アンパックしたい*.packファイル：</value>
+    <value>アンパックしたい*.packファイルを選択：</value>
   </data>
   <data name="String_TarminateMessageMain" xml:space="preserve">
     <value>問題が発生したため、このプログラムは停止しました。</value>
@@ -177,5 +177,17 @@
   </data>
   <data name="String_SetPackDistination" xml:space="preserve">
     <value>パックしたいディレクトリを選択してください。</value>
+  </data>
+  <data name="String_Packing" xml:space="preserve">
+    <value>パックしています…。</value>
+  </data>
+  <data name="String_Unpacking" xml:space="preserve">
+    <value>アンパックしています…。</value>
+  </data>
+  <data name="String_Initializing" xml:space="preserve">
+    <value>初期化中です…。</value>
+  </data>
+  <data name="String_Finish" xml:space="preserve">
+    <value>完了しました。</value>
   </data>
 </root>

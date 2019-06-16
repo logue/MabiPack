@@ -117,90 +117,77 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Button_About" xml:space="preserve">
+    <value>MabiPacker 대해</value>
+  </data>
   <data name="Button_Confirm" xml:space="preserve">
-    <value>Confirm</value>
-  </data>
-  <data name="String_TarminateMessageMain" xml:space="preserve">
-    <value>A problem caused this program to stop working.</value>
-  </data>
-  <data name="String_TarminateMessageContentOutput" xml:space="preserve">
-    <value>This program is terminating.
-Do you want to display information about this problem?</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="String_PackFileDesciption" xml:space="preserve">
-    <value>Mabinogi Package File</value>
-  </data>
-  <data name="BackgorundPattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Label_PackDistination" xml:space="preserve">
-    <value>Choose data directory for packing:</value>
-  </data>
-  <data name="Label_UnpackDistination" xml:space="preserve">
-    <value>Choose distination of unpacked files directory:</value>
-  </data>
-  <data name="Label_UnpackFile" xml:space="preserve">
-    <value>Select *.pack file to unpack:</value>
-  </data>
-  <data name="String_TarminateMessageContent" xml:space="preserve">
-    <value>This program has been terminated.</value>
+    <value>확인</value>
   </data>
   <data name="Button_Continue" xml:space="preserve">
-    <value>Continue</value>
+    <value>계속</value>
   </data>
   <data name="Button_Exit" xml:space="preserve">
-    <value>Exit</value>
+    <value>종료</value>
   </data>
   <data name="Button_Pack" xml:space="preserve">
-    <value>Pack</value>
-  </data>
-  <data name="Button_ViewContent" xml:space="preserve">
-    <value>View Content</value>
+    <value>풀고</value>
   </data>
   <data name="Button_Unpack" xml:space="preserve">
-    <value>Unpack</value>
+    <value>포장</value>
   </data>
-  <data name="file" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\file.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Button_About" xml:space="preserve">
-    <value>About MabiPacker</value>
-  </data>
-  <data name="Label_Version" xml:space="preserve">
-    <value>Version:</value>
-  </data>
-  <data name="Label_PackFileName" xml:space="preserve">
-    <value>Output file name:</value>
-  </data>
-  <data name="Label_Level" xml:space="preserve">
-    <value>Copression Level:</value>
+  <data name="Button_ViewContent" xml:space="preserve">
+    <value>내용물 확인</value>
   </data>
   <data name="Button_Visit" xml:space="preserve">
-    <value>Visit site</value>
+    <value>사이트로 이동</value>
   </data>
-  <data name="String_SetPackFileName" xml:space="preserve">
-    <value>Please select a file name.</value>
+  <data name="Label_Level" xml:space="preserve">
+    <value>압축 수준 :</value>
   </data>
-  <data name="String_SetPackDistination" xml:space="preserve">
-    <value>Please select directory to pack.</value>
+  <data name="Label_PackDistination" xml:space="preserve">
+    <value>팩하고 싶은 data 디렉토리 :</value>
   </data>
-  <data name="String_Packing" xml:space="preserve">
-    <value>Now Packing...</value>
+  <data name="Label_PackFileName" xml:space="preserve">
+    <value>저장 파일 이름 :</value>
   </data>
-  <data name="String_Unpacking" xml:space="preserve">
-    <value>Now Unpacking...</value>
+  <data name="Label_UnpackDistination" xml:space="preserve">
+    <value>파일의 대상 :</value>
   </data>
-  <data name="String_Initializing" xml:space="preserve">
-    <value>Initializing...</value>
+  <data name="Label_UnpackFile" xml:space="preserve">
+    <value>풀고 싶은 * .pack 파일을 선택 :</value>
+  </data>
+  <data name="Label_Version" xml:space="preserve">
+    <value>버전 :</value>
   </data>
   <data name="String_Finish" xml:space="preserve">
-    <value>Finished.</value>
+    <value>완료했습니다.</value>
+  </data>
+  <data name="String_Initializing" xml:space="preserve">
+    <value>초기화 중 …</value>
+  </data>
+  <data name="String_PackFileDesciption" xml:space="preserve">
+    <value>Mabinogi 패키지 파일</value>
+  </data>
+  <data name="String_Packing" xml:space="preserve">
+    <value>팩하고 있습니다 …</value>
+  </data>
+  <data name="String_SetPackDistination" xml:space="preserve">
+    <value>팩하고 싶은 디렉토리를 선택하십시오.</value>
+  </data>
+  <data name="String_SetPackFileName" xml:space="preserve">
+    <value>저장할 파일 이름을 지정하십시오.</value>
+  </data>
+  <data name="String_TarminateMessageContent" xml:space="preserve">
+    <value>프로그램을 종료합니다.</value>
+  </data>
+  <data name="String_TarminateMessageContentOutput" xml:space="preserve">
+    <value>프로그램을 종료합니다.
+이 문제의 내부 정보를 볼 수 있나요?</value>
+  </data>
+  <data name="String_TarminateMessageMain" xml:space="preserve">
+    <value>문제가 발생했기 때문에이 프로그램이 중지되었습니다.</value>
+  </data>
+  <data name="String_Unpacking" xml:space="preserve">
+    <value>풀고 있습니다 …</value>
   </data>
 </root>

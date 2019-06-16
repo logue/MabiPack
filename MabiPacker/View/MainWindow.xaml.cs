@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+
 namespace MabiPacker.View
 {
     /// <summary>
@@ -20,7 +21,7 @@ namespace MabiPacker.View
         {
             InitializeComponent();
             // Error Handler
-            //new UnhandledExceptionCatcher(Properties.Resources.ResourceManager, true, true);
+            new UnhandledExceptionCatcher(Properties.Resources.ResourceManager, true, true);
 
             AppAssembly asm = new AppAssembly();
             TextBlock_ProductName.Text = asm.Title;
@@ -29,10 +30,10 @@ namespace MabiPacker.View
             TextBlock_ProductCopyright.Text = asm.Copyright;
             MabiEnvironment env = new MabiEnvironment();
             MabinogiDir = env.MabinogiDir;
-            TextBox_PackFileName.Text = MabinogiDir + "\\Package\\custom-" + int.Parse(DateTime.Today.ToString("yyMMdd")) + ".pack";
+            TextBox_PackFileName.Text = MabinogiDir + "\\package\\custom-" + int.Parse(DateTime.Today.ToString("yyMMdd")) + ".pack";
             TextBox_Version.Value = env.LocalVersion;
             TextBox_UnpackDistination.Text = Path.GetDirectoryName(Path.GetFullPath(Environment.GetCommandLineArgs()[0]));
-            TextBox_UnpackFileName.Text = MabinogiDir + "\\Package\\";
+            TextBox_UnpackFileName.Text = MabinogiDir + "\\package\\";
             _cancelToken = new CancellationTokenSource();
         }
 
@@ -78,21 +79,44 @@ namespace MabiPacker.View
 
         private async void Button_Pack_Click(object sender, RoutedEventArgs e)
         {
-            Packer packer = new Packer(TextBox_PackFileName.Text, TextBox_PackDistination.Text, (uint)TextBox_Version.Value, ComboBox_Level.SelectedIndex - 1);
-            await PackProcess(this, packer);
+            if (File.Exists(TextBox_PackFileName.Text))
+            {
+                File.Delete(TextBox_PackFileName.Text);
+            }
+
+            using (Packer packer = new Packer(TextBox_PackFileName.Text, TextBox_PackDistination.Text, (uint)TextBox_Version.Value, ComboBox_Level.SelectedIndex - 1))
+            {
+                await PackProcess(this, packer);
+            }
         }
 
         private async Task<object> PackProcess(MetroWindow window, Packer packer)
         {
-            ProgressDialogController controller = await window.ShowProgressAsync("Progress", "Pack");
-            controller.Maximum = 100;
+            ProgressDialogController controller = await window.ShowProgressAsync(
+                LocalizationProvider.GetLocalizedValue<string>("Button_Pack"),
+                LocalizationProvider.GetLocalizedValue<string>("String_Initializing")
+            );
+            controller.SetIndeterminate();
+            controller.Maximum = packer.Count();
             controller.Minimum = 0;
-            Progress<uint> p = new Progress<uint>((uint percentage) =>
+            controller.SetCancelable(true);
+
+            Progress<Entry> p = new Progress<Entry>((Entry entry) =>
             {
-                controller.SetProgress(percentage);
+                controller.SetProgress(entry.Index);
+                controller.SetTitle(LocalizationProvider.GetLocalizedValue<string>("String_Unpacking"));
+                controller.SetMessage(
+                    string.Format("{0} ({1}/{2})", entry.Name, entry.Index, packer.Count())
+                );
+                if (controller.IsCanceled)
+                {
+                    _cancelToken.Cancel();
+                    return;
+                }
             });
             await Task.Run(() => packer.Pack(p, _cancelToken.Token));
             await controller.CloseAsync();
+            await window.ShowMessageAsync(LocalizationProvider.GetLocalizedValue<string>("Button_Pack"), LocalizationProvider.GetLocalizedValue<string>("String_Finish"));
 
             return null;
         }
@@ -134,27 +158,56 @@ namespace MabiPacker.View
             }
         }
 
-
-
         private async void Unpack_Click(object sender, RoutedEventArgs e)
         {
-            Unpacker unpacker = new Unpacker(TextBox_UnpackFileName.Text, TextBox_UnpackDistination.Text);
-            await UnpackProcess(this, unpacker);
+            using (Unpacker unpacker = new Unpacker(TextBox_UnpackFileName.Text, TextBox_UnpackDistination.Text))
+            {
+                await UnpackProcess(this, unpacker);
+            }
         }
 
         private async Task<object> UnpackProcess(MetroWindow window, Unpacker unpacker)
         {
-            ProgressDialogController controller = await window.ShowProgressAsync("Progress", "Pack");
-            controller.Maximum = 100;
+            ProgressDialogController controller = await window.ShowProgressAsync(
+                LocalizationProvider.GetLocalizedValue<string>("Button_Unpack"),
+                LocalizationProvider.GetLocalizedValue<string>("String_Initializing")
+            );
+            controller.SetIndeterminate();
+            controller.Maximum = unpacker.Count();
             controller.Minimum = 0;
-            Progress<uint> p = new Progress<uint>((uint percentage) =>
+            controller.SetCancelable(true);
+
+            Progress<Entry> p = new Progress<Entry>((Entry entry) =>
             {
-                controller.SetProgress(percentage);
+                controller.SetProgress(entry.Index);
+                controller.SetTitle(LocalizationProvider.GetLocalizedValue<string>("String_Unpacking"));
+                controller.SetMessage(
+                    string.Format("{0} ({1}/{2})", entry.Name, entry.Index, unpacker.Count())
+                );
+                if (controller.IsCanceled)
+                {
+                    _cancelToken.Cancel();
+                    return;
+                }
             });
             await Task.Run(() => unpacker.Unpack(p, _cancelToken.Token));
             await controller.CloseAsync();
+            await window.ShowMessageAsync(
+                LocalizationProvider.GetLocalizedValue<string>("Button_Unpack"),
+                LocalizationProvider.GetLocalizedValue<string>("String_Finish")
+            );
 
             return null;
+        }
+
+        private void TextBlock_ProductCopyright_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://logue.be/");
+        }
+
+        private void Button_Visit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/logue/MabiPack");
         }
     }
 }
