@@ -1,0 +1,76 @@
+﻿<Controls:MetroWindow
+    x:Class="MabiPacker.View.ErrorReporter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    Title="ErrorReporter"
+    MinWidth="480"
+    MinHeight="240"
+    lex:LocalizeDictionary.DesignCulture="ja"
+    lex:ResxLocalizationProvider.DefaultAssembly="MabiPacker"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+    ShowInTaskbar="False"
+    Topmost="True">
+    <Controls:MetroWindow.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="MinWidth" Value="80" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,5" />
+        </Style>
+    </Controls:MetroWindow.Resources>
+
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Orientation="Horizontal">
+            <iconPacks:PackIconModern
+                Width="64"
+                Height="64"
+                Margin="0,0,10,0"
+                Kind="Alert" />
+            <TextBlock
+                Name="textBoxMessage"
+                Grid.Column="1"
+                FontSize="14"
+                Text="Error Message"
+                TextWrapping="Wrap" />
+        </StackPanel>
+        <TextBox
+            Name="textBoxDetail"
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            AcceptsReturn="True"
+            Text="Error Infomation"
+            TextWrapping="WrapWithOverflow"
+            VerticalScrollBarVisibility="Auto" />
+        <StackPanel
+            Grid.Row="3"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <Button
+                Name="buttonContinue"
+                Click="Continue_Click"
+                Content="{lex:Loc Button_Continue}"
+                IsDefault="True" />
+            <Button
+                Name="buttonExit"
+                Click="Exit_Click"
+                Content="{lex:Loc Button_Exit}" />
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>

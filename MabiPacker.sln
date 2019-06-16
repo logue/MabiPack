@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.28729.10
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MabiPacker", "MabiPacker.csproj", "{2130B851-1BFF-4E41-8C96-D07A66FAD117}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MabiPacker", "MabiPacker\MabiPacker.csproj", "{6B9CA1C0-60FB-409A-920D-FFF364494667}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2130B851-1BFF-4E41-8C96-D07A66FAD117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2130B851-1BFF-4E41-8C96-D07A66FAD117}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2130B851-1BFF-4E41-8C96-D07A66FAD117}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{2130B851-1BFF-4E41-8C96-D07A66FAD117}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{6B9CA1C0-60FB-409A-920D-FFF364494667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B9CA1C0-60FB-409A-920D-FFF364494667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B9CA1C0-60FB-409A-920D-FFF364494667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B9CA1C0-60FB-409A-920D-FFF364494667}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E48CCA9F-B0B9-4809-AA40-EBCCA34DE986}
+		SolutionGuid = {078DEB0C-F0C0-41F6-AF0A-354BB0211BD7}
 	EndGlobalSection
 EndGlobal

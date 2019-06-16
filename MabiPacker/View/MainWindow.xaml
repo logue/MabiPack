@@ -1,0 +1,275 @@
+﻿<Controls:MetroWindow
+    x:Class="MabiPacker.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:local="clr-namespace:MabiPacker"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:properties="clr-namespace:MabiPacker.Properties"
+    Title="MabiPacker"
+    MinWidth="480"
+    MinHeight="120"
+    lex:LocalizeDictionary.DesignCulture="ja"
+    lex:ResxLocalizationProvider.DefaultAssembly="MabiPacker"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    SizeToContent="WidthAndHeight"
+    mc:Ignorable="d">
+    <TabControl Controls:TabControlHelper.IsUnderlined="True">
+        <TabItem Name="TabItem_Pack" Header="{lex:Loc Button_Pack}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Name="Label_PackDistination"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    Content="{lex:Loc Label_PackDistination}" />
+                <TextBox
+                    Name="TextBox_PackDistination"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3" />
+                <Button
+                    Name="Button_SetPackDistination"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Margin="5,0,0,0"
+                    Click="Button_SetPackDistination_Click"
+                    Content="{iconPacks:Modern Kind=FolderEllipsis}" />
+                <Label
+                    Name="Label_PackFileName"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    Content="{lex:Loc Label_PackFileName}" />
+                <TextBox
+                    Name="TextBox_PackFileName"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3" />
+                <Button
+                    Name="Button_PackFileName"
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="Button_SetPackFileName_Click"
+                    Content="{iconPacks:Modern Kind=FolderEllipsis}" />
+                <Label
+                    Name="Label_Version"
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Content="{lex:Loc Label_Version}" />
+                <Controls:NumericUpDown
+                    Name="TextBox_Version"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Minimum="0" />
+                <Label
+                    Name="Label_Level"
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Content="{lex:Loc Label_Level}" />
+                <ComboBox
+                    Name="ComboBox_Level"
+                    Grid.Row="5"
+                    Grid.Column="1">
+                    <ComboBoxItem Content="Auto" IsSelected="true" />
+                    <ComboBoxItem Content="0 - No Compression" />
+                    <ComboBoxItem Content="1 - Fast" />
+                    <ComboBoxItem Content="2" />
+                    <ComboBoxItem Content="3" />
+                    <ComboBoxItem Content="4" />
+                    <ComboBoxItem Content="5" />
+                    <ComboBoxItem Content="6" />
+                    <ComboBoxItem Content="7" />
+                    <ComboBoxItem Content="8" />
+                    <ComboBoxItem Content="9 - Best" />
+                </ComboBox>
+                <Button
+                    Name="Button_Pack"
+                    Grid.Row="4"
+                    Grid.RowSpan="2"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Click="Button_Pack_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconOcticons Kind="Fold" />
+                        <TextBlock Margin="5,0,0,0" Text="{lex:Loc Button_Pack}" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </TabItem>
+        <TabItem Name="TabItem_Unpack" Header="{lex:Loc Button_Unpack}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label
+                    Name="Label_UnpackFile"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="5"
+                    Content="{lex:Loc Label_UnpackFile}" />
+                <TextBox
+                    Name="TextBox_UnpackFileName"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3" />
+                <Button
+                    Name="Button_SetUnpackFile"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Click="Button_SetUnpackFile_Click"
+                    Content="{iconPacks:Modern Kind=FolderEllipsis}" />
+                <Label
+                    Name="Label_UnpackDistination"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="5"
+                    Content="{lex:Loc Label_UnpackDistination}" />
+                <TextBox
+                    Name="TextBox_UnpackDistination"
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3" />
+                <Button
+                    Name="Button_SetUnpackDistination"
+                    Grid.Row="4"
+                    Grid.Column="3"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Click="Button_SetUnpackDistination_Click"
+                    Content="{iconPacks:Modern Kind=FolderEllipsis}" />
+                <Button
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    IsEnabled="False">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="FileFind" />
+                        <TextBlock Margin="5,0,0,0" Text="{lex:LocText Button_ViewContent}" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    Name="Unpack"
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Click="Unpack_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconOcticons Kind="Unfold" />
+                        <TextBlock Margin="5,0,0,0" Text="{lex:LocText Button_Unpack}" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </TabItem>
+        <TabItem Name="TabItem_About" Header="{lex:Loc Button_About}">
+            <Grid VerticalAlignment="Center">
+                <Grid.DataContext>
+                    <properties:Resources />
+                </Grid.DataContext>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Image
+                    x:Name="Logo"
+                    Grid.Row="0"
+                    Grid.RowSpan="6"
+                    Grid.Column="0"
+                    Margin="10,0"
+                    VerticalAlignment="Top"
+                    Source="../Resources/logo.png"
+                    Stretch="None" />
+                <TextBlock
+                    Name="TextBlock_ProductName"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    FontSize="24"
+                    Foreground="{DynamicResource HighlightBrush}"
+                    Text="ProductName" />
+                <TextBlock
+                    Name="TextBlock_ProductDescription"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="ProductDescription" />
+                <TextBlock
+                    Name="TextBlock_ProductVersion"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Text="Version" />
+                <TextBlock
+                    Name="TextBlock_ProductCopyright"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    VerticalAlignment="Bottom"
+                    Text="Copyright" />
+                <Button
+                    Name="Button_Visit"
+                    Grid.Row="5"
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Margin="0,0,0,14"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconFontAwesome Kind="ExternalLinkAltSolid" />
+                        <TextBlock Margin="5,0,0,0" Text="{lex:LocText Button_Visit}" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </TabItem>
+    </TabControl>
+
+</Controls:MetroWindow>
