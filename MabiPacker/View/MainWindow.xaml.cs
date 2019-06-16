@@ -16,24 +16,30 @@ namespace MabiPacker.View
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private readonly string MabinogiDir;
+        private readonly MabiEnvironment env;
         public MainWindow()
         {
             InitializeComponent();
             // Error Handler
             new UnhandledExceptionCatcher(Properties.Resources.ResourceManager, true, true);
 
+            env = new MabiEnvironment();
+            string appPath = Path.GetDirectoryName(Path.GetFullPath(Environment.GetCommandLineArgs()[0]));
+
+            // Display Version infomation from assambly
             AppAssembly asm = new AppAssembly();
             TextBlock_ProductName.Text = asm.Title;
             TextBlock_ProductDescription.Text = asm.Description;
-            TextBlock_ProductVersion.Text = string.Format(" v.{0}", asm.Version);
+            TextBlock_ProductVersion.Text = string.Format("v.{0}", asm.Version);
             TextBlock_ProductCopyright.Text = asm.Copyright;
-            MabiEnvironment env = new MabiEnvironment();
-            MabinogiDir = env.MabinogiDir;
-            TextBox_PackFileName.Text = MabinogiDir + "\\package\\custom-" + int.Parse(DateTime.Today.ToString("yyMMdd")) + ".pack";
+
+            // Insert default value
+            TextBox_PackDistination.Text = appPath;
+            TextBox_PackFileName.Text = env.MabinogiDir + "\\package\\custom-" + int.Parse(DateTime.Today.ToString("yyMMdd")) + ".pack";
             TextBox_Version.Value = env.LocalVersion;
-            TextBox_UnpackDistination.Text = Path.GetDirectoryName(Path.GetFullPath(Environment.GetCommandLineArgs()[0]));
-            TextBox_UnpackFileName.Text = MabinogiDir + "\\package\\";
+            TextBox_UnpackDistination.Text = appPath;
+            TextBox_UnpackFileName.Text = env.MabinogiDir + "\\package\\";
+            TextBox_Version.Minimum = env.LocalVersion + 1;
             _cancelToken = new CancellationTokenSource();
         }
 
@@ -61,7 +67,7 @@ namespace MabiPacker.View
             {
                 Title = LocalizationProvider.GetLocalizedValue<string>("String_SetPackFileName"),
                 Filter = LocalizationProvider.GetLocalizedValue<string>("String_PackFileDesciption") + "(*.pack)|*.pack",
-                InitialDirectory = MabinogiDir + "\\package",
+                InitialDirectory = env.MabinogiDir + "\\package",
                 FileName = TextBox_PackFileName.Text,
                 FilterIndex = 1,
                 DefaultExt = ".pack", // Default file extension

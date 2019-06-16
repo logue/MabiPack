@@ -25,26 +25,26 @@ namespace MabiPacker
         {
             base.OnStartup(e);
             string Query = string.Join(" ", e.Args);
+
+            // for i18n
             LocalizeDictionary.Instance.Culture = CultureInfo.GetCultureInfo(CultureInfo.CurrentCulture.ToString());
 
-            if (e.Args.Length == 0)
+            if (Win32.AttachConsole(uint.MaxValue))
             {
-                // Launch GUI and pass arguments in case you want to use them.
-                new MainWindow().Show();
-            }
-            else if (Win32.AttachConsole(uint.MaxValue))
-            {
+                // Console Mode
                 new Cui(e.Args);
                 Win32.FreeConsole();
                 Shutdown();
             }
             else if (File.Exists(Query) && Path.GetExtension(@Query) == ".pack")
             {
-                //new PackBrowser(Query);
+                // Pack Browser Mode (unmounted)
+                //new PackBrowser(Query).Show();
             }
             else
             {
-                Shutdown();
+                // Default GUI Mode
+                new MainWindow().Show();
             }
         }
     }

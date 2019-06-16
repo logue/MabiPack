@@ -49,7 +49,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Optimize>true</Optimize>
     <OutputPath>..\bin\Release\</OutputPath>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>

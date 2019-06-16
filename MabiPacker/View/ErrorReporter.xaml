@@ -6,28 +6,14 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
     Title="ErrorReporter"
-    MinWidth="480"
-    MinHeight="240"
+    Width="480"
+    Height="240"
     lex:LocalizeDictionary.DesignCulture="ja"
     lex:ResxLocalizationProvider.DefaultAssembly="MabiPacker"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     ShowInTaskbar="False"
     Topmost="True">
-    <Controls:MetroWindow.Resources>
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Padding" Value="3" />
-            <Setter Property="Margin" Value="5,0,0,0" />
-            <Setter Property="MinWidth" Value="80" />
-        </Style>
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,5" />
-        </Style>
-    </Controls:MetroWindow.Resources>
-
-    <Grid Margin="5">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -36,6 +22,7 @@
         <StackPanel
             Grid.Row="0"
             Grid.Column="0"
+            Margin="5"
             Orientation="Horizontal">
             <iconPacks:PackIconModern
                 Width="64"
@@ -52,6 +39,7 @@
         <TextBox
             Name="textBoxDetail"
             Grid.Row="1"
+            Margin="5,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             AcceptsReturn="True"
@@ -64,11 +52,15 @@
             Orientation="Horizontal">
             <Button
                 Name="buttonContinue"
+                Margin="5"
+                Padding="10,6"
                 Click="Continue_Click"
                 Content="{lex:Loc Button_Continue}"
                 IsDefault="True" />
             <Button
                 Name="buttonExit"
+                Margin="5"
+                Padding="10,6"
                 Click="Exit_Click"
                 Content="{lex:Loc Button_Exit}" />
         </StackPanel>
