@@ -208,15 +208,15 @@ namespace MabiPacker.Library
                     {
                         System.Diagnostics.Debug.WriteLine(builder.ToString());
 #if !DEBUG
-						try
-						{
-							string path = System.IO.Path.Combine(
-								System.IO.Path.GetTempPath(),
-								System.IO.Path.GetFileNameWithoutExtension(Environment.GetCommandLineArgs()[0])
-								+ ".errorlog.txt");
-							System.IO.File.AppendAllText(path, builder.ToString());
-						}
-						catch { }
+                        try
+                        {
+                            string path = System.IO.Path.Combine(
+                                System.IO.Path.GetTempPath(),
+                                System.IO.Path.GetFileNameWithoutExtension(Environment.GetCommandLineArgs()[0])
+                                + ".errorlog.txt");
+                            System.IO.File.AppendAllText(path, builder.ToString());
+                        }
+                        catch { }
 #endif
                     }
                 }

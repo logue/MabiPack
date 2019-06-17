@@ -195,6 +195,7 @@
                     Click="Button_SetUnpackDistination_Click"
                     Content="{iconPacks:Modern Kind=FolderEllipsis}" />
                 <Button
+                    Name="Button_ViewContent"
                     Grid.Row="5"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
@@ -202,7 +203,7 @@
                     Padding="10,6"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
-                    IsEnabled="False">
+                    Click="Button_ViewContent_Click">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterial Kind="FileFind" />
                         <TextBlock Margin="5,0,0,0" Text="{lex:LocText Button_ViewContent}" />

@@ -1,0 +1,121 @@
+﻿<Controls:MetroWindow
+    x:Class="MabiPacker.View.PackBrowser"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:WPFHexaEditor="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    Title="PackBrowser"
+    Width="525"
+    Height="350"
+    GlowBrush="{StaticResource AccentColorBrush}"
+    Icon="../Resources/file.ico"
+    NonActiveGlowBrush="{StaticResource ControlsValidationBrush}"
+    ShowIconOnTitleBar="True">
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands ShowLastSeparator="False">
+            <Button x:Name="Button_About">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconFontAwesome Kind="CommentRegular" />
+                    <TextBlock Margin="5,0,0,0">About</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button x:Name="Button_Open">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconFontAwesome Kind="FolderOpenRegular" />
+                    <TextBlock Margin="5,0,0,0">Open</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button x:Name="Button_Export">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconFontAwesome Kind="FileExportSolid" />
+                    <TextBlock Margin="5,0,0,0">Export</TextBlock>
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" MinWidth="200" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StatusBar Grid.Row="1" Grid.ColumnSpan="3">
+            <StatusBarItem x:Name="Status">Status</StatusBarItem>
+        </StatusBar>
+        <TreeView Name="TreeView_FileList" Grid.Column="0">
+            <!--TreeViewItem>
+                <TreeViewItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconFontAwesome Kind="FolderRegular" />
+                        <TextBlock>Test</TextBlock>
+                    </StackPanel>
+                </TreeViewItem.Header>
+            </TreeViewItem-->
+        </TreeView>
+        <GridSplitter
+            Grid.Column="1"
+            Width="5"
+            HorizontalAlignment="Stretch"
+            Background="{StaticResource ResourceKey=AccentColorBrush4}"
+            BorderBrush="{StaticResource ResourceKey=AccentColorBrush2}"
+            BorderThickness="1,0,1,0" />
+        <!--  Content Area  -->
+        <WrapPanel
+            Grid.Column="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <StackPanel Name="PicturePanel" Visibility="Collapsed">
+                <StackPanel.Background>
+                    <ImageBrush
+                        ImageSource="../Resources/bg.png"
+                        Stretch="None"
+                        TileMode="Tile" />
+                </StackPanel.Background>
+                <Image x:Name="PictureView" />
+            </StackPanel>
+            <Button
+                Name="SoundView"
+                Width="64"
+                Height="64"
+                Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                Visibility="Collapsed">
+                <iconPacks:PackIconFontAwesome
+                    Width="36"
+                    Height="36"
+                    Kind="PlaySolid" />
+            </Button>
+            <DocumentViewer Name="TextView" Visibility="Collapsed" />
+            <WPFHexaEditor:HexEditor
+                Name="HexView"
+                Width="Auto"
+                AllowByteCount="False"
+                BorderThickness="0"
+                ByteGrouping="FourByte"
+                ByteSpacerPositioning="HexBytePanel"
+                ByteSpacerVisualStyle="Dash"
+                ByteSpacerWidthTickness="Normal"
+                DataStringVisual="Hexadecimal"
+                StatusBarVisibility="Hidden"
+                Visibility="Collapsed" />
+            <MediaElement
+                Name="MadiaView"
+                Width="100"
+                Height="32"
+                RenderTransformOrigin="0.5,0.5">
+                <MediaElement.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1" ScaleY="-1" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </MediaElement.RenderTransform>
+            </MediaElement>
+        </WrapPanel>
+    </Grid>
+</Controls:MetroWindow>

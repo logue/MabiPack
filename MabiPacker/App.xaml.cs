@@ -29,17 +29,20 @@ namespace MabiPacker
             // for i18n
             LocalizeDictionary.Instance.Culture = CultureInfo.GetCultureInfo(CultureInfo.CurrentCulture.ToString());
 
-            if (Win32.AttachConsole(uint.MaxValue))
+            //new PackBrowser("C:\\Nexon\\Mabinogi\\package\\438_to_439.pack").Show();
+            //return;
+
+            if (File.Exists(Query) && Path.GetExtension(@Query) == ".pack")
+            {
+                // Pack Browser Mode (unmounted)
+                new PackBrowser(Query).Show();
+            }
+            else if (Win32.AttachConsole(uint.MaxValue))
             {
                 // Console Mode
                 new Cui(e.Args);
                 Win32.FreeConsole();
                 Shutdown();
-            }
-            else if (File.Exists(Query) && Path.GetExtension(@Query) == ".pack")
-            {
-                // Pack Browser Mode (unmounted)
-                //new PackBrowser(Query).Show();
             }
             else
             {

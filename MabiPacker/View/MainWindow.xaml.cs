@@ -172,6 +172,11 @@ namespace MabiPacker.View
             }
         }
 
+        private void Button_ViewContent_Click(object sender, RoutedEventArgs e)
+        {
+            new PackBrowser(TextBox_UnpackFileName.Text).Show();
+        }
+
         private async Task<object> UnpackProcess(MetroWindow window, Unpacker unpacker)
         {
             ProgressDialogController controller = await window.ShowProgressAsync(
