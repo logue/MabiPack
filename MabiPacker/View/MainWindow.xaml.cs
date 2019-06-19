@@ -21,7 +21,7 @@ namespace MabiPacker.View
         {
             InitializeComponent();
             // Error Handler
-            new UnhandledExceptionCatcher(Properties.Resources.ResourceManager, true, true);
+            //new UnhandledExceptionCatcher(Properties.Resources.ResourceManager, true, true);
 
             env = new MabiEnvironment();
             string appPath = Path.GetDirectoryName(Path.GetFullPath(Environment.GetCommandLineArgs()[0]));

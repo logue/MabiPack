@@ -104,11 +104,7 @@ namespace MabiPacker.Library
                     File.SetLastWriteTime(outputPath, Res.GetModified());
 
                     // Progreess
-                    Entry entry = new Entry
-                    {
-                        Index = i,
-                        Name = InternalName
-                    };
+                    Entry entry = new Entry(InternalName, i, Res.GetSize());
                     p.Report(entry);
                 }
             }
@@ -158,11 +154,7 @@ namespace MabiPacker.Library
                     File.SetLastWriteTime(outputPath, Res.GetModified());
 
                     // Progreess
-                    Entry entry = new Entry
-                    {
-                        Index = i,
-                        Name = InternalName
-                    };
+                    Entry entry = new Entry(InternalName, i, Res.GetSize());
                     p.Report(entry);
                 }
             }
@@ -179,14 +171,13 @@ namespace MabiPacker.Library
             {
                 using (PackResource Res = _instance.GetFileByIndex(i))
                 {
-                    Entry entry = new Entry
-                    {
-                        Index = i,
-                        Name = Res.GetName()
-                    };
+                    Entry entry = new Entry(Res.GetName(), i);
                     ret.Add(entry);
                 }
             }
+            // Sort by Name
+            ret.Sort((a, b) => a.File.CompareTo(b.File));
+
             return ret;
         }
         /// <summary>

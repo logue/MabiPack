@@ -1,14 +1,22 @@
-﻿namespace MabiPacker.Library
+﻿using System.IO;
+
+namespace MabiPacker.Library
 {
     public struct Entry
     {
         public uint Index;
         public string Name;
+        public string File;
+        public string Extension;
+        public uint Size;
 
-        public Entry(uint Index, string Name)
+        public Entry(string path, uint index, uint size = 0)
         {
-            this.Index = Index;
-            this.Name = Name;
+            File = path;
+            Name = Path.GetFileName(path);
+            Extension = Path.GetExtension(path);
+            Index = index;
+            Size = size;
         }
     }
 }

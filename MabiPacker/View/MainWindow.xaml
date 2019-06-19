@@ -17,6 +17,7 @@
     lex:ResxLocalizationProvider.DefaultAssembly="MabiPacker"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     GlowBrush="{DynamicResource AccentColorBrush}"
+    Icon="../Resources/icon.ico"
     mc:Ignorable="d">
     <TabControl Controls:TabControlHelper.IsUnderlined="True">
         <TabItem Name="TabItem_Pack" Header="{lex:Loc Button_Pack}">

@@ -60,24 +60,20 @@ namespace MabiPacker.Library
         {
             // Get Filelist
             uint i = 0;
-            using (PackResourceSetCreater Instance = new PackResourceSetCreater(_version, _level))
+            using (PackResourceSetCreater instance = new PackResourceSetCreater(_version, _level))
             {
-                foreach (string Path in _files)
+                foreach (string path in _files)
                 {
-                    Instance.AddFile(Path.Replace(_distination + "\\", ""), Path);
+                    instance.AddFile(path.Replace(_distination + "\\", ""), path);
                     if (token.IsCancellationRequested)
                     {
                         return false;
                     }
-                    Entry entry = new Entry
-                    {
-                        Index = i,
-                        Name = Path
-                    };
+                    Entry entry = new Entry(path, i);
 
                     p.Report(entry);
                 }
-                return Instance.CreatePack(_outputFile);
+                return instance.CreatePack(_outputFile);
             }
         }
         /// <summary>
@@ -88,21 +84,17 @@ namespace MabiPacker.Library
         public bool Pack(IProgress<Entry> p)
         {
             uint i = 0;
-            using (PackResourceSetCreater Instance = new PackResourceSetCreater(_version, _level))
+            using (PackResourceSetCreater instance = new PackResourceSetCreater(_version, _level))
             {
-                foreach (string Path in _files)
+                foreach (string path in _files)
                 {
 
-                    Instance.AddFile(Path.Replace(_distination + "\\", ""), Path);
-                    Entry entry = new Entry
-                    {
-                        Index = i,
-                        Name = Path
-                    };
+                    instance.AddFile(path.Replace(_distination + "\\", ""), path);
+                    Entry entry = new Entry(path, i);
 
                     p.Report(entry);
                 }
-                return Instance.CreatePack(_outputFile);
+                return instance.CreatePack(_outputFile);
             }
         }
     }

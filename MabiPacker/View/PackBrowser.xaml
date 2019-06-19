@@ -12,21 +12,22 @@
     Icon="../Resources/file.ico"
     NonActiveGlowBrush="{StaticResource ControlsValidationBrush}"
     ShowIconOnTitleBar="True">
+
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands ShowLastSeparator="False">
-            <Button x:Name="Button_About">
+            <Button Name="Button_About">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconFontAwesome Kind="CommentRegular" />
                     <TextBlock Margin="5,0,0,0">About</TextBlock>
                 </StackPanel>
             </Button>
-            <Button x:Name="Button_Open">
+            <Button Name="Button_Open">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconFontAwesome Kind="FolderOpenRegular" />
                     <TextBlock Margin="5,0,0,0">Open</TextBlock>
                 </StackPanel>
             </Button>
-            <Button x:Name="Button_Export">
+            <Button Name="Button_Export">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconFontAwesome Kind="FileExportSolid" />
                     <TextBlock Margin="5,0,0,0">Export</TextBlock>
@@ -34,21 +35,21 @@
             </Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" MinWidth="200" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <StatusBar Grid.Row="1" Grid.ColumnSpan="3">
-            <StatusBarItem x:Name="Status">Status</StatusBarItem>
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Name="StatusBarItem_Status">Status</StatusBarItem>
         </StatusBar>
-        <TreeView Name="TreeView_FileList" Grid.Column="0">
-            <!--TreeViewItem>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TreeView
+                Name="TreeView_FileList"
+                Grid.Column="0"
+                MinWidth="200">
+                <!--TreeViewItem>
                 <TreeViewItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconFontAwesome Kind="FolderRegular" />
@@ -56,66 +57,74 @@
                     </StackPanel>
                 </TreeViewItem.Header>
             </TreeViewItem-->
-        </TreeView>
-        <GridSplitter
-            Grid.Column="1"
-            Width="5"
-            HorizontalAlignment="Stretch"
-            Background="{StaticResource ResourceKey=AccentColorBrush4}"
-            BorderBrush="{StaticResource ResourceKey=AccentColorBrush2}"
-            BorderThickness="1,0,1,0" />
-        <!--  Content Area  -->
-        <WrapPanel
-            Grid.Column="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <StackPanel Name="PicturePanel" Visibility="Collapsed">
-                <StackPanel.Background>
-                    <ImageBrush
-                        ImageSource="../Resources/bg.png"
-                        Stretch="None"
-                        TileMode="Tile" />
-                </StackPanel.Background>
-                <Image x:Name="PictureView" />
+            </TreeView>
+            <GridSplitter
+                Grid.Column="1"
+                Width="5"
+                HorizontalAlignment="Stretch"
+                Background="{StaticResource ResourceKey=AccentColorBrush4}"
+                BorderBrush="{StaticResource ResourceKey=AccentColorBrush2}"
+                BorderThickness="1,0,1,0" />
+            <!--  Content Area  -->
+            <StackPanel Grid.Column="2">
+                <Controls:ProgressRing Name="ProgressRing" Foreground="{DynamicResource AccentColorBrush}" />
+                <StackPanel Name="PicturePanel" Visibility="Collapsed">
+                    <StackPanel.Background>
+                        <DrawingBrush
+                            Stretch="None"
+                            TileMode="Tile"
+                            Viewport="0,0,16,16"
+                            ViewportUnits="Absolute">
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup>
+                                    <GeometryDrawing Brush="LightGray">
+                                        <GeometryDrawing.Geometry>
+                                            <GeometryGroup>
+                                                <RectangleGeometry Rect="0,0,8,8" />
+                                                <RectangleGeometry Rect="8,8,8,8" />
+                                            </GeometryGroup>
+                                        </GeometryDrawing.Geometry>
+                                    </GeometryDrawing>
+                                    <GeometryDrawing Brush="White">
+                                        <GeometryDrawing.Geometry>
+                                            <GeometryGroup>
+                                                <RectangleGeometry Rect="8,0,8,8" />
+                                                <RectangleGeometry Rect="0,8,8,8" />
+                                            </GeometryGroup>
+                                        </GeometryDrawing.Geometry>
+                                    </GeometryDrawing>
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </StackPanel.Background>
+                    <Image
+                        Name="ImageViewer"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                        Stretch="None" />
+                </StackPanel>
+                <DocumentViewer Name="DocViewer" Visibility="Collapsed" />
+                <avalonEdit:TextEditor
+                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                    Name="TextViewer"
+                    FontFamily="Consolas"
+                    IsReadOnly="True"
+                    Visibility="Collapsed" />
+                <WPFHexaEditor:HexEditor
+                    Name="HexViewer"
+                    AllowByteCount="False"
+                    BorderThickness="0"
+                    ByteGrouping="FourByte"
+                    ByteSpacerPositioning="HexBytePanel"
+                    ByteSpacerVisualStyle="Dash"
+                    ByteSpacerWidthTickness="Normal"
+                    DataStringVisual="Hexadecimal"
+                    ReadOnlyMode="True"
+                    StatusBarVisibility="Hidden"
+                    Visibility="Collapsed" />
+                <MediaElement Name="MediaViewer" Visibility="Collapsed" />
             </StackPanel>
-            <Button
-                Name="SoundView"
-                Width="64"
-                Height="64"
-                Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
-                Visibility="Collapsed">
-                <iconPacks:PackIconFontAwesome
-                    Width="36"
-                    Height="36"
-                    Kind="PlaySolid" />
-            </Button>
-            <DocumentViewer Name="TextView" Visibility="Collapsed" />
-            <WPFHexaEditor:HexEditor
-                Name="HexView"
-                Width="Auto"
-                AllowByteCount="False"
-                BorderThickness="0"
-                ByteGrouping="FourByte"
-                ByteSpacerPositioning="HexBytePanel"
-                ByteSpacerVisualStyle="Dash"
-                ByteSpacerWidthTickness="Normal"
-                DataStringVisual="Hexadecimal"
-                StatusBarVisibility="Hidden"
-                Visibility="Collapsed" />
-            <MediaElement
-                Name="MadiaView"
-                Width="100"
-                Height="32"
-                RenderTransformOrigin="0.5,0.5">
-                <MediaElement.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="-1" ScaleY="-1" />
-                        <SkewTransform />
-                        <RotateTransform />
-                        <TranslateTransform />
-                    </TransformGroup>
-                </MediaElement.RenderTransform>
-            </MediaElement>
-        </WrapPanel>
-    </Grid>
+        </Grid>
+    </DockPanel>
 </Controls:MetroWindow>
