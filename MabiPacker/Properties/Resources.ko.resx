@@ -190,4 +190,10 @@
   <data name="String_Unpacking" xml:space="preserve">
     <value>풀고 있습니다 …</value>
   </data>
+  <data name="String_SetExportTo" xml:space="preserve">
+    <value>내보내기 위치를 지정하십시오.</value>
+  </data>
+  <data name="Button_Export" xml:space="preserve">
+    <value>내보내기</value>
+  </data>
 </root>

@@ -203,4 +203,10 @@ Do you want to display information about this problem?</value>
   <data name="String_Finish" xml:space="preserve">
     <value>Finished.</value>
   </data>
+  <data name="Button_Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="String_SetExportTo" xml:space="preserve">
+    <value>Please select extracted file destination.</value>
+  </data>
 </root>

@@ -21,7 +21,7 @@ namespace MabiPacker.View
         {
             InitializeComponent();
             // Error Handler
-            //new UnhandledExceptionCatcher(Properties.Resources.ResourceManager, true, true);
+            new UnhandledExceptionCatcher(Properties.Resources.ResourceManager, true, true);
 
             env = new MabiEnvironment();
             string appPath = Path.GetDirectoryName(Path.GetFullPath(Environment.GetCommandLineArgs()[0]));
@@ -41,6 +41,7 @@ namespace MabiPacker.View
             TextBox_UnpackFileName.Text = env.MabinogiDir + "\\package\\";
             TextBox_Version.Minimum = env.LocalVersion + 1;
             _cancelToken = new CancellationTokenSource();
+
         }
 
         private readonly CancellationTokenSource _cancelToken;
@@ -122,7 +123,11 @@ namespace MabiPacker.View
             });
             await Task.Run(() => packer.Pack(p, _cancelToken.Token));
             await controller.CloseAsync();
-            await window.ShowMessageAsync(LocalizationProvider.GetLocalizedValue<string>("Button_Pack"), LocalizationProvider.GetLocalizedValue<string>("String_Finish"));
+
+            await window.ShowMessageAsync(
+                LocalizationProvider.GetLocalizedValue<string>("Button_Pack"),
+                LocalizationProvider.GetLocalizedValue<string>("String_Finish")
+            );
 
             return null;
         }
@@ -174,6 +179,10 @@ namespace MabiPacker.View
 
         private void Button_ViewContent_Click(object sender, RoutedEventArgs e)
         {
+            if (!File.Exists(TextBox_UnpackFileName.Text))
+            {
+                return;
+            }
             new PackBrowser(TextBox_UnpackFileName.Text).Show();
         }
 

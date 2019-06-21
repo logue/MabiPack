@@ -107,6 +107,15 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
+        ///   Export に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Button_Export {
+            get {
+                return ResourceManager.GetString("Button_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Pack に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Button_Pack {
@@ -259,6 +268,15 @@ namespace MabiPacker.Properties {
         public static string String_Packing {
             get {
                 return ResourceManager.GetString("String_Packing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please select extracted file destination. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_SetExportTo {
+            get {
+                return ResourceManager.GetString("String_SetExportTo", resourceCulture);
             }
         }
         

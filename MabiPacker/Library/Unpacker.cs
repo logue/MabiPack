@@ -43,6 +43,7 @@ namespace MabiPacker.Library
         /// </summary>
         public void Dispose()
         {
+            _instance.Close();
             _instance.Dispose();
         }
         /// <summary>

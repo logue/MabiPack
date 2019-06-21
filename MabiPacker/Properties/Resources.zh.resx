@@ -190,4 +190,10 @@
   <data name="String_Unpacking" xml:space="preserve">
     <value>我打开包装....</value>
   </data>
+  <data name="Button_Export" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="String_SetExportTo" xml:space="preserve">
+    <value>请指定导出目的地。</value>
+  </data>
 </root>

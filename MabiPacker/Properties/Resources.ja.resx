@@ -190,4 +190,10 @@
   <data name="String_Finish" xml:space="preserve">
     <value>完了しました。</value>
   </data>
+  <data name="Button_Export" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="String_SetExportTo" xml:space="preserve">
+    <value>エクスポート先を指定してください。</value>
+  </data>
 </root>

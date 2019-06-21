@@ -2,6 +2,7 @@
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.IconPacks;
+using Microsoft.Win32;
 using Pfim;
 using System;
 using System.IO;
@@ -19,8 +20,10 @@ namespace MabiPacker.View
     /// </summary>
     public partial class PackBrowser : MetroWindow
     {
-        public TreeViewItem root;
+        public TreeViewItem _fileTree;
         private readonly Unpacker _unpacker;
+        private Entry _selected;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -30,6 +33,14 @@ namespace MabiPacker.View
             _unpacker = new Unpacker(file);
             InitializeComponent();
             Loaded += PackBrowser_Loaded;
+        }
+
+        /// <summary>
+        /// Destractor
+        /// </summary>
+        ~PackBrowser()
+        {
+            _unpacker.Dispose();
         }
 
         public async void PackBrowser_Loaded(object sender, RoutedEventArgs e)
@@ -43,15 +54,15 @@ namespace MabiPacker.View
             controller.Maximum = _unpacker.Count();
             controller.Minimum = 0;
 
-            root = new TreeViewItem
+            _fileTree = new TreeViewItem
             {
                 Header = "data"
             };
-            TreeView_FileList.Items.Add(root);
+            TreeView_FileList.Items.Add(_fileTree);
             int i = 0;
             foreach (Entry entry in _unpacker.Entries())
             {
-                TreeViewItem n = root;
+                TreeViewItem n = _fileTree;
                 controller.SetProgress(i);
 
                 foreach (string val in entry.File.Split('\\'))
@@ -97,6 +108,7 @@ namespace MabiPacker.View
                             };
                             // Attach Event
                             newNode.MouseDoubleClick += ItemDoubleClickedHandler;
+                            newNode.Selected += ItemSelectedHandler;
                         }
 
                         n.Items.Add(newNode);
@@ -106,16 +118,10 @@ namespace MabiPacker.View
                 }
             }
 
+
             await controller.CloseAsync();
             ProgressRing.Visibility = Visibility.Collapsed;
             return;
-        }
-        /// <summary>
-        /// Destractor
-        /// </summary>
-        ~PackBrowser()
-        {
-            _unpacker.Dispose();
         }
 
         private enum Parser
@@ -135,7 +141,6 @@ namespace MabiPacker.View
 
             TextViewer.Visibility = Visibility.Collapsed;
             PicturePanel.Visibility = Visibility.Collapsed;
-            DocViewer.Visibility = Visibility.Collapsed;
             TextViewer.Visibility = Visibility.Collapsed;
             MediaViewer.Visibility = Visibility.Collapsed;
             HexViewer.Visibility = Visibility.Collapsed;
@@ -233,8 +238,9 @@ namespace MabiPacker.View
                     ProgressRing.Visibility = Visibility.Collapsed;
                     PicturePanel.Visibility = Visibility.Visible;
                     break;
+                case Parser.Xml:
                 case Parser.Text:
-                    TextViewer.Text = Encoding.Unicode.GetString(buffer);
+                    TextViewer.Text = entry.Name != "vf.dat" ? Encoding.Unicode.GetString(buffer) : Encoding.ASCII.GetString(buffer);
                     ProgressRing.Visibility = Visibility.Collapsed;
                     TextViewer.Visibility = Visibility.Visible;
                     StatusBarItem_Status.Content = Info;
@@ -248,11 +254,7 @@ namespace MabiPacker.View
 
             };
 
-            if (ImageViewer.IsVisible)
-            {
-                StatusBarItem_Status.Content = string.Format("{0} ({1} x {2})", Info, ImageViewer.Width, ImageViewer.Height);
-            }
-            else
+            if (!ImageViewer.IsVisible)
             {
                 StatusBarItem_Status.Content = Info;
             }
@@ -261,12 +263,17 @@ namespace MabiPacker.View
             //ms.Dispose();
         }
 
+        private void ItemSelectedHandler(object sender, RoutedEventArgs e)
+        {
+            _selected = (Entry)((TreeViewItem)e.Source).Tag;
+        }
+
         /// <summary>
         /// Convert DDS data to Bitmap data.
         /// </summary>
         /// <param name="ms"></param>
         /// <returns></returns>
-		private BitmapSource DdsStream2BitmapSource(MemoryStream ms)
+        private BitmapSource DdsStream2BitmapSource(MemoryStream ms)
         {
             IImage image = Pfim.Pfim.FromStream(ms);
             PixelFormat format;
@@ -307,9 +314,9 @@ namespace MabiPacker.View
         /// </summary>
         private void IconChange()
         {
-            StackPanel sp = (StackPanel)root.Header;
+            StackPanel sp = (StackPanel)_fileTree.Header;
             PackIconFontAwesome Icon = (PackIconFontAwesome)sp.Children[0];
-            if (root.IsExpanded)
+            if (_fileTree.IsExpanded)
             {
                 Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.FolderOpenRegular };
             }
@@ -365,6 +372,26 @@ namespace MabiPacker.View
             });
             sp.Children.Add(new TextBlock() { Text = entry.Name });
             return sp;
+        }
+
+        private void Button_Export_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            {
+                Title = LocalizationProvider.GetLocalizedValue<string>("String_SetFileName"),
+                FileName = _selected.Name,
+                DefaultExt = _selected.Extension, // Default file extension
+                RestoreDirectory = true
+            };
+
+            Nullable<bool> result = saveFileDialog.ShowDialog();
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save document
+                _unpacker.Extract(_selected.Index, Path.GetDirectoryName(saveFileDialog.FileName));
+            }
+
         }
     }
 }
