@@ -1,12 +1,18 @@
 version: 2.0.0.{build}
+max_jobs: 2
+environment: EnableNuGetPackageRestore: true
 configuration: Release
-platform: Any CPU 
-before_build:
-  - nuget restore
+platform: Any CPU
 build:
   project: MabiPacker.sln
   verbosity: minimal
-artifacts:
-- path: \bin\Release\*
-  name: MabiPacker.$(GitVersion_LegacySemVerPadded)
-  type: zip
+before_build:
+- cmd: nuget restore -Verbosity quiet
+after_build:
+- cmd: git rev-parse --short %APPVEYOR_REPO_COMMIT%>%TMP%\gitshort.txt
+- cmd: set /P GITSHORT=<%TMP%\gitshort.txt
+- set BUILD_ARCHIVE="%APPVEYOR_REPO_BRANCH%-%GITSHORT%-%PLATFORM%-%CONFIGURATION%.7z"
+- cmd: cd "MabiPack\bin\%CONFIGURATION%"
+- cmd: 7z a %BUILD_ARCHIVE% * -xr!.gitignore
+- appveyor PushArtifact %BUILD_ARCHIVE%
+- cmd: cd ..\..\..\..
