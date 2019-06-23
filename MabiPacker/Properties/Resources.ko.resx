@@ -196,4 +196,7 @@
   <data name="Button_Export" xml:space="preserve">
     <value>내보내기</value>
   </data>
+  <data name="String_Interrupted" xml:space="preserve">
+    <value>작업을 중단했습니다.</value>
+  </data>
 </root>

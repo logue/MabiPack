@@ -196,4 +196,7 @@
   <data name="String_SetExportTo" xml:space="preserve">
     <value>请指定导出目的地。</value>
   </data>
+  <data name="String_Interrupted" xml:space="preserve">
+    <value>操作中断。</value>
+  </data>
 </root>

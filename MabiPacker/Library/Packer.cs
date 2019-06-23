@@ -8,7 +8,7 @@ namespace MabiPacker.Library
     {
         private readonly string _outputFile;
         private readonly string[] _files;
-        private readonly string _distination;
+        private readonly string _destination;
         private readonly int _level;
         private readonly uint _version;
         private readonly uint _count;
@@ -16,16 +16,24 @@ namespace MabiPacker.Library
         /// Constructor
         /// </summary>
         /// <param name="OutputFile">Set filename of outputted *.pack file, with path.</param>
-        /// <param name="Distination">Set distnation of data directory for pack.</param>
+        /// <param name="Destination">Set destnation of data directory for pack.</param>
         /// <param name="Version">Set version of *.pack file.</param>
         /// <param name="Level">Set compress level of *.pack file.</param>
-        public Packer(string OutputFile, string Distination, uint Version, int Level = -1)
+        public Packer(string OutputFile, string Destination, uint Version, int Level = -1)
         {
+            if (File.Exists(OutputFile))
+            {
+                throw new IOException("Output file is already exsists.");
+            }
+            if (!Directory.Exists(Destination))
+            {
+                throw new DirectoryNotFoundException("Input directory is not found.");
+            }
             _version = Version;
             _level = Level;
             _outputFile = OutputFile;
-            _distination = Distination;
-            _files = Directory.GetFiles(Distination, "*", SearchOption.AllDirectories);
+            _destination = Destination;
+            _files = Directory.GetFiles(Destination, "*", SearchOption.AllDirectories);
             _count = (uint)_files.Length;
         }
         /// <summary>
@@ -64,7 +72,7 @@ namespace MabiPacker.Library
             {
                 foreach (string path in _files)
                 {
-                    instance.AddFile(path.Replace(_distination + "\\", ""), path);
+                    instance.AddFile(path.Replace(_destination + "\\", ""), path);
                     if (token.IsCancellationRequested)
                     {
                         return false;
@@ -89,7 +97,7 @@ namespace MabiPacker.Library
                 foreach (string path in _files)
                 {
 
-                    instance.AddFile(path.Replace(_distination + "\\", ""), path);
+                    instance.AddFile(path.Replace(_destination + "\\", ""), path);
                     Entry entry = new Entry(path, i);
 
                     p.Report(entry);

@@ -61,16 +61,6 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
-        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
-        /// </summary>
-        public static System.Drawing.Bitmap BackgorundPattern {
-            get {
-                object obj = ResourceManager.GetObject("BackgorundPattern", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   About MabiPacker に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Button_About {
@@ -236,7 +226,7 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
-        ///   Finished. に類似しているローカライズされた文字列を検索します。
+        ///   Operation is finished. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string String_Finish {
             get {
@@ -250,6 +240,15 @@ namespace MabiPacker.Properties {
         public static string String_Initializing {
             get {
                 return ResourceManager.GetString("String_Initializing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Operation is interrupted. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_Interrupted {
+            get {
+                return ResourceManager.GetString("String_Interrupted", resourceCulture);
             }
         }
         

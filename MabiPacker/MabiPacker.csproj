@@ -165,7 +165,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\bg.png" />
     <Resource Include="Resources\file.ico" />
     <Resource Include="Resources\icon.ico" />
     <Resource Include="Resources\logo.png" />

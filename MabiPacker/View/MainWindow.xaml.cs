@@ -103,6 +103,7 @@ namespace MabiPacker.View
                 LocalizationProvider.GetLocalizedValue<string>("Button_Pack"),
                 LocalizationProvider.GetLocalizedValue<string>("String_Initializing")
             );
+            string FinishMsg = LocalizationProvider.GetLocalizedValue<string>("String_Finish");
             controller.SetIndeterminate();
             controller.Maximum = packer.Count();
             controller.Minimum = 0;
@@ -118,16 +119,14 @@ namespace MabiPacker.View
                 if (controller.IsCanceled)
                 {
                     _cancelToken.Cancel();
+                    FinishMsg = LocalizationProvider.GetLocalizedValue<string>("String_Interrupted");
                     return;
                 }
             });
             await Task.Run(() => packer.Pack(p, _cancelToken.Token));
             await controller.CloseAsync();
 
-            await window.ShowMessageAsync(
-                LocalizationProvider.GetLocalizedValue<string>("Button_Pack"),
-                LocalizationProvider.GetLocalizedValue<string>("String_Finish")
-            );
+            await window.ShowMessageAsync(LocalizationProvider.GetLocalizedValue<string>("Button_Pack"), FinishMsg);
 
             return null;
         }
@@ -183,6 +182,7 @@ namespace MabiPacker.View
             {
                 return;
             }
+
             new PackBrowser(TextBox_UnpackFileName.Text).Show();
         }
 
@@ -196,6 +196,7 @@ namespace MabiPacker.View
             controller.Maximum = unpacker.Count();
             controller.Minimum = 0;
             controller.SetCancelable(true);
+            string FinishMsg = LocalizationProvider.GetLocalizedValue<string>("String_Finish");
 
             Progress<Entry> p = new Progress<Entry>((Entry entry) =>
             {
@@ -207,15 +208,13 @@ namespace MabiPacker.View
                 if (controller.IsCanceled)
                 {
                     _cancelToken.Cancel();
+                    FinishMsg = LocalizationProvider.GetLocalizedValue<string>("String_Interrupted");
                     return;
                 }
             });
             await Task.Run(() => unpacker.Unpack(p, _cancelToken.Token));
             await controller.CloseAsync();
-            await window.ShowMessageAsync(
-                LocalizationProvider.GetLocalizedValue<string>("Button_Unpack"),
-                LocalizationProvider.GetLocalizedValue<string>("String_Finish")
-            );
+            await window.ShowMessageAsync(LocalizationProvider.GetLocalizedValue<string>("Button_Unpack"), FinishMsg);
 
             return null;
         }

@@ -33,6 +33,8 @@ namespace MabiPacker.View
             _unpacker = new Unpacker(file);
             InitializeComponent();
             Loaded += PackBrowser_Loaded;
+            Closing += PackBrowser_Closing;
+            GC.Collect();
         }
 
         /// <summary>
@@ -40,7 +42,13 @@ namespace MabiPacker.View
         /// </summary>
         ~PackBrowser()
         {
+            Dispose();
+        }
+
+        public void Dispose()
+        {
             _unpacker.Dispose();
+            GC.Collect();
         }
 
         public async void PackBrowser_Loaded(object sender, RoutedEventArgs e)
@@ -124,6 +132,11 @@ namespace MabiPacker.View
             return;
         }
 
+        public void PackBrowser_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Dispose();
+        }
+
         private enum Parser
         {
             DdsImage,
@@ -139,12 +152,14 @@ namespace MabiPacker.View
             Entry entry = (Entry)((TreeViewItem)e.Source).Tag;
             byte[] buffer = _unpacker.GetContent(entry.Index);
 
+            // Initialize Viewer
+            TextViewer.Text = null;
             TextViewer.Visibility = Visibility.Collapsed;
             PicturePanel.Visibility = Visibility.Collapsed;
-            TextViewer.Visibility = Visibility.Collapsed;
+            ImageViewer.Source = null;
             MediaViewer.Visibility = Visibility.Collapsed;
+            //HexViewer.source = null;
             HexViewer.Visibility = Visibility.Collapsed;
-
             ProgressRing.Visibility = Visibility.Visible;
             string Info;
             Enum parser;
@@ -175,7 +190,7 @@ namespace MabiPacker.View
                     parser = Parser.Image;
                     break;
                 case ".xml":
-                    Info = "XML (eXtensible Markup Language) image";
+                    Info = "XML (eXtensible Markup Language) file";
                     parser = Parser.Xml;
                     break;
                 case ".html":
@@ -198,6 +213,14 @@ namespace MabiPacker.View
                     Info = "MP3 audio file.";
                     parser = Parser.Audio;
                     break;
+                case ".ani":
+                    Info = "Pleione Animation file.";
+                    parser = Parser.Binary;
+                    break;
+                case ".pmg":
+                    Info = "Pleione Model Graphic file.";
+                    parser = Parser.Binary;
+                    break;
                 default:
                     if (entry.Name == "vf.dat")
                     {
@@ -212,60 +235,54 @@ namespace MabiPacker.View
                     break;
             }
 
-            switch (parser)
+            using (MemoryStream ms = new MemoryStream(buffer))
             {
-                case Parser.DdsImage:
-                    using (MemoryStream ms = new MemoryStream(buffer))
-                    {
+                switch (parser)
+                {
+                    case Parser.DdsImage:
                         ImageViewer.Source = DdsStream2BitmapSource(ms);
-                        StatusBarItem_Status.Content = string.Format("{0} ({1} x {2})", Info, ImageViewer.Width, ImageViewer.Height);
-                        ProgressRing.Visibility = Visibility.Collapsed;
                         PicturePanel.Visibility = Visibility.Visible;
-                    }
-                    break;
-                case Parser.Image:
-                    using (MemoryStream ms2 = new MemoryStream(buffer))
-                    {
+                        break;
+                    case Parser.Image:
                         BitmapImage imageSource = new BitmapImage();
                         imageSource.BeginInit();
-                        imageSource.StreamSource = ms2;
+                        imageSource.StreamSource = ms;
                         imageSource.EndInit();
 
                         // Assign the Source property of your image
                         ImageViewer.Source = imageSource;
-                    }
+                        PicturePanel.Visibility = Visibility.Visible;
+                        break;
+                    case Parser.Xml:
+                    case Parser.Text:
+                        TextViewer.Text = entry.Name != "vf.dat" ? Encoding.Unicode.GetString(buffer) : Encoding.ASCII.GetString(buffer);
+                        TextViewer.Visibility = Visibility.Visible;
+                        StatusBarItem_Status.Content = Info;
+                        break;
+                    //case Parser.Audio:
+                    //    MediaViewer.Visibility = Visibility.Visible;
+                    //    break;
+                    default:
+                        StatusBarItem_Status.Content = Info;
+                        HexViewer.Stream = new MemoryStream(buffer);
+                        HexViewer.Visibility = Visibility.Visible;
+                        break;
 
-                    ProgressRing.Visibility = Visibility.Collapsed;
-                    PicturePanel.Visibility = Visibility.Visible;
-                    break;
-                case Parser.Xml:
-                case Parser.Text:
-                    TextViewer.Text = entry.Name != "vf.dat" ? Encoding.Unicode.GetString(buffer) : Encoding.ASCII.GetString(buffer);
-                    ProgressRing.Visibility = Visibility.Collapsed;
-                    TextViewer.Visibility = Visibility.Visible;
-                    StatusBarItem_Status.Content = Info;
-                    break;
-                default:
-                    StatusBarItem_Status.Content = Info;
-                    ProgressRing.Visibility = Visibility.Collapsed;
-                    HexViewer.Stream = new MemoryStream(buffer);
-                    HexViewer.Visibility = Visibility.Visible;
-                    break;
-
-            };
-
-            if (!ImageViewer.IsVisible)
-            {
-                StatusBarItem_Status.Content = Info;
+                };
+                ProgressRing.Visibility = Visibility.Collapsed;
             }
 
-            //ms.Close();
-            //ms.Dispose();
+            if (PicturePanel.IsVisible)
+            {
+                StatusBarItem_Status.Content = string.Format("{0} ({1} x {2})", Info, ImageViewer.Source.Width, ImageViewer.Source.Height);
+            }
+            GC.Collect();
         }
 
         private void ItemSelectedHandler(object sender, RoutedEventArgs e)
         {
             _selected = (Entry)((TreeViewItem)e.Source).Tag;
+            // TODO:
         }
 
         /// <summary>

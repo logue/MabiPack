@@ -84,7 +84,7 @@
                             ViewportUnits="Absolute">
                             <DrawingBrush.Drawing>
                                 <DrawingGroup>
-                                    <GeometryDrawing Brush="LightGray">
+                                    <GeometryDrawing Brush="{StaticResource ResourceKey=GrayBrush5}">
                                         <GeometryDrawing.Geometry>
                                             <GeometryGroup>
                                                 <RectangleGeometry Rect="0,0,8,8" />
@@ -92,7 +92,7 @@
                                             </GeometryGroup>
                                         </GeometryDrawing.Geometry>
                                     </GeometryDrawing>
-                                    <GeometryDrawing Brush="White">
+                                    <GeometryDrawing Brush="{StaticResource ResourceKey=WindowBackgroundBrush}">
                                         <GeometryDrawing.Geometry>
                                             <GeometryGroup>
                                                 <RectangleGeometry Rect="8,0,8,8" />
@@ -108,6 +108,7 @@
                         Name="ImageViewer"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
+                        Grid.IsSharedSizeScope="True"
                         Stretch="None" />
                 </Grid>
                 <avalonEdit:TextEditor
@@ -125,14 +126,22 @@
                 <WPFHexaEditor:HexEditor
                     xmlns:WPFHexaEditor="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
                     Name="HexViewer"
+                    AutoHighLiteSelectionByteBrush="{StaticResource ResourceKey=AccentColorBrush4}"
+                    Background="{StaticResource ResourceKey=WindowBackgroundBrush}"
                     BorderBrush="{StaticResource ResourceKey=AccentColorBrush2}"
+                    ByteModifiedColor="{StaticResource ResourceKey=GrayBrush2}"
                     ByteSpacerPositioning="HexBytePanel"
                     ByteSpacerVisualStyle="Dash"
                     ByteSpacerWidthTickness="Normal"
                     DataStringVisual="Hexadecimal"
-                    ForegroundOffSetHeaderColor="{StaticResource ResourceKey=GrayBrush4}"
+                    ForegroundOffSetHeaderColor="{StaticResource ResourceKey=GrayBrush5}"
+                    ForegroundSecondColor="{StaticResource ResourceKey=HighlightBrush}"
+                    MouseOverColor="{StaticResource ResourceKey=AccentColorBrush3}"
                     ReadOnlyMode="True"
+                    SelectionFirstColor="{StaticResource ResourceKey=AccentColorBrush}"
+                    SelectionSecondColor="{StaticResource ResourceKey=AccentColorBrush2}"
                     TbldteColor="{StaticResource ResourceKey=ControlsValidationBrush}"
+                    TblmteColor="{StaticResource ResourceKey=GrayBrush4}"
                     Visibility="Collapsed" />
                 <MediaElement Name="MediaViewer" Visibility="Collapsed" />
             </Grid>

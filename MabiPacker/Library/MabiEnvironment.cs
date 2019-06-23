@@ -18,6 +18,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -35,18 +36,25 @@ namespace MabiPacker.Library
         public Uri PatchServer = null;
         public uint Fullver = 0;
         public string LangPack = null;
-        public string MabinogiDir = null;
         // Define
-        private readonly uint Code = 1622;
-        private readonly uint LoginPort = 11000;
-        private readonly string CrackShieldBinName = "Solaris.exe";
+        private const uint Code = 1622;
+        private const uint LoginPort = 11000;
+        private const string CrackShieldBinName = "Solaris.exe";
+        private readonly string[] RegistoryKeys =
+        {
+            // Default Mabinogi Location
+            @"Software\Nexon\Mabinogi",
+            // For Test Client
+            @"Software\Nexon\Mabinogi_test",
+            // For Hangame Client (JP only)
+            @"Software\Nexon\Mabinogi_hangame",
+        };
 
         /// <summary>
         /// Get Mabinogi Environment
         /// </summary>
         public MabiEnvironment()
         {
-            MabinogiDir = GetMabinogiDir();
             isDownloadable = false;
         }
         /// <summary>
@@ -55,24 +63,26 @@ namespace MabiPacker.Library
         /// <param name="url">Url to Patch.txt</param>
         public MabiEnvironment(string url)
         {
-            MabinogiDir = GetMabinogiDir();
             HttpWebRequest webreq = (HttpWebRequest)WebRequest.Create(url);
             try
             {
-                HttpWebResponse webres = (HttpWebResponse)webreq.GetResponse();
-                Stream st = webres.GetResponseStream();
-                Dictionary<string, string> p = ParsePatchText(st);
+                using (HttpWebResponse webres = (HttpWebResponse)webreq.GetResponse())
+                {
+                    using (Stream st = webres.GetResponseStream())
+                    {
+                        Dictionary<string, string> p = ParsePatchText(st);
 
-                isDownloadable = (p["patch_accept"] == "0") ? false : true;
-                ServerVersion = uint.Parse(p["main_version"]);
-                Arg = p["arg"];
-                LoginIP = p["login"];
-                LangPack = p.ContainsKey("lang") ? p["lang"] : ""; // language.pack
+                        isDownloadable = (p["patch_accept"] == "0") ? false : true;
+                        ServerVersion = uint.Parse(p["main_version"]);
+                        Arg = p["arg"];
+                        LoginIP = p["login"];
+                        LangPack = p.ContainsKey("lang") ? p["lang"] : ""; // language.pack
 
-                // Maybe Korean server only.
-                Fullver = p.ContainsKey("main_fullversion") ? uint.Parse(p["main_fullversion"]) : 0;
-                PatchServer = new Uri(p["main_ftp"]);
-                webres.Close();
+                        // Maybe Korean server only.
+                        Fullver = p.ContainsKey("main_fullversion") ? uint.Parse(p["main_fullversion"]) : 0;
+                        PatchServer = new Uri(p["main_ftp"]);
+                    }
+                }
             }
             catch (WebException e)
             {
@@ -80,30 +90,38 @@ namespace MabiPacker.Library
                 isDownloadable = false;
             }
         }
+
         /// <summary>
         /// Get Mabinogi installed directory from Registory.
         /// </summary>
         /// <returns>Fullpath of Mabinogi directory</returns>
-        private string GetMabinogiDir()
+        public string MabinogiDir
         {
-            // Get Mabinogi Directory from Registory
-            RegistryKey regkey = Registry.CurrentUser.OpenSubKey(@"Software\Nexon\Mabinogi", false);
-            if (regkey == null)
+            get
             {
-                regkey = Registry.CurrentUser.OpenSubKey(@"Software\Nexon\Mabinogi_test", false);
-                if (regkey == null)
+                // Get Mabinogi Directory from Registory
+                foreach (string key in RegistoryKeys)
                 {
-                    Registry.CurrentUser.OpenSubKey(@"Software\Nexon\Mabinogi_hangame", false);
-                    if (regkey == null)
+                    using (RegistryKey regkey = Registry.CurrentUser.OpenSubKey(key, false))
                     {
-                        return "C:\\Nexon\\Mabinogi";
+                        if (regkey != null)
+                        {
+                            return (string)regkey.GetValue("ExecutablePath");
+                        }
                     }
                 }
+                foreach (string key in RegistoryKeys)
+                {
+                    using (RegistryKey regkey = Registry.LocalMachine.OpenSubKey(key, false))
+                    {
+                        if (regkey != null)
+                        {
+                            return (string)regkey.GetValue("ExecutablePath");
+                        }
+                    }
+                }
+                throw new WarningException("Could not detect Mabinogi Directory.");
             }
-            string reg = (string)regkey.GetValue("ExecutablePath");   // Returns Mabinogi Directory
-            regkey.Close();
-            return reg;
-
         }
         /// <summary>
         /// Read Mabinogi Version from version.dat
@@ -135,30 +153,31 @@ namespace MabiPacker.Library
         /// <summary>
         /// Fetch and parse patch.txt
         /// </summary>
-        /// <param name="url">URL to patch text.</param>
+        /// <param name="st">Stream of patch.txt</param>
         /// <returns>Key-value data of patch.txt.</returns>
         private Dictionary<string, string> ParsePatchText(Stream st)
         {
-            string line;
             // Fetch patch.txt
             Encoding enc = Encoding.GetEncoding("UTF-8");   // assume UTF-8
-            StreamReader sr = new StreamReader(st, enc);
-
-            Dictionary<string, string> data = new Dictionary<string, string>();
-            while ((line = sr.ReadLine()) != null)
+            using (StreamReader sr = new StreamReader(st, enc))
             {
-                if (line.Trim().Length == 0 || line[0].Equals('#'))
+                string line;
+                Dictionary<string, string> data = new Dictionary<string, string>();
+                while ((line = sr.ReadLine()) != null)
                 {
-                    continue;
+                    if (line.Trim().Length == 0 || line[0].Equals('#'))
+                    {
+                        // skip comment line
+                        continue;
+                    }
+                    string[] result = line.Split(new char[] { '=' }, 2);
+                    if (result.Length == 2)
+                    {
+                        data.Add(result[0], result[1]);
+                    }
                 }
-                string[] result = line.Split(new char[] { '=' }, 2);
-                if (result.Length == 2)
-                {
-                    data.Add(result[0], result[1]);
-                }
+                return data;
             }
-            sr.Close();
-            return data;
         }
         /// <summary>
         /// Launch Mabinogi client. If Crackshild is detected, launch crackshield.
@@ -171,43 +190,23 @@ namespace MabiPacker.Library
             string cArgs = "code:" + Code + " ver:" + LocalVersion +
                 " logip:" + LoginIP + " logport:" + LoginPort + " " + Arg + " " + string.Join(" ", args);
 
-            if (File.Exists("client.exe"))
+            if (!File.Exists("client.exe"))
             {
-                if (File.Exists(CrackShieldBinName) &&
-                    File.Exists("dinput8.dll") &&
-                    Process.GetProcessesByName(CrackShieldBinName).Length == 0)
-                {
-                    Console.WriteLine("Detect CrackSheild. Launch CrackShield first...");
-                    RunElevated(CrackShieldBinName, "", false);
-                }
-
-                Console.WriteLine("Command Line: client.exe " + cArgs);
-                Console.WriteLine("Launch Mabinogi client.");
-
-                // Multiple launch client is not checked. :)
-                return RunElevated("client.exe", cArgs, false);
+                throw new FileNotFoundException("Could not detect client.exe. This program must be Mabinogi.exe same directory.");
             }
-            else
+            if (File.Exists(CrackShieldBinName) &&
+                File.Exists("dinput8.dll") &&
+                Process.GetProcessesByName(CrackShieldBinName).Length == 0)
             {
-                // Whwn detect CrackShield, launch CrackShield first.
-                // If CrackShield process detected, ignore launch code.
-                if (File.Exists(MabinogiDir + "\\" + CrackShieldBinName) &&
-                    File.Exists(MabinogiDir + "\\dinput8.dll") &&
-                    Process.GetProcessesByName(CrackShieldBinName).Length == 0)
-                {
-                    Console.WriteLine("Detect CrackSheild. Launch CrackShield first...");
-                    RunElevated(MabinogiDir + "\\" + CrackShieldBinName, "", false);
-                }
-                Console.WriteLine("Command Line:" + MabinogiDir + "\\client.exe " + cArgs);
-                Console.WriteLine("Launch Mabinogi client.");
-
-                // Multiple launch client is not checked. :)
-                if (File.Exists(MabinogiDir + "\\" + CrackShieldBinName))
-                {
-                    return RunElevated(MabinogiDir + "\\client.exe", cArgs, false);
-                }
+                Console.WriteLine("Detect CrackSheild. Launch CrackShield first...");
+                RunElevated(CrackShieldBinName, "", false);
             }
-            return false;
+
+            Console.WriteLine("Command Line: client.exe " + cArgs);
+            Console.WriteLine("Launch Mabinogi client.");
+
+            // Multiple launch client is not checked. :)
+            return RunElevated("client.exe", cArgs, false);
         }
         /// <summary>
         /// Launch other program as Administrator.
@@ -223,24 +222,27 @@ namespace MabiPacker.Library
                 throw new FileNotFoundException();
             }
 
-            ProcessStartInfo psi = new ProcessStartInfo
-            {
-                UseShellExecute = true,
-                FileName = fileName,
-                //動詞に「runas」をつける
-                Verb = "runas",
-                Arguments = arguments
-            };
-
             try
             {
-                Process p = Process.Start(psi);
-                if (waitExit)
+                ProcessStartInfo psi = new ProcessStartInfo
                 {
-                    p.WaitForExit();
+                    UseShellExecute = true,
+                    FileName = fileName,
+                    //動詞に「runas」をつける
+                    Verb = "runas",
+                    Arguments = arguments
+                };
+
+                using (Process p = Process.Start(psi))
+                {
+                    if (waitExit)
+                    {
+                        p.WaitForExit();
+                    }
                 }
+
             }
-            catch (System.ComponentModel.Win32Exception ex)
+            catch (Win32Exception ex)
             {
                 Console.WriteLine(ex);
                 return false;
