@@ -49,7 +49,12 @@ namespace MabiPacker.Library
             // For Hangame Client (JP only)
             @"Software\Nexon\Mabinogi_hangame",
         };
-
+        private readonly string[] RegistoryValues =
+        {
+            "ExecutablePath",
+            "LauncherPath",
+            ""
+        };
         /// <summary>
         /// Get Mabinogi Environment
         /// </summary>
@@ -106,21 +111,19 @@ namespace MabiPacker.Library
                     {
                         if (regkey != null)
                         {
-                            return (string)regkey.GetValue("ExecutablePath");
+                            // Get registoy value.
+                            foreach (string value in RegistoryValues)
+                            {
+                                string path = (string)regkey.GetValue(value);
+                                if (path != null)
+                                {
+                                    return path;
+                                }
+                            }
                         }
                     }
                 }
-                foreach (string key in RegistoryKeys)
-                {
-                    using (RegistryKey regkey = Registry.LocalMachine.OpenSubKey(key, false))
-                    {
-                        if (regkey != null)
-                        {
-                            return (string)regkey.GetValue("ExecutablePath");
-                        }
-                    }
-                }
-                throw new WarningException("Could not detect Mabinogi Directory.");
+                throw new WarningException("Could not detect Mabinogi Directory. Mabinogi is installed collectly?");
             }
         }
         /// <summary>

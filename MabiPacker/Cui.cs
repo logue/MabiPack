@@ -11,9 +11,9 @@ namespace MabiPacker
         private readonly HashSet<string> Options = new HashSet<string>
         {
             "/input",   // input path
-			"/output",  // output path
-			"/version", // version
-			"/level",   // Compress level (optional, default=-1)
+            "/output",  // output path
+            "/version", // version
+            "/level",   // Compress level (optional, default=-1)
             "/help"
         };
         private readonly Dictionary<string, string> result;
