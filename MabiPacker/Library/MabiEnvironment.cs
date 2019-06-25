@@ -1,19 +1,6 @@
-﻿/*!
- * Mabinogi Environment Class
- * Copyright (C) 2012,2019 by Logue <http://logue.be/>
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License version 3
- * as published by the Free Software Foundation.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+﻿// Mabinogi Environment Class
+// Copyright (c) 2012, 2019 by Logue <http://logue.be/>
+// Distributed under the MIT license
 
 using Microsoft.Win32;
 using System;
@@ -39,7 +26,6 @@ namespace MabiPacker.Library
         // Define
         private const uint Code = 1622;
         private const uint LoginPort = 11000;
-        private const string CrackShieldBinName = "Solaris.exe";
         private readonly string[] RegistoryKeys =
         {
             // Default Mabinogi Location
@@ -56,14 +42,14 @@ namespace MabiPacker.Library
             ""
         };
         /// <summary>
-        /// Get Mabinogi Environment
+        /// Constructor
         /// </summary>
         public MabiEnvironment()
         {
             isDownloadable = false;
         }
         /// <summary>
-        /// Get Mabinogi Environment
+        /// Constructor
         /// </summary>
         /// <param name="url">Url to Patch.txt</param>
         public MabiEnvironment(string url)
@@ -197,13 +183,6 @@ namespace MabiPacker.Library
             {
                 throw new FileNotFoundException("Could not detect client.exe. This program must be Mabinogi.exe same directory.");
             }
-            if (File.Exists(CrackShieldBinName) &&
-                File.Exists("dinput8.dll") &&
-                Process.GetProcessesByName(CrackShieldBinName).Length == 0)
-            {
-                Console.WriteLine("Detect CrackSheild. Launch CrackShield first...");
-                RunElevated(CrackShieldBinName, "", false);
-            }
 
             Console.WriteLine("Command Line: client.exe " + cArgs);
             Console.WriteLine("Launch Mabinogi client.");
@@ -231,7 +210,6 @@ namespace MabiPacker.Library
                 {
                     UseShellExecute = true,
                     FileName = fileName,
-                    //動詞に「runas」をつける
                     Verb = "runas",
                     Arguments = arguments
                 };

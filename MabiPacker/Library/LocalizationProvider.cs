@@ -1,4 +1,8 @@
-﻿using System.Reflection;
+﻿// MabiPacker
+// Copyright (c) 2019 by Logue <http://logue.be/>
+// Distributed under the MIT license
+
+using System.Reflection;
 using WPFLocalizeExtension.Extensions;
 
 namespace MabiPacker.Library

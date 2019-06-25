@@ -1,10 +1,17 @@
-﻿using MabinogiResource;
+﻿// MabiPacker
+// Copyright (c) 2019 by Logue <http://logue.be/>
+// Distributed under the MIT license
+
+using MabinogiResource;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 
+/// <summary>
+/// Mabinogi Package file unpacking class
+/// </summary>
 namespace MabiPacker.Library
 {
     internal class Unpacker : IDisposable

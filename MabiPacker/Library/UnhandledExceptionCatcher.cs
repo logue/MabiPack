@@ -1,4 +1,8 @@
-﻿using MabiPacker.View;
+﻿// MabiPacker
+// Copyright (c) 2019 by Logue <http://logue.be/>
+// Distributed under the MIT license
+
+using MabiPacker.View;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -24,6 +28,9 @@ using System.Windows.Threading;
 //	  TarminateMessageContentOutput 表示メッセージ
 //		  プログラムを終了します。{0}この問題の内部情報を表示しますか？
 
+/// <summary>
+/// Display exception dialog class
+/// </summary>
 namespace MabiPacker.Library
 {
     public class UnhandledExceptionCatcher

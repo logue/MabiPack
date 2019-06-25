@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿// MabiPacker
+// Copyright (c) 2019 by Logue <http://logue.be/>
+// Distributed under the MIT license
+
+using System.IO;
 
 namespace MabiPacker.Library
 {

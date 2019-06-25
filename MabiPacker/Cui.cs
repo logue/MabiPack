@@ -1,4 +1,8 @@
-﻿using MabiPacker.Library;
+﻿// MabiPacker
+// Copyright (c) 2019 by Logue <http://logue.be/>
+// Distributed under the MIT license
+
+using MabiPacker.Library;
 using System;
 using System.Collections.Generic;
 using System.IO;
