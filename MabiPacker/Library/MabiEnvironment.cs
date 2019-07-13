@@ -109,7 +109,8 @@ namespace MabiPacker.Library
                         }
                     }
                 }
-                throw new WarningException("Could not detect Mabinogi Directory. Mabinogi is installed collectly?");
+                return "C:\\Nexon\\Mabinogi";
+                //throw new WarningException("Could not detect Mabinogi Directory. Mabinogi is installed collectly?");
             }
         }
         /// <summary>
