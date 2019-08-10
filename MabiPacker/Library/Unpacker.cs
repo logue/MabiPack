@@ -53,19 +53,12 @@ namespace MabiPacker.Library
             _destination = Path.GetDirectoryName(Path.GetFullPath(Environment.GetCommandLineArgs()[0]));
         }
         /// <summary>
-        /// Destructor
-        /// </summary>
-        ~Unpacker()
-        {
-            Dispose();
-        }
-        /// <summary>
         /// Dispose
         /// </summary>
         public void Dispose()
         {
-            _instance.Close();
-            _instance.Dispose();
+            //_instance.Close();
+            //_instance.Dispose();
         }
         /// <summary>
         /// Get packed files.

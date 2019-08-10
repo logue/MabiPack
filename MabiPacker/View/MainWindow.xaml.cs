@@ -45,7 +45,7 @@ namespace MabiPacker.View
         }
 
         private readonly CancellationTokenSource _cancelToken;
-
+        #region Pack
         private void Button_SetPackDistination_Click(object sender, RoutedEventArgs e)
         {
             VistaFolderBrowserDialog folderBrowser = new VistaFolderBrowserDialog
@@ -99,11 +99,17 @@ namespace MabiPacker.View
 
         private async Task<object> PackProcess(MetroWindow window, Packer packer)
         {
+            string Title = LocalizationProvider.GetLocalizedValue<string>("Button_Pack");
+            string FinishMessage = LocalizationProvider.GetLocalizedValue<string>("String_Finish");
+            var progressDialogSettings = new MetroDialogSettings()
+            {
+                NegativeButtonText = LocalizationProvider.GetLocalizedValue<string>("Button_Cancel")
+            };
             ProgressDialogController controller = await window.ShowProgressAsync(
-                LocalizationProvider.GetLocalizedValue<string>("Button_Pack"),
-                LocalizationProvider.GetLocalizedValue<string>("String_Initializing")
+                Title,
+                LocalizationProvider.GetLocalizedValue<string>("String_Initializing"),
+                settings: progressDialogSettings
             );
-            string FinishMsg = LocalizationProvider.GetLocalizedValue<string>("String_Finish");
             controller.SetIndeterminate();
             controller.Maximum = packer.Count();
             controller.Minimum = 0;
@@ -112,26 +118,35 @@ namespace MabiPacker.View
             Progress<Entry> p = new Progress<Entry>((Entry entry) =>
             {
                 controller.SetProgress(entry.Index);
-                controller.SetTitle(LocalizationProvider.GetLocalizedValue<string>("String_Unpacking"));
+                controller.SetTitle(LocalizationProvider.GetLocalizedValue<string>("String_Packing"));
                 controller.SetMessage(
                     string.Format("{0} ({1}/{2})", entry.Name, entry.Index, packer.Count())
                 );
                 if (controller.IsCanceled)
                 {
                     _cancelToken.Cancel();
-                    FinishMsg = LocalizationProvider.GetLocalizedValue<string>("String_Interrupted");
+                    FinishMessage = LocalizationProvider.GetLocalizedValue<string>("String_Interrupted");
                     return;
                 }
             });
             await Task.Run(() => packer.Pack(p, _cancelToken.Token));
             await controller.CloseAsync();
 
-            await window.ShowMessageAsync(LocalizationProvider.GetLocalizedValue<string>("Button_Pack"), FinishMsg);
+            await this.ShowMessageAsync(Title, FinishMessage);
 
             return null;
         }
 
+        private async void Button_Hint_Click(object sender, RoutedEventArgs e)
+        {
+            await this.ShowMessageAsync(
+                LocalizationProvider.GetLocalizedValue<string>("Button_Hint"),
+                LocalizationProvider.GetLocalizedValue<string>("String_Hint")
+            );
+        }
+        #endregion
 
+        #region Unpack
         private void Button_SetUnpackFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -188,15 +203,22 @@ namespace MabiPacker.View
 
         private async Task<object> UnpackProcess(MetroWindow window, Unpacker unpacker)
         {
+            string Title = LocalizationProvider.GetLocalizedValue<string>("Button_Unpack");
+            string FinishMessage = LocalizationProvider.GetLocalizedValue<string>("String_Finish");
+            var progressDialogSettings = new MetroDialogSettings()
+            {
+                NegativeButtonText = LocalizationProvider.GetLocalizedValue<string>("Button_Cancel")
+            };
+
             ProgressDialogController controller = await window.ShowProgressAsync(
-                LocalizationProvider.GetLocalizedValue<string>("Button_Unpack"),
-                LocalizationProvider.GetLocalizedValue<string>("String_Initializing")
+                Title,
+                LocalizationProvider.GetLocalizedValue<string>("String_Initializing"),
+                settings: progressDialogSettings
             );
             controller.SetIndeterminate();
             controller.Maximum = unpacker.Count();
             controller.Minimum = 0;
             controller.SetCancelable(true);
-            string FinishMsg = LocalizationProvider.GetLocalizedValue<string>("String_Finish");
 
             Progress<Entry> p = new Progress<Entry>((Entry entry) =>
             {
@@ -205,19 +227,22 @@ namespace MabiPacker.View
                 controller.SetMessage(
                     string.Format("{0} ({1}/{2})", entry.Name, entry.Index, unpacker.Count())
                 );
+
                 if (controller.IsCanceled)
                 {
                     _cancelToken.Cancel();
-                    FinishMsg = LocalizationProvider.GetLocalizedValue<string>("String_Interrupted");
+                    FinishMessage = LocalizationProvider.GetLocalizedValue<string>("String_Interrupted");
                     return;
                 }
             });
             await Task.Run(() => unpacker.Unpack(p, _cancelToken.Token));
             await controller.CloseAsync();
-            await window.ShowMessageAsync(LocalizationProvider.GetLocalizedValue<string>("Button_Unpack"), FinishMsg);
 
-            return null;
+            await this.ShowMessageAsync(Title,FinishMessage);
+
+            return true;
         }
+#endregion
 
         private void TextBlock_ProductCopyright_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

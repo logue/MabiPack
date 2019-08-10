@@ -70,6 +70,15 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
+        ///   Cancel に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Button_Cancel {
+            get {
+                return ResourceManager.GetString("Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Confirm に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Button_Confirm {
@@ -102,6 +111,15 @@ namespace MabiPacker.Properties {
         public static string Button_Export {
             get {
                 return ResourceManager.GetString("Button_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Hint に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Button_Hint {
+            get {
+                return ResourceManager.GetString("Button_Hint", resourceCulture);
             }
         }
         
@@ -231,6 +249,16 @@ namespace MabiPacker.Properties {
         public static string String_Finish {
             get {
                 return ResourceManager.GetString("String_Finish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Specify a value larger than the client version.
+        ///Also, the generated * .pack file should be flagged as “read only” to prevent it from being deleted during startup checks. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_Hint {
+            get {
+                return ResourceManager.GetString("String_Hint", resourceCulture);
             }
         }
         

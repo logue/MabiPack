@@ -199,4 +199,14 @@
   <data name="String_Interrupted" xml:space="preserve">
     <value>作業を中断しました。</value>
   </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="String_Hint" xml:space="preserve">
+    <value>バージョンの指定は、クライアントのバージョンよりも大きい値を入れてください。
+また、生成された*.packファイルは、起動時のチェックで削除されるのを防ぐため「読み込み専用」フラグを付けてください。</value>
+  </data>
+  <data name="Button_Hint" xml:space="preserve">
+    <value>ヒント</value>
+  </data>
 </root>

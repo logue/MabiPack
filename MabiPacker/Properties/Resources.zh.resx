@@ -199,4 +199,14 @@
   <data name="String_Interrupted" xml:space="preserve">
     <value>操作中断。</value>
   </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="String_Hint" xml:space="preserve">
+    <value>指定大于客户端版本的值。
+此外，生成的* .pack文件应标记为“只读”，以防止在启动检查期间删除它。</value>
+  </data>
+  <data name="Button_Hint" xml:space="preserve">
+    <value>提示</value>
+  </data>
 </root>

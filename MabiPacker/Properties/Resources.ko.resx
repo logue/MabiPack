@@ -199,4 +199,14 @@
   <data name="String_Interrupted" xml:space="preserve">
     <value>작업을 중단했습니다.</value>
   </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="String_Hint" xml:space="preserve">
+    <value>버전 지정 클라이언트 버전보다 큰 값을 넣어주세요.
+또한 생성 된 * .pack 파일은 부팅시 검사에서 삭제되는 것을 막기 위해 '읽기 전용'플래그를 지정해야합니다.</value>
+  </data>
+  <data name="Button_Hint" xml:space="preserve">
+    <value>팁</value>
+  </data>
 </root>
