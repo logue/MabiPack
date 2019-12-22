@@ -50,7 +50,11 @@ namespace MabiPacker.View
             _unpacker.Dispose();
             GC.Collect();
         }
-
+        /// <summary>
+        /// Create packaged file list to left tree view.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public async void PackBrowser_Loaded(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("PackBrowser_Loaded");
@@ -137,6 +141,9 @@ namespace MabiPacker.View
             Dispose();
         }
 
+        /// <summary>
+        /// File Types
+        /// </summary>
         private enum Parser
         {
             DdsImage,

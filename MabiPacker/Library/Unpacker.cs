@@ -210,13 +210,16 @@ namespace MabiPacker.Library
         /// <returns>byte</returns>
         public byte[] GetContent(string Name)
         {
-            using (PackResource Res = _instance.GetFileByName(Name))
+            PackResourceSet clone = _instance;
+            using (PackResource Res = clone.GetFileByName(Name))
             {
                 byte[] buffer = new byte[Res.GetSize()];
                 Res.GetData(buffer);
                 Res.Close();
+                clone.Close();
                 return buffer;
             }
+   
         }
         /// <summary>
         /// Get file content by file index.
@@ -225,11 +228,13 @@ namespace MabiPacker.Library
         /// <returns>byte</returns>
         public byte[] GetContent(uint Index)
         {
-            using (PackResource Res = _instance.GetFileByIndex(Index))
+            PackResourceSet clone = _instance;
+            using (PackResource Res = clone.GetFileByIndex(Index))
             {
                 byte[] buffer = new byte[Res.GetSize()];
                 Res.GetData(buffer);
                 Res.Close();
+                clone.Close();
                 return buffer;
             }
         }

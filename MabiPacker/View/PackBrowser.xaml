@@ -5,15 +5,16 @@
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:WPFHexaEditor="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
     Title="PackBrowser"
     Width="640"
     Height="480"
     lex:LocalizeDictionary.DesignCulture="ja"
     lex:ResxLocalizationProvider.DefaultAssembly="MabiPacker"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-    GlowBrush="{StaticResource AccentColorBrush}"
     Icon="../Resources/file.ico"
-    NonActiveGlowBrush="{StaticResource ControlsValidationBrush}"
+    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+    NonActiveGlowBrush="{StaticResource MahApps.Brushes.Controls.Validation}"
     ShowIconOnTitleBar="True">
 
     <Controls:MetroWindow.RightWindowCommands>
@@ -65,12 +66,12 @@
                 Grid.Column="1"
                 Width="5"
                 HorizontalAlignment="Stretch"
-                Background="{StaticResource ResourceKey=AccentColorBrush4}"
-                BorderBrush="{StaticResource ResourceKey=AccentColorBrush2}"
+                Background="{StaticResource MahApps.Brushes.Accent4}"
+                BorderBrush="{StaticResource MahApps.Brushes.Accent2}"
                 BorderThickness="1,0,1,0" />
             <!--  Content Area  -->
             <Grid Grid.Column="2">
-                <Controls:ProgressRing Name="ProgressRing" Foreground="{DynamicResource AccentColorBrush}" />
+                <Controls:ProgressRing Name="ProgressRing" Foreground="{DynamicResource MahApps.Brushes.Accent}" />
                 <Grid
                     Name="PicturePanel"
                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -84,7 +85,7 @@
                             ViewportUnits="Absolute">
                             <DrawingBrush.Drawing>
                                 <DrawingGroup>
-                                    <GeometryDrawing Brush="{StaticResource ResourceKey=GrayBrush5}">
+                                    <GeometryDrawing Brush="{DynamicResource MahApps.Brushes.Gray5}">
                                         <GeometryDrawing.Geometry>
                                             <GeometryGroup>
                                                 <RectangleGeometry Rect="0,0,8,8" />
@@ -92,7 +93,7 @@
                                             </GeometryGroup>
                                         </GeometryDrawing.Geometry>
                                     </GeometryDrawing>
-                                    <GeometryDrawing Brush="{StaticResource ResourceKey=WindowBackgroundBrush}">
+                                    <GeometryDrawing Brush="{StaticResource MahApps.Brushes.Window.Background}">
                                         <GeometryDrawing.Geometry>
                                             <GeometryGroup>
                                                 <RectangleGeometry Rect="8,0,8,8" />
@@ -119,29 +120,28 @@
                     FontFamily="Consolas"
                     Grid.IsSharedSizeScope="True"
                     IsReadOnly="True"
-                    LineNumbersForeground="{StaticResource ResourceKey=AccentColorBrush}"
+                    LineNumbersForeground="{StaticResource MahApps.Brushes.Accent}"
                     ShowLineNumbers="True"
                     Visibility="Collapsed"
                     WordWrap="True" />
                 <WPFHexaEditor:HexEditor
-                    xmlns:WPFHexaEditor="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
                     Name="HexViewer"
-                    AutoHighLiteSelectionByteBrush="{StaticResource ResourceKey=AccentColorBrush4}"
-                    Background="{StaticResource ResourceKey=WindowBackgroundBrush}"
-                    BorderBrush="{StaticResource ResourceKey=AccentColorBrush2}"
-                    ByteModifiedColor="{StaticResource ResourceKey=GrayBrush2}"
+                    AutoHighLiteSelectionByteBrush="{StaticResource ResourceKey=MahApps.Brushes.Accent}"
+                    Background="{StaticResource MahApps.Brushes.Window.Background}"
+                    BorderBrush="{StaticResource MahApps.Brushes.Accent2}"
+                    ByteModifiedColor="{StaticResource MahApps.Brushes.Gray2}"
                     ByteSpacerPositioning="HexBytePanel"
                     ByteSpacerVisualStyle="Dash"
                     ByteSpacerWidthTickness="Normal"
                     DataStringVisual="Hexadecimal"
-                    ForegroundOffSetHeaderColor="{StaticResource ResourceKey=GrayBrush5}"
-                    ForegroundSecondColor="{StaticResource ResourceKey=HighlightBrush}"
-                    MouseOverColor="{StaticResource ResourceKey=AccentColorBrush3}"
+                    ForegroundOffSetHeaderColor="{StaticResource MahApps.Brushes.Gray5}"
+                    ForegroundSecondColor="{StaticResource MahApps.Brushes.Highlight}"
+                    MouseOverColor="{StaticResource MahApps.Brushes.Accent3}"
                     ReadOnlyMode="True"
-                    SelectionFirstColor="{StaticResource ResourceKey=AccentColorBrush}"
-                    SelectionSecondColor="{StaticResource ResourceKey=AccentColorBrush2}"
-                    TbldteColor="{StaticResource ResourceKey=ControlsValidationBrush}"
-                    TblmteColor="{StaticResource ResourceKey=GrayBrush4}"
+                    SelectionFirstColor="{StaticResource MahApps.Brushes.Accent}"
+                    SelectionSecondColor="{StaticResource MahApps.Brushes.Accent2}"
+                    TbldteColor="{StaticResource MahApps.Brushes.Controls.Validation}"
+                    TblmteColor="{StaticResource MahApps.Brushes.Gray4}"
                     Visibility="Collapsed" />
                 <MediaElement Name="MediaViewer" Visibility="Collapsed" />
             </Grid>

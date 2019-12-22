@@ -16,11 +16,11 @@
     lex:LocalizeDictionary.DesignCulture="ja"
     lex:ResxLocalizationProvider.DefaultAssembly="MabiPacker"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-    GlowBrush="{DynamicResource AccentColorBrush}"
+    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
     Icon="../Resources/icon.ico"
-    NonActiveGlowBrush="{StaticResource ControlsValidationBrush}"
+    NonActiveGlowBrush="{StaticResource MahApps.Brushes.Controls.Validation}"
     mc:Ignorable="d">
-    <TabControl Controls:TabControlHelper.IsUnderlined="True">
+    <TabControl Controls:TabControlHelper.Underlined="TabPanel">
         <TabItem Name="TabItem_Pack" Header="{lex:Loc Button_Pack}">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -277,7 +277,7 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     FontSize="24"
-                    Foreground="{DynamicResource HighlightBrush}"
+                    Foreground="{DynamicResource MahApps.Brushes.Highlight}"
                     Text="ProductName" />
                 <TextBlock
                     Name="TextBlock_ProductDescription"

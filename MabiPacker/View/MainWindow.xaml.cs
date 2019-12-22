@@ -238,15 +238,15 @@ namespace MabiPacker.View
             await Task.Run(() => unpacker.Unpack(p, _cancelToken.Token));
             await controller.CloseAsync();
 
-            await this.ShowMessageAsync(Title,FinishMessage);
+            await this.ShowMessageAsync(Title, FinishMessage);
 
             return true;
         }
-#endregion
+        #endregion
 
         private void TextBlock_ProductCopyright_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://logue.be/");
+            System.Diagnostics.Process.Start("https://logue.dev/");
         }
 
         private void Button_Visit_Click(object sender, RoutedEventArgs e)

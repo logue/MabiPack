@@ -12,6 +12,8 @@
     lex:ResxLocalizationProvider.DefaultAssembly="MabiPacker"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     ShowInTaskbar="False"
+    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+    NonActiveGlowBrush="{StaticResource MahApps.Brushes.Controls.Validation}"
     Topmost="True">
     <DockPanel>
         <StackPanel
