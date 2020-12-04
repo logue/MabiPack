@@ -1,20 +1,20 @@
 ﻿<Controls:MetroWindow
     x:Class="MabiPacker.View.ErrorReporter"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
-    Title="ErrorReporter"
-    Width="480"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
     Height="240"
+    NonActiveGlowBrush="{StaticResource MahApps.Brushes.Control.Validation}"
+    ShowInTaskbar="False"
+    Title="ErrorReporter"
+    Topmost="True"
+    Width="480"
     lex:LocalizeDictionary.DesignCulture="ja"
     lex:ResxLocalizationProvider.DefaultAssembly="MabiPacker"
-    lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-    ShowInTaskbar="False"
-    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
-    NonActiveGlowBrush="{StaticResource MahApps.Brushes.Controls.Validation}"
-    Topmost="True">
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources">
     <DockPanel>
         <StackPanel
             Margin="5"
@@ -29,7 +29,7 @@
                 Name="textBoxMessage"
                 Grid.Column="1"
                 FontSize="14"
-                Foreground="{DynamicResource HighlightBrush}"
+                Foreground="{DynamicResource MahApps.Colors.Highlight}"
                 Text="Error Message"
                 TextWrapping="Wrap" />
         </StackPanel>
@@ -61,18 +61,17 @@
         </StackPanel>
         <avalonEdit:TextEditor
             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-            Name="textBoxDetail"
-            Margin="5,0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Stretch"
-            BorderBrush="{StaticResource ResourceKey=ControlBorderBrush}"
+            BorderBrush="{StaticResource MahApps.Brushes.Control.Border}"
             BorderThickness="1"
             FontFamily="Consolas"
             Grid.IsSharedSizeScope="True"
+            HorizontalContentAlignment="Stretch"
             IsReadOnly="True"
-            LineNumbersForeground="{StaticResource ResourceKey=AccentColorBrush}"
+            LineNumbersForeground="{StaticResource MahApps.Colors.Accent}"
+            Margin="5,0"
+            Name="textBoxDetail"
             ShowLineNumbers="True"
+            VerticalContentAlignment="Stretch"
             WordWrap="True" />
-
     </DockPanel>
 </Controls:MetroWindow>

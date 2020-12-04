@@ -1,22 +1,22 @@
 ﻿<Controls:MetroWindow
     x:Class="MabiPacker.View.PackBrowser"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:WPFHexaEditor="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
-    xmlns:WPFHexaEditor="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+    Height="480"
+    Icon="../Resources/file.ico"
+    NonActiveGlowBrush="{StaticResource MahApps.Brushes.Control.Validation}"
+    ShowIconOnTitleBar="True"
     Title="PackBrowser"
     Width="640"
-    Height="480"
     lex:LocalizeDictionary.DesignCulture="ja"
     lex:ResxLocalizationProvider.DefaultAssembly="MabiPacker"
-    lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-    Icon="../Resources/file.ico"
-    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
-    NonActiveGlowBrush="{StaticResource MahApps.Brushes.Controls.Validation}"
-    ShowIconOnTitleBar="True">
-
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands ShowLastSeparator="False">
             <!--Button Name="Button_About">
@@ -113,19 +113,17 @@
                         Stretch="None" />
                 </Grid>
                 <avalonEdit:TextEditor
-                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                    Name="TextViewer"
-                    HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Stretch"
                     FontFamily="Consolas"
                     Grid.IsSharedSizeScope="True"
+                    HorizontalContentAlignment="Stretch"
                     IsReadOnly="True"
                     LineNumbersForeground="{StaticResource MahApps.Brushes.Accent}"
+                    Name="TextViewer"
                     ShowLineNumbers="True"
+                    VerticalContentAlignment="Stretch"
                     Visibility="Collapsed"
                     WordWrap="True" />
                 <WPFHexaEditor:HexEditor
-                    Name="HexViewer"
                     AutoHighLiteSelectionByteBrush="{StaticResource ResourceKey=MahApps.Brushes.Accent}"
                     Background="{StaticResource MahApps.Brushes.Window.Background}"
                     BorderBrush="{StaticResource MahApps.Brushes.Accent2}"
@@ -137,10 +135,11 @@
                     ForegroundOffSetHeaderColor="{StaticResource MahApps.Brushes.Gray5}"
                     ForegroundSecondColor="{StaticResource MahApps.Brushes.Highlight}"
                     MouseOverColor="{StaticResource MahApps.Brushes.Accent3}"
+                    Name="HexViewer"
                     ReadOnlyMode="True"
                     SelectionFirstColor="{StaticResource MahApps.Brushes.Accent}"
                     SelectionSecondColor="{StaticResource MahApps.Brushes.Accent2}"
-                    TbldteColor="{StaticResource MahApps.Brushes.Controls.Validation}"
+                    TbldteColor="{StaticResource MahApps.Brushes.Control.Validation}"
                     TblmteColor="{StaticResource MahApps.Brushes.Gray4}"
                     Visibility="Collapsed" />
                 <MediaElement Name="MediaViewer" Visibility="Collapsed" />
