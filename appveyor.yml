@@ -1,4 +1,4 @@
-version: 2.0.0.{build}
+version: 2.0.2.{build}
 max_jobs: 2
 environment: EnableNuGetPackageRestore: true
 configuration: Release
@@ -15,4 +15,4 @@ after_build:
 - cmd: cd "MabiPack\MabiPacker\bin\%CONFIGURATION%"
 - cmd: 7z a %BUILD_ARCHIVE% * -xr!.gitignore
 - appveyor PushArtifact %BUILD_ARCHIVE%
-- cmd: cd ..\..\..\..
+- cmd: cd ..\..\..\..\

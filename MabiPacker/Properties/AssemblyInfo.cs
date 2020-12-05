@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Logue")]
 [assembly: AssemblyProduct("MabiPacker")]
-[assembly: AssemblyCopyright("Copyright © 2012, 2014, 2017, 2019 by Masashi Yoshikawa")]
+[assembly: AssemblyCopyright("Copyright © 2012-2020 by Masashi Yoshikawa")]
 [assembly: AssemblyTrademark("Logue")]
 [assembly: AssemblyCulture("")]
 
@@ -52,5 +52,5 @@ using System.Windows;
 // すべての値を指定するか、次を使用してビルド番号とリビジョン番号を既定に設定できます
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.1.0")]
-[assembly: AssemblyFileVersion("2.0.1.0")]
+[assembly: AssemblyVersion("2.0.2.0")]
+[assembly: AssemblyFileVersion("2.0.2.0")]
