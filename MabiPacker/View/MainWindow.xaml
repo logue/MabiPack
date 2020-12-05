@@ -10,9 +10,9 @@
     xmlns:properties="clr-namespace:MabiPacker.Properties"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
-    Height="280"
+    Height="290"
     Icon="../Resources/icon.ico"
-    MinHeight="280"
+    MinHeight="290"
     NonActiveGlowBrush="{StaticResource MahApps.Brushes.Control.Validation}"
     Title="MabiPacker"
     Width="480"
@@ -60,7 +60,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Click="Button_SetPackDistination_Click"
-                    Content="{iconPacks:Modern Kind=FolderEllipsis}" />
+                    Content="{iconPacks:FontAwesome Kind=FolderOpenRegular}" />
                 <Label
                     Name="Label_PackFileName"
                     Grid.Row="2"
@@ -81,7 +81,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Click="Button_SetPackFileName_Click"
-                    Content="{iconPacks:Modern Kind=FolderEllipsis}" />
+                    Content="{iconPacks:FontAwesome Kind=FolderOpenRegular}" />
                 <Label
                     Name="Label_Version"
                     Grid.Row="4"
@@ -191,7 +191,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Click="Button_SetUnpackFile_Click"
-                    Content="{iconPacks:Modern Kind=FolderEllipsis}" />
+                    Content="{iconPacks:FontAwesome Kind=FolderOpenRegular}" />
                 <Label
                     Name="Label_UnpackDistination"
                     Grid.Row="3"
@@ -212,7 +212,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Click="Button_SetUnpackDistination_Click"
-                    Content="{iconPacks:Modern Kind=FolderEllipsis}" />
+                    Content="{iconPacks:FontAwesome Kind=FolderOpenRegular}" />
                 <Button
                     Name="Button_ViewContent"
                     Grid.Row="5"
@@ -224,7 +224,7 @@
                     VerticalAlignment="Bottom"
                     Click="Button_ViewContent_Click">
                     <StackPanel Orientation="Horizontal">
-                        <iconPacks:PackIconMaterial Kind="FileFind" />
+                        <iconPacks:PackIconFontAwesome Kind="SearchSolid" />
                         <TextBlock Margin="5,0,0,0" Text="{lex:LocText Button_ViewContent}" />
                     </StackPanel>
                 </Button>
@@ -246,7 +246,7 @@
             </Grid>
         </TabItem>
         <TabItem Name="TabItem_About" Header="{lex:Loc Button_About}">
-            <Grid>
+            <Grid Margin="3">
                 <Grid.Background>
                     <ImageBrush />
                 </Grid.Background>
@@ -309,7 +309,7 @@
                     VerticalAlignment="Bottom"
                     Click="Button_Visit_Click">
                     <StackPanel Orientation="Horizontal">
-                        <iconPacks:PackIconMaterial Kind="Github" />
+                        <iconPacks:PackIconFontAwesome Kind="GithubBrands" />
                         <TextBlock Margin="5,0,0,0" Text="{lex:LocText Button_Visit}" />
                     </StackPanel>
                 </Button>

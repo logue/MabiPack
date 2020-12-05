@@ -20,11 +20,11 @@
             Margin="5"
             DockPanel.Dock="Top"
             Orientation="Horizontal">
-            <iconPacks:PackIconModern
+            <iconPacks:PackIconFontAwesome 
                 Width="64"
                 Height="64"
                 Margin="0,0,10,0"
-                Kind="Alert" />
+                Kind="ExclamationTriangleSolid" />
             <TextBlock
                 Name="textBoxMessage"
                 Grid.Column="1"
@@ -45,7 +45,7 @@
                 Click="Continue_Click"
                 IsDefault="True">
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconFontAwesome Margin="0,0,5,0" Kind="ArrowAltCircleRightSolid" />
+                    <iconPacks:PackIconFontAwesome Margin="0,0,5,0" Kind="ArrowAltCircleRightRegular" />
                     <TextBlock Text="{lex:Loc Button_Continue}" />
                 </StackPanel>
             </Button>
@@ -54,7 +54,7 @@
                 Padding="10,6"
                 Click="Exit_Click">
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconMaterial Margin="0,0,5,0" Kind="ExitToApp" />
+                    <iconPacks:PackIconFontAwesome Margin="0,0,5,0" Kind="TimesCircleRegular" />
                     <TextBlock Text="{lex:Loc Button_Exit}" />
                 </StackPanel>
             </Button>
