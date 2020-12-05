@@ -1,6 +1,7 @@
 version: 2.0.2.{build}
 max_jobs: 2
-environment: EnableNuGetPackageRestore: true
+environment:
+  EnableNuGetPackageRestore: true
 configuration: Release
 platform: x86
 build:
