@@ -8,11 +8,11 @@ namespace MabiPacker.Library
 {
     public struct Entry
     {
-        public uint Index;
-        public string Name;
-        public string File;
-        public string Extension;
-        public uint Size;
+        public uint Index { get; }
+        public string Name { get; }
+        public string File { get; }
+        public string Extension { get; }
+        public uint Size { get; }
 
         public Entry(string path, uint index, uint size = 0)
         {
