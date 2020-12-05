@@ -17,6 +17,9 @@ namespace MabiPacker.View
     public partial class MainWindow : MetroWindow
     {
         private readonly MabiEnvironment env;
+        private readonly CancellationTokenSource _cancelToken;
+        private readonly MetroDialogSettings _dialogSetting;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -42,9 +45,14 @@ namespace MabiPacker.View
             TextBox_Version.Minimum = env.LocalVersion + 1;
             _cancelToken = new CancellationTokenSource();
 
+            _dialogSetting = new MetroDialogSettings()
+            {
+                AffirmativeButtonText = LocalizationProvider.GetLocalizedValue<string>("Button_OK"),
+                NegativeButtonText = LocalizationProvider.GetLocalizedValue<string>("Button_Cancel"),
+            };
+
         }
 
-        private readonly CancellationTokenSource _cancelToken;
         #region Pack
         private void Button_SetPackDistination_Click(object sender, RoutedEventArgs e)
         {
@@ -86,8 +94,31 @@ namespace MabiPacker.View
 
         private async void Button_Pack_Click(object sender, RoutedEventArgs e)
         {
+            // Check File accessable.
+            if (checkFileAccessable(TextBox_PackFileName.Text, true))
+            {
+                await this.ShowMessageAsync(
+                    LocalizationProvider.GetLocalizedValue<string>("String_Error"),
+                    LocalizationProvider.GetLocalizedValue<string>("String_FileIsNotWritable"),
+                    MessageDialogStyle.Affirmative,
+                    _dialogSetting
+                );
+                return;
+            }
+
+            // Check File overwrite.
             if (File.Exists(TextBox_PackFileName.Text))
             {
+                var result = await this.ShowMessageAsync(
+                    LocalizationProvider.GetLocalizedValue<string>("String_Warning"),
+                    LocalizationProvider.GetLocalizedValue<string>("String_Overwrite"),
+                    MessageDialogStyle.AffirmativeAndNegative,
+                    _dialogSetting
+                );
+                if (result == MessageDialogResult.Canceled)
+                {
+                    return;
+                }
                 File.Delete(TextBox_PackFileName.Text);
             }
 
@@ -101,14 +132,10 @@ namespace MabiPacker.View
         {
             string Title = LocalizationProvider.GetLocalizedValue<string>("Button_Pack");
             string FinishMessage = LocalizationProvider.GetLocalizedValue<string>("String_Finish");
-            var progressDialogSettings = new MetroDialogSettings()
-            {
-                NegativeButtonText = LocalizationProvider.GetLocalizedValue<string>("Button_Cancel")
-            };
             ProgressDialogController controller = await window.ShowProgressAsync(
                 Title,
                 LocalizationProvider.GetLocalizedValue<string>("String_Initializing"),
-                settings: progressDialogSettings
+                settings: _dialogSetting
             );
             controller.SetIndeterminate();
             controller.Maximum = packer.Count();
@@ -141,7 +168,8 @@ namespace MabiPacker.View
         {
             await this.ShowMessageAsync(
                 LocalizationProvider.GetLocalizedValue<string>("Button_Hint"),
-                LocalizationProvider.GetLocalizedValue<string>("String_Hint")
+                LocalizationProvider.GetLocalizedValue<string>("String_Hint"),
+                settings: _dialogSetting
             );
         }
         #endregion
@@ -185,16 +213,57 @@ namespace MabiPacker.View
 
         private async void Unpack_Click(object sender, RoutedEventArgs e)
         {
+            // check file exsists
+            if (!File.Exists(TextBox_UnpackFileName.Text))
+            {
+                await this.ShowMessageAsync(
+                    LocalizationProvider.GetLocalizedValue<string>("String_Error"),
+                    LocalizationProvider.GetLocalizedValue<string>("String_FileNotFound"),
+                    MessageDialogStyle.Affirmative,
+                    _dialogSetting
+                );
+                return;
+            }
+            // check file readable
+            if (checkFileAccessable(TextBox_UnpackFileName.Text, false))
+            {
+                await this.ShowMessageAsync(
+                    LocalizationProvider.GetLocalizedValue<string>("String_Error"),
+                    LocalizationProvider.GetLocalizedValue<string>("String_FileNotReadable"),
+                    MessageDialogStyle.Affirmative,
+                    _dialogSetting
+                );
+                return;
+            }
+
             using (Unpacker unpacker = new Unpacker(TextBox_UnpackFileName.Text, TextBox_UnpackDistination.Text))
             {
                 await UnpackProcess(this, unpacker);
             }
         }
 
-        private void Button_ViewContent_Click(object sender, RoutedEventArgs e)
+        private async void Button_ViewContent_Click(object sender, RoutedEventArgs e)
         {
+            // check file exsists
             if (!File.Exists(TextBox_UnpackFileName.Text))
             {
+                await this.ShowMessageAsync(
+                    LocalizationProvider.GetLocalizedValue<string>("String_Error"),
+                    LocalizationProvider.GetLocalizedValue<string>("String_FileNotFound"),
+                    MessageDialogStyle.Affirmative,
+                    _dialogSetting
+                );
+                return;
+            }
+            // check file readable
+            if (checkFileAccessable(TextBox_UnpackFileName.Text, false))
+            {
+                await this.ShowMessageAsync(
+                    LocalizationProvider.GetLocalizedValue<string>("String_Error"),
+                    LocalizationProvider.GetLocalizedValue<string>("String_FileNotReadable"),
+                    MessageDialogStyle.Affirmative,
+                    _dialogSetting
+                );
                 return;
             }
 
@@ -205,15 +274,11 @@ namespace MabiPacker.View
         {
             string Title = LocalizationProvider.GetLocalizedValue<string>("Button_Unpack");
             string FinishMessage = LocalizationProvider.GetLocalizedValue<string>("String_Finish");
-            var progressDialogSettings = new MetroDialogSettings()
-            {
-                NegativeButtonText = LocalizationProvider.GetLocalizedValue<string>("Button_Cancel")
-            };
 
             ProgressDialogController controller = await window.ShowProgressAsync(
                 Title,
                 LocalizationProvider.GetLocalizedValue<string>("String_Initializing"),
-                settings: progressDialogSettings
+                settings: _dialogSetting
             );
             controller.SetIndeterminate();
             controller.Maximum = unpacker.Count();
@@ -252,6 +317,40 @@ namespace MabiPacker.View
         private void Button_Visit_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/logue/MabiPack");
+        }
+
+        /// <summary>
+        /// check file accessable
+        /// </summary>
+        /// <param name="path">File Path</param>
+        /// <param name="writable">check writable</param>
+        /// <returns></returns>
+        private bool checkFileAccessable(string path, bool writable = true)
+        {
+            FileStream stream = null;
+
+            try
+            {
+                stream = new FileStream(
+                    path, 
+                    FileMode.Open, 
+                    writable ? FileAccess.ReadWrite : FileAccess.Read , 
+                    FileShare.None
+                );
+            }
+            catch
+            {
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                {
+                    stream.Close();
+                }
+            }
+
+            return false;
         }
     }
 }

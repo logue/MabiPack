@@ -163,13 +163,13 @@
     <value>它完成了。</value>
   </data>
   <data name="String_Initializing" xml:space="preserve">
-    <value>初始化......</value>
+    <value>初始化...</value>
   </data>
   <data name="String_PackFileDesciption" xml:space="preserve">
     <value>Mabinogi包文件</value>
   </data>
   <data name="String_Packing" xml:space="preserve">
-    <value>我打包....</value>
+    <value>我打包...</value>
   </data>
   <data name="String_SetPackDistination" xml:space="preserve">
     <value>选择要打包的目录。</value>
@@ -208,5 +208,27 @@
   </data>
   <data name="Button_Hint" xml:space="preserve">
     <value>提示</value>
+  </data>
+  <data name="Button_OK" xml:space="preserve">
+    <value>好</value>
+  </data>
+  <data name="String_Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="String_Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="String_FileNotFound" xml:space="preserve">
+    <value>文件未找到。</value>
+  </data>
+  <data name="String_FileNotReadable" xml:space="preserve">
+    <value>该文件尚未准备好读取。</value>
+  </data>
+  <data name="String_FileIsNotWritable" xml:space="preserve">
+    <value>该文件不可写。
+（找不到指定的路径，正在使用其他应用程序，等等。）</value>
+  </data>
+  <data name="String_Overwrite" xml:space="preserve">
+    <value>您确定要覆盖文件吗？</value>
   </data>
 </root>

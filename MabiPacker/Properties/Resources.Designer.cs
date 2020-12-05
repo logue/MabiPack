@@ -124,6 +124,15 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
+        ///   OK に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Button_OK {
+            get {
+                return ResourceManager.GetString("Button_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Pack に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Button_Pack {
@@ -244,6 +253,43 @@ namespace MabiPacker.Properties {
         }
         
         /// <summary>
+        ///   Error に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_Error {
+            get {
+                return ResourceManager.GetString("String_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The file is not writable.
+        ///(The specified path cannot be found, another app is in use, etc.) に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_FileIsNotWritable {
+            get {
+                return ResourceManager.GetString("String_FileIsNotWritable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   File is not found. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_FileNotFound {
+            get {
+                return ResourceManager.GetString("String_FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The file is not ready to read. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_FileNotReadable {
+            get {
+                return ResourceManager.GetString("String_FileNotReadable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Operation is finished. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string String_Finish {
@@ -277,6 +323,15 @@ namespace MabiPacker.Properties {
         public static string String_Interrupted {
             get {
                 return ResourceManager.GetString("String_Interrupted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Are you sure you want to overwrite the file? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_Overwrite {
+            get {
+                return ResourceManager.GetString("String_Overwrite", resourceCulture);
             }
         }
         
@@ -359,6 +414,15 @@ namespace MabiPacker.Properties {
         public static string String_Unpacking {
             get {
                 return ResourceManager.GetString("String_Unpacking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Warning に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string String_Warning {
+            get {
+                return ResourceManager.GetString("String_Warning", resourceCulture);
             }
         }
     }

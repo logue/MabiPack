@@ -69,8 +69,8 @@ namespace MabiPacker.Library
         /// <summary>
         /// Packing Process
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="token"></param>
+        /// <param name="p">Process</param>
+        /// <param name="token">Cancell token</param>
         /// <returns></returns>
         public bool Pack(IProgress<Entry> p, CancellationToken token)
         {
@@ -95,7 +95,7 @@ namespace MabiPacker.Library
         /// <summary>
         /// Packing Process
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="p">Progress</param>
         /// <returns></returns>
         public bool Pack(IProgress<Entry> p)
         {

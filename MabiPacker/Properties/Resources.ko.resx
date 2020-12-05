@@ -163,13 +163,13 @@
     <value>완료했습니다.</value>
   </data>
   <data name="String_Initializing" xml:space="preserve">
-    <value>초기화 중 …</value>
+    <value>초기화 중…</value>
   </data>
   <data name="String_PackFileDesciption" xml:space="preserve">
     <value>Mabinogi 패키지 파일</value>
   </data>
   <data name="String_Packing" xml:space="preserve">
-    <value>팩하고 있습니다 …</value>
+    <value>팩하고 있습니다…</value>
   </data>
   <data name="String_SetPackDistination" xml:space="preserve">
     <value>팩하고 싶은 디렉토리를 선택하십시오.</value>
@@ -208,5 +208,27 @@
   </data>
   <data name="Button_Hint" xml:space="preserve">
     <value>팁</value>
+  </data>
+  <data name="Button_OK" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="String_Error" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="String_Warning" xml:space="preserve">
+    <value>경고</value>
+  </data>
+  <data name="String_FileNotFound" xml:space="preserve">
+    <value>파일을 찾을 수 없습니다.</value>
+  </data>
+  <data name="String_FileNotReadable" xml:space="preserve">
+    <value>파일이 읽기 가능한 상태가 아닙니다.</value>
+  </data>
+  <data name="String_FileIsNotWritable" xml:space="preserve">
+    <value>파일이 쓰기 가능한 상태가 아닙니다.
+(지정된 경로를 찾을 수없는 다른 응용 프로그램이 사용중인 등)</value>
+  </data>
+  <data name="String_Overwrite" xml:space="preserve">
+    <value>파일을 덮어 쓰기 하시겠습니까?</value>
   </data>
 </root>

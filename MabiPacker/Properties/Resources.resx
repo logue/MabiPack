@@ -219,4 +219,26 @@ Also, the generated * .pack file should be flagged as “read only” to prevent
   <data name="Button_Hint" xml:space="preserve">
     <value>Hint</value>
   </data>
+  <data name="Button_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="String_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="String_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="String_FileNotFound" xml:space="preserve">
+    <value>File is not found.</value>
+  </data>
+  <data name="String_FileNotReadable" xml:space="preserve">
+    <value>The file is not ready to read.</value>
+  </data>
+  <data name="String_FileIsNotWritable" xml:space="preserve">
+    <value>The file is not writable.
+(The specified path cannot be found, another app is in use, etc.)</value>
+  </data>
+  <data name="String_Overwrite" xml:space="preserve">
+    <value>Are you sure you want to overwrite the file?</value>
+  </data>
 </root>
