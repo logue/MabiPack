@@ -54,9 +54,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>

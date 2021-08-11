@@ -67,7 +67,7 @@
             Grid.IsSharedSizeScope="True"
             HorizontalContentAlignment="Stretch"
             IsReadOnly="True"
-            LineNumbersForeground="{StaticResource MahApps.Colors.Accent}"
+            LineNumbersForeground="{StaticResource MahApps.Brushes.Accent}"
             Margin="5,0"
             Name="textBoxDetail"
             ShowLineNumbers="True"

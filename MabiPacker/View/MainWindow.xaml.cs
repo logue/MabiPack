@@ -4,7 +4,9 @@ using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using Ookii.Dialogs.Wpf;
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -311,12 +313,12 @@ namespace MabiPacker.View
 
         private void TextBlock_ProductCopyright_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://logue.dev/");
+            openBrowser("https://logue.dev/");
         }
 
         private void Button_Visit_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/logue/MabiPack");
+            openBrowser("https://github.com/logue/MabiPack");
         }
 
         /// <summary>
@@ -351,6 +353,37 @@ namespace MabiPacker.View
             }
 
             return false;
+        }
+
+        private void openBrowser(string url)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    //Windowsのとき  
+                    url = url.Replace("&", "^&");
+                    _ = Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    //Linuxのとき  
+                    _ = Process.Start("xdg-open", url);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    //Macのとき  
+                    _ = Process.Start("open", url);
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
     }
 }

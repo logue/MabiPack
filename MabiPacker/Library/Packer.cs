@@ -14,11 +14,11 @@ namespace MabiPacker.Library
 {
     internal class Packer : IDisposable
     {
+        private PackResourceSetCreater _instance;
+        private bool disposedValue;
         private readonly string _outputFile;
         private readonly string[] _files;
         private readonly string _destination;
-        private readonly int _level;
-        private readonly uint _version;
         private readonly uint _count;
         /// <summary>
         /// Constructor
@@ -37,26 +37,11 @@ namespace MabiPacker.Library
             {
                 throw new DirectoryNotFoundException("Input directory is not found.");
             }
-            _version = Version;
-            _level = Level;
             _outputFile = OutputFile;
             _destination = Destination;
             _files = Directory.GetFiles(Destination, "*", SearchOption.AllDirectories);
             _count = (uint)_files.Length;
-        }
-        /// <summary>
-        /// Destructor
-        /// </summary>
-        ~Packer()
-        {
-            Dispose();
-        }
-        /// <summary>
-        /// Dispose
-        /// </summary>
-        public void Dispose()
-        {
-
+            _instance = new PackResourceSetCreater(Version, Level);
         }
         /// <summary>
         /// Get files to pack.
@@ -76,21 +61,18 @@ namespace MabiPacker.Library
         {
             // Get Filelist
             uint i = 0;
-            using (PackResourceSetCreater instance = new PackResourceSetCreater(_version, _level))
+            foreach (string path in _files)
             {
-                foreach (string path in _files)
+                _instance.AddFile(path.Replace(_destination + "\\", ""), path);
+                if (token.IsCancellationRequested)
                 {
-                    instance.AddFile(path.Replace(_destination + "\\", ""), path);
-                    if (token.IsCancellationRequested)
-                    {
-                        return false;
-                    }
-                    Entry entry = new Entry(path, i);
-
-                    p.Report(entry);
+                    return false;
                 }
-                return instance.CreatePack(_outputFile);
+                Entry entry = new(path, i);
+
+                p.Report(entry);
             }
+            return _instance.CreatePack(_outputFile);
         }
         /// <summary>
         /// Packing Process
@@ -100,18 +82,45 @@ namespace MabiPacker.Library
         public bool Pack(IProgress<Entry> p)
         {
             uint i = 0;
-            using (PackResourceSetCreater instance = new PackResourceSetCreater(_version, _level))
+            foreach (string path in _files)
             {
-                foreach (string path in _files)
-                {
 
-                    instance.AddFile(path.Replace(_destination + "\\", ""), path);
-                    Entry entry = new Entry(path, i);
+                _instance.AddFile(path.Replace(_destination + "\\", ""), path);
+                Entry entry = new(path, i);
 
-                    p.Report(entry);
-                }
-                return instance.CreatePack(_outputFile);
+                p.Report(entry);
             }
+            return _instance.CreatePack(_outputFile);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: マネージド状態を破棄します (マネージド オブジェクト)
+                }
+
+                // TODO: アンマネージド リソース (アンマネージド オブジェクト) を解放し、ファイナライザーをオーバーライドします
+                // TODO: 大きなフィールドを null に設定します
+                _instance.Dispose();
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: 'Dispose(bool disposing)' にアンマネージド リソースを解放するコードが含まれる場合にのみ、ファイナライザーをオーバーライドします
+        // ~Packer()
+        // {
+        //     // このコードを変更しないでください。クリーンアップ コードを 'Dispose(bool disposing)' メソッドに記述します
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // このコードを変更しないでください。クリーンアップ コードを 'Dispose(bool disposing)' メソッドに記述します
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

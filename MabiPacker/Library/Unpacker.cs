@@ -16,9 +16,11 @@ namespace MabiPacker.Library
 {
     internal class Unpacker : IDisposable
     {
-        private readonly PackResourceSet _instance;
+        private PackResourceSet _instance;
+        private bool disposedValue;
         private readonly uint _count;
         private readonly string _destination;
+        private readonly string _inputFile;
         /// <summary>
         /// Constructor
         /// </summary>
@@ -34,6 +36,7 @@ namespace MabiPacker.Library
             {
                 throw new DirectoryNotFoundException("Output directory is not found.");
             }
+            _inputFile = InputFile;
             _instance = PackResourceSet.CreateFromFile(InputFile);
             _count = _instance.GetFileCount();
             _destination = Destination;
@@ -48,17 +51,10 @@ namespace MabiPacker.Library
             {
                 throw new FileNotFoundException("File to unpack is not found.");
             }
+            _inputFile = InputFile;
             _instance = PackResourceSet.CreateFromFile(InputFile);
             _count = _instance.GetFileCount();
             _destination = Path.GetDirectoryName(Path.GetFullPath(Environment.GetCommandLineArgs()[0]));
-        }
-        /// <summary>
-        /// Dispose
-        /// </summary>
-        public void Dispose()
-        {
-            //_instance.Close();
-            //_instance.Dispose();
         }
         /// <summary>
         /// Get packed files.
@@ -77,55 +73,56 @@ namespace MabiPacker.Library
         {
             for (uint i = 0; i < _count; ++i)
             {
-                using (PackResource Res = _instance.GetFileByIndex(i))
+                using PackResource Res = _instance.GetFileByIndex(i);
+                string InternalName = Res.GetName();
+                byte[] buffer = new byte[Res.GetSize()];
+                Res.GetData(buffer);
+
+                if (token.IsCancellationRequested)
                 {
-                    string InternalName = Res.GetName();
-                    byte[] buffer = new byte[Res.GetSize()];
-                    Res.GetData(buffer);
                     Res.Close();
-
-                    if (token.IsCancellationRequested)
-                    {
-                        return;
-                    }
-
-                    string outputPath = _destination + "\\data\\" + InternalName;
-                    // Create directory
-                    string DirPath = Regex.Replace(outputPath, @"([^\\]*?)$", "");
-                    if (!Directory.Exists(DirPath))
-                    {
-                        Directory.CreateDirectory(DirPath);
-                    }
-                    // Delete old
-                    if (File.Exists(outputPath))
-                    {
-                        DateTime dtUpdate = File.GetLastWriteTime(outputPath);
-                        if (dtUpdate < Res.GetModified())
-                        {
-                            File.Delete(@outputPath);
-                        }
-                        else
-                        {
-                            // skip exists.
-                            continue;
-                        }
-                    }
-
-                    // Write to file.
-                    using (FileStream fs = new FileStream(outputPath, FileMode.Create))
-                    {
-                        fs.Write(buffer, 0, buffer.Length);
-                        fs.Close();
-                    }
-                    // Modify File time
-                    File.SetCreationTime(outputPath, Res.GetCreated());
-                    File.SetLastAccessTime(outputPath, Res.GetAccessed());
-                    File.SetLastWriteTime(outputPath, Res.GetModified());
-
-                    // Progreess
-                    Entry entry = new Entry(InternalName, i, Res.GetSize());
-                    p.Report(entry);
+                    return;
                 }
+
+                string outputPath = _destination + "\\data\\" + InternalName;
+                // Create directory
+                string DirPath = Regex.Replace(outputPath, @"([^\\]*?)$", "");
+                if (!Directory.Exists(DirPath))
+                {
+                    Directory.CreateDirectory(DirPath);
+                }
+                // Delete old
+                if (File.Exists(outputPath))
+                {
+                    DateTime dtUpdate = File.GetLastWriteTime(outputPath);
+                    if (dtUpdate < Res.GetModified())
+                    {
+                        File.Delete(@outputPath);
+                    }
+                    else
+                    {
+                        // skip exists.
+                        Res.Close();
+                        continue;
+                    }
+                }
+
+                // Write to file.
+                using (FileStream fs = new FileStream(outputPath, FileMode.Create))
+                {
+                    fs.Write(buffer, 0, buffer.Length);
+                    fs.Close();
+                }
+                // Modify File time
+                File.SetCreationTime(outputPath, Res.GetCreated());
+                File.SetLastAccessTime(outputPath, Res.GetAccessed());
+                File.SetLastWriteTime(outputPath, Res.GetModified());
+
+                // Progreess
+                Entry entry = new Entry(InternalName, i, Res.GetSize());
+
+                Res.Close();
+                p.Report(entry);
             }
         }
         /// <summary>
@@ -136,50 +133,49 @@ namespace MabiPacker.Library
         {
             for (uint i = 0; i < _count; ++i)
             {
-                using (PackResource Res = _instance.GetFileByIndex(i))
+                using PackResource Res = _instance.GetFileByIndex(i);
+                string InternalName = Res.GetName();
+                byte[] buffer = new byte[Res.GetSize()];
+                Res.GetData(buffer);
+
+                string outputPath = _destination + "\\data\\" + InternalName;
+                // Create directory
+                string DirPath = Regex.Replace(outputPath, @"([^\\]*?)$", "");
+                if (!Directory.Exists(DirPath))
                 {
-                    string InternalName = Res.GetName();
-                    byte[] buffer = new byte[Res.GetSize()];
-                    Res.GetData(buffer);
-                    Res.Close();
-
-                    string outputPath = _destination + "\\data\\" + InternalName;
-                    // Create directory
-                    string DirPath = Regex.Replace(outputPath, @"([^\\]*?)$", "");
-                    if (!Directory.Exists(DirPath))
-                    {
-                        Directory.CreateDirectory(DirPath);
-                    }
-                    // Delete old
-                    if (File.Exists(outputPath))
-                    {
-                        DateTime dtUpdate = File.GetLastWriteTime(outputPath);
-                        if (dtUpdate < Res.GetModified())
-                        {
-                            File.Delete(@outputPath);
-                        }
-                        else
-                        {
-                            // skip exists
-                            continue;
-                        }
-                    }
-
-                    // Write to file.
-                    using (FileStream fs = new FileStream(outputPath, FileMode.Create))
-                    {
-                        fs.Write(buffer, 0, buffer.Length);
-                        fs.Close();
-                    }
-                    // Modify File time
-                    File.SetCreationTime(outputPath, Res.GetCreated());
-                    File.SetLastAccessTime(outputPath, Res.GetAccessed());
-                    File.SetLastWriteTime(outputPath, Res.GetModified());
-
-                    // Progreess
-                    Entry entry = new Entry(InternalName, i, Res.GetSize());
-                    p.Report(entry);
+                    Directory.CreateDirectory(DirPath);
                 }
+                // Delete old
+                if (File.Exists(outputPath))
+                {
+                    DateTime dtUpdate = File.GetLastWriteTime(outputPath);
+                    if (dtUpdate < Res.GetModified())
+                    {
+                        File.Delete(@outputPath);
+                    }
+                    else
+                    {
+                        // skip exists
+                        continue;
+                    }
+                }
+
+                // Write to file.
+                using (FileStream fs = new FileStream(outputPath, FileMode.Create))
+                {
+                    fs.Write(buffer, 0, buffer.Length);
+                    fs.Close();
+                }
+                // Modify File time
+                File.SetCreationTime(outputPath, Res.GetCreated());
+                File.SetLastAccessTime(outputPath, Res.GetAccessed());
+                File.SetLastWriteTime(outputPath, Res.GetModified());
+
+                // Progreess
+                Entry entry = new(InternalName, i, Res.GetSize());
+
+                Res.Close();
+                p.Report(entry);
             }
         }
 
@@ -194,7 +190,7 @@ namespace MabiPacker.Library
             {
                 using (PackResource Res = _instance.GetFileByIndex(i))
                 {
-                    Entry entry = new Entry(Res.GetName(), i);
+                    Entry entry = new(Res.GetName(), i);
                     ret.Add(entry);
                 }
             }
@@ -210,16 +206,15 @@ namespace MabiPacker.Library
         /// <returns>byte</returns>
         public byte[] GetContent(string Name)
         {
-            PackResourceSet clone = _instance;
-            using (PackResource Res = clone.GetFileByName(Name))
+            byte[] buffer;
+            using (PackResource Res = PackResourceSet.CreateFromFile(_inputFile).GetFileByName(Name))
             {
-                byte[] buffer = new byte[Res.GetSize()];
-                Res.GetData(buffer);
+                buffer = new byte[Res.GetSize()];
+                _ = Res.GetData(buffer);
                 Res.Close();
-                clone.Close();
-                return buffer;
             }
-   
+            return buffer;
+
         }
         /// <summary>
         /// Get file content by file index.
@@ -228,15 +223,14 @@ namespace MabiPacker.Library
         /// <returns>byte</returns>
         public byte[] GetContent(uint Index)
         {
-            PackResourceSet clone = _instance;
-            using (PackResource Res = clone.GetFileByIndex(Index))
+            byte[] buffer;
+            using (PackResource Res = PackResourceSet.CreateFromFile(_inputFile).GetFileByIndex(Index))
             {
-                byte[] buffer = new byte[Res.GetSize()];
-                Res.GetData(buffer);
+                buffer = new byte[Res.GetSize()];
+                _ = Res.GetData(buffer);
                 Res.Close();
-                clone.Close();
-                return buffer;
             }
+            return buffer;
         }
         /// <summary>
         /// Extract file by filename
@@ -244,23 +238,21 @@ namespace MabiPacker.Library
         /// <param name="Name">File Name</param>
         public void Extract(string Name)
         {
-            using (PackResource Res = _instance.GetFileByName(Name))
-            {
-                byte[] buffer = new byte[Res.GetSize()];
-                Res.GetData(buffer);
-                Res.Close();
-                string outputPath = _destination + "\\" + Name;
+            using PackResource Res = _instance.GetFileByName(Name);
+            byte[] buffer = new byte[Res.GetSize()];
+            Res.GetData(buffer);
+            string outputPath = _destination + "\\" + Name;
 
-                using (FileStream fs = new FileStream(outputPath, FileMode.Create))
-                {
-                    fs.Write(buffer, 0, buffer.Length);
-                    fs.Close();
-                }
-                // Modify File time
-                File.SetCreationTime(outputPath, Res.GetCreated());
-                File.SetLastAccessTime(outputPath, Res.GetAccessed());
-                File.SetLastWriteTime(outputPath, Res.GetModified());
+            using (FileStream fs = new(outputPath, FileMode.Create))
+            {
+                fs.Write(buffer, 0, buffer.Length);
+                fs.Close();
             }
+            // Modify File time
+            File.SetCreationTime(outputPath, Res.GetCreated());
+            File.SetLastAccessTime(outputPath, Res.GetAccessed());
+            File.SetLastWriteTime(outputPath, Res.GetModified());
+            Res.Close();
         }
         /// <summary>
         /// Extract file by filename
@@ -268,23 +260,21 @@ namespace MabiPacker.Library
         /// <param name="Index">File Index</param>
         public void Extract(uint Index)
         {
-            using (PackResource Res = _instance.GetFileByIndex(Index))
+            using PackResource Res = _instance.GetFileByIndex(Index);
+            byte[] buffer = new byte[Res.GetSize()];
+            _ = Res.GetData(buffer);
+            
+            string outputPath = _destination + "\\" + Res.GetName();
+            using (FileStream fs = new(outputPath, FileMode.Create))
             {
-                byte[] buffer = new byte[Res.GetSize()];
-                Res.GetData(buffer);
-                Res.Close();
-                string outputPath = _destination + "\\" + Res.GetName();
-
-                using (FileStream fs = new FileStream(outputPath, FileMode.Create))
-                {
-                    fs.Write(buffer, 0, buffer.Length);
-                    fs.Close();
-                }
-                // Modify File time
-                File.SetCreationTime(outputPath, Res.GetCreated());
-                File.SetLastAccessTime(outputPath, Res.GetAccessed());
-                File.SetLastWriteTime(outputPath, Res.GetModified());
+                fs.Write(buffer, 0, buffer.Length);
+                fs.Close();
             }
+            // Modify File time
+            File.SetCreationTime(outputPath, Res.GetCreated());
+            File.SetLastAccessTime(outputPath, Res.GetAccessed());
+            File.SetLastWriteTime(outputPath, Res.GetModified());
+            Res.Close();
         }
         /// <summary>
         /// Extract file by filename
@@ -293,24 +283,23 @@ namespace MabiPacker.Library
         /// <param name="output">Output directory</param>
         public void Extract(string Name, string output)
         {
-            using (PackResource Res = _instance.GetFileByName(Name))
+            using PackResource Res = _instance.GetFileByName(Name);
+            byte[] buffer = new byte[Res.GetSize()];
+            _ = Res.GetData(buffer);
+
+            string outputPath = output + "\\" + Name;
+
+            using (FileStream fs = new(output, FileMode.Create))
             {
-                byte[] buffer = new byte[Res.GetSize()];
-                Res.GetData(buffer);
-                Res.Close();
-
-                string outputPath = output + "\\" + Name;
-
-                using (FileStream fs = new FileStream(output, FileMode.Create))
-                {
-                    fs.Write(buffer, 0, buffer.Length);
-                    fs.Close();
-                }
-                // Modify File time
-                File.SetCreationTime(outputPath, Res.GetCreated());
-                File.SetLastAccessTime(outputPath, Res.GetAccessed());
-                File.SetLastWriteTime(outputPath, Res.GetModified());
+                fs.Write(buffer, 0, buffer.Length);
+                fs.Close();
             }
+            // Modify File time
+            File.SetCreationTime(outputPath, Res.GetCreated());
+            File.SetLastAccessTime(outputPath, Res.GetAccessed());
+            File.SetLastWriteTime(outputPath, Res.GetModified());
+
+            Res.Close();
         }
         /// <summary>
         /// Extract file by filename
@@ -319,24 +308,52 @@ namespace MabiPacker.Library
         /// <param name="output">Output directory</param>
         public void Extract(uint Index, string output)
         {
-            using (PackResource Res = _instance.GetFileByIndex(Index))
+            using PackResource Res = _instance.GetFileByIndex(Index);
+            byte[] buffer = new byte[Res.GetSize()];
+            _ = Res.GetData(buffer);
+            string outputPath = output + "\\" + Res.GetName();
+
+            using (FileStream fs = new(outputPath, FileMode.Create))
             {
-                byte[] buffer = new byte[Res.GetSize()];
-                Res.GetData(buffer);
-                Res.Close();
-
-                string outputPath = output + "\\" + Res.GetName();
-
-                using (FileStream fs = new FileStream(outputPath, FileMode.Create))
-                {
-                    fs.Write(buffer, 0, buffer.Length);
-                    fs.Close();
-                }
-                // Modify File time
-                File.SetCreationTime(outputPath, Res.GetCreated());
-                File.SetLastAccessTime(outputPath, Res.GetAccessed());
-                File.SetLastWriteTime(outputPath, Res.GetModified());
+                fs.Write(buffer, 0, buffer.Length);
+                fs.Close();
             }
+            // Modify File time
+            File.SetCreationTime(outputPath, Res.GetCreated());
+            File.SetLastAccessTime(outputPath, Res.GetAccessed());
+            File.SetLastWriteTime(outputPath, Res.GetModified());
+            Res.Close();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: マネージド状態を破棄します (マネージド オブジェクト)
+                    // _instance.Close();
+                    // _instance.Dispose();
+                }
+
+                // TODO: アンマネージド リソース (アンマネージド オブジェクト) を解放し、ファイナライザーをオーバーライドします
+                // TODO: 大きなフィールドを null に設定します
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: 'Dispose(bool disposing)' にアンマネージド リソースを解放するコードが含まれる場合にのみ、ファイナライザーをオーバーライドします
+        // ~Packer()
+        // {
+        //     // このコードを変更しないでください。クリーンアップ コードを 'Dispose(bool disposing)' メソッドに記述します
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // このコードを変更しないでください。クリーンアップ コードを 'Dispose(bool disposing)' メソッドに記述します
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

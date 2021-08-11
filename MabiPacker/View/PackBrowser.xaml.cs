@@ -262,7 +262,7 @@ namespace MabiPacker.View
                         break;
                     case Parser.Xml:
                     case Parser.Text:
-                        TextViewer.Text = entry.Name != "vf.dat" ? Encoding.Unicode.GetString(buffer) : Encoding.ASCII.GetString(buffer);
+                        TextViewer.Text = entry.Name != "vf.dat" ? Encoding.UTF8.GetString(buffer) : Encoding.ASCII.GetString(buffer);
                         TextViewer.Visibility = Visibility.Visible;
                         StatusBarItem_Status.Content = Info;
                         break;
@@ -279,7 +279,7 @@ namespace MabiPacker.View
                 ProgressRing.Visibility = Visibility.Collapsed;
             }
 
-            if (PicturePanel.IsVisible)
+            if (ImageViewer.Source != null && PicturePanel.IsVisible)
             {
                 StatusBarItem_Status.Content = string.Format("{0} ({1} x {2})", Info, ImageViewer.Source.Width, ImageViewer.Source.Height);
             }
@@ -299,38 +299,47 @@ namespace MabiPacker.View
         /// <returns></returns>
         private BitmapSource DdsStream2BitmapSource(MemoryStream ms)
         {
-            IImage image = Pfim.Pfim.FromStream(ms);
-            PixelFormat format;
-            switch (image.Format)
+            IImage image;
+            try
             {
-                case ImageFormat.Rgb24:
-                    format = PixelFormats.Bgr24;
-                    break;
+                image = Pfim.Pfim.FromStream(ms);
+                PixelFormat format;
+                switch (image.Format)
+                {
+                    case ImageFormat.Rgb24:
+                        format = PixelFormats.Bgr24;
+                        break;
 
-                case ImageFormat.Rgba32:
-                    format = PixelFormats.Bgr32;
-                    break;
+                    case ImageFormat.Rgba32:
+                        format = PixelFormats.Bgr32;
+                        break;
 
-                case ImageFormat.Rgb8:
-                    format = PixelFormats.Gray8;
-                    break;
+                    case ImageFormat.Rgb8:
+                        format = PixelFormats.Gray8;
+                        break;
 
-                case ImageFormat.R5g5b5a1:
-                case ImageFormat.R5g5b5:
-                    format = PixelFormats.Bgr555;
-                    break;
+                    case ImageFormat.R5g5b5a1:
+                    case ImageFormat.R5g5b5:
+                        format = PixelFormats.Bgr555;
+                        break;
 
-                case ImageFormat.R5g6b5:
-                    format = PixelFormats.Bgr565;
-                    break;
+                    case ImageFormat.R5g6b5:
+                        format = PixelFormats.Bgr565;
+                        break;
 
-                default:
-                    throw new Exception($"Unable to convert {image.Format} to WPF PixelFormat");
+                    default:
+                        throw new Exception($"Unable to convert {image.Format} to WPF PixelFormat");
+                }
+                // Create a WPF ImageSource and then set an Image to our variable.
+                // Make sure you notify property changes as appropriate ;)
+                return BitmapSource.Create(image.Width, image.Height,
+                    96.0, 96.0, format, null, image.Data, image.Stride);
             }
-            // Create a WPF ImageSource and then set an Image to our variable.
-            // Make sure you notify property changes as appropriate ;)
-            return BitmapSource.Create(image.Width, image.Height,
-                96.0, 96.0, format, null, image.Data, image.Stride);
+            catch
+            {
+                return null;
+            }
+
         }
 
         /// <summary>
