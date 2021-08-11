@@ -332,9 +332,9 @@ namespace MabiPacker.View
             try
             {
                 stream = new FileStream(
-                    path, 
-                    FileMode.Open, 
-                    writable ? FileAccess.ReadWrite : FileAccess.Read , 
+                    path,
+                    FileMode.Open,
+                    writable ? FileAccess.ReadWrite : FileAccess.Read,
                     FileShare.None
                 );
             }

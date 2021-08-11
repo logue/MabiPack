@@ -11,7 +11,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
     Height="290"
-    Icon="../Resources/icon.ico"
     MinHeight="290"
     NonActiveGlowBrush="{StaticResource MahApps.Brushes.Control.Validation}"
     Title="MabiPacker"
@@ -270,7 +269,7 @@
                     Grid.Column="0"
                     Margin="10,0"
                     VerticalAlignment="Top"
-                    Source="../Resources/logo.png"
+                    Source="/Resources/logo.png"
                     Stretch="None" />
                 <TextBlock
                     Name="TextBlock_ProductName"
