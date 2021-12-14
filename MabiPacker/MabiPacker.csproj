@@ -1,52 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ApplicationIcon>C:\Users\logue\source\repos\MabiPack\MabiPacker\Resources\icon.ico</ApplicationIcon>
-    <AssemblyName>DropWebP</AssemblyName>
-    <AssemblyVersion>2.0.2.1</AssemblyVersion>
+    <ApplicationIcon>Resources/icon.ico</ApplicationIcon>
+    <AssemblyName>MabiPacker</AssemblyName>
     <Authors>Masashi Yoshikawa</Authors>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Company>Logue</Company>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Copyright>(c) 2012-2021 Logue</Copyright>
-    <Description>Mabinogi *.pack Management </Description>
-    <FileVersion>2.0.2.1</FileVersion>
+    <Description>Data packer and unpacker for Mabinogi.</Description>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IsPublishable>False</IsPublishable>
     <OutputType>WinExe</OutputType>
     <PackageIcon>logo.png</PackageIcon>
-    <PackageIconUrl />
-    <PackageLicenseFile>C:\Users\logue\source\repos\MabiPack\LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>..\LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/logue/MabiPack</PackageProjectUrl>
-    <AssemblyName>MabiPacker</AssemblyName>
-    <OutputType>WinExe</OutputType>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>dotnet6に移行。</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>Mabinogi;Packer;Unpacker</PackageTags>
+    <PlatformTarget>x86</PlatformTarget>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git@github.com:logue/MabiPack.git</RepositoryUrl>
+    <RootNamespace>MabiPacker</RootNamespace>
     <StartupObject>MabiPacker.App</StartupObject>
-    <TargetFramework>net5.0-windows10.0.20348.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Version>2.0.2-beta</Version>
-    <MinimumPlatformVersion>10.0.19041.0</MinimumPlatformVersion>
-    <Nullable>annotations</Nullable>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>x86</PlatformTarget>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <PlatformTarget>x86</PlatformTarget>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Version>2.0.3</Version>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="View\logo.png" />
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AvalonEdit" Version="6.1.2.30" />
     <PackageReference Include="ControlzEx" Version="5.0.1" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.7" />
-    <PackageReference Include="MahApps.Metro.IconPacks.FontAwesome" Version="4.8.0" />
-    <PackageReference Include="MahApps.Metro.IconPacks.Octicons" Version="4.8.0" />
-    <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MahApps.Metro.IconPacks.FontAwesome" Version="4.11.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Octicons" Version="4.11.0" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.0" />
     <PackageReference Include="Pfim" Version="0.10.1" />
     <PackageReference Include="WPFHexaEditor" Version="2.1.7" />
-    <PackageReference Include="WPFLocalizeExtension" Version="3.8.0" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MabinogiResource.net">
@@ -61,6 +57,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Update="Ijwhost.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
