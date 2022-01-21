@@ -1,4 +1,4 @@
-Project has been end. see (this story)[https://github.com/logue/MabiPack/issues/9]
+Project has been end. see [this story](https://github.com/logue/MabiPack/issues/9).
 
 # MabiPaker v2
 
