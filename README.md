@@ -1,3 +1,5 @@
+Project has been end. see (this story)[https://github.com/logue/MabiPack/issues/9]
+
 # MabiPaker v2
 
 This application is a tool to import and export client data files (\* .pack) of Nexon's online game "Mabinogi".
